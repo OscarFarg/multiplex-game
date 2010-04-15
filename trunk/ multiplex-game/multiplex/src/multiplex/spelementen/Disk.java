@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class Disk {
+public class Disk extends DynamischObject {
 
 }

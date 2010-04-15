@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class Base {
+public class Base extends StatischObject {
 
 }

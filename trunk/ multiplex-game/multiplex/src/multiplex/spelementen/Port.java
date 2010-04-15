@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class Port {
+public class Port extends StatischObject {
 
 }

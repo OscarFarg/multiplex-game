@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class Muur {
+public class Muur extends StatischObject {
 
 }

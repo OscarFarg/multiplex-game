@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class Infotron {
+public class Infotron extends DynamischObject {
 
 }
