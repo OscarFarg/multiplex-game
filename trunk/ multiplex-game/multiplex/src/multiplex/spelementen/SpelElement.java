@@ -11,6 +11,11 @@ public class SpelElement extends JPanel {
 	protected int xPos, yPos;
 	protected Timer actieTimer;
 
+	public SpelElement()
+	{
+		this.setSize(BREEDTE, HOOGTE);
+		this.setOpaque(false);
+	}
 	public ImageIcon getAfbeelding() {
 		return afbeelding;
 	}
