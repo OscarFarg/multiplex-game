@@ -1,10 +1,12 @@
 package multiplex.spelementen;
 
+import multiplex.level.Level;
+
 public class Exit extends StatischObject {
 	
-	public Exit()
+	public Exit(Level level)
 	{
-		super(); //nodig zodat de breedte, hoogte en doorzichtigheid worden ingesteld.
+		super(level); //nodig zodat de breedte, hoogte en doorzichtigheid worden ingesteld.
 		this.setAfbeelding(createImageIcon("images/exit.png"));
 	}
 	

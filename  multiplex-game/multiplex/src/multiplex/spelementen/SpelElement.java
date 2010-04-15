@@ -3,6 +3,8 @@ package multiplex.spelementen;
 import java.awt.Graphics;
 import javax.swing.*;
 
+import multiplex.level.Level;
+
 public class SpelElement extends JPanel {
 
 	protected ImageIcon afbeelding;
@@ -10,9 +12,11 @@ public class SpelElement extends JPanel {
 	protected final int HOOGTE = 32;
 	protected int xPos, yPos;
 	protected Timer actieTimer;
-
-	public SpelElement()
+	protected Level currentLevel;
+	
+	public SpelElement(Level level)
 	{
+		this.currentLevel = level;
 		this.setSize(BREEDTE, HOOGTE);
 		this.setOpaque(false);
 	}
@@ -69,11 +73,6 @@ public class SpelElement extends JPanel {
 	public void tekenAfbeelding(Graphics g)
 	{
 		g.drawImage(afbeelding.getImage(), 0, 0, getWidth(), getHeight(), this);
-
-	}
-
-	public void eet()
-	{
 
 	}
 
