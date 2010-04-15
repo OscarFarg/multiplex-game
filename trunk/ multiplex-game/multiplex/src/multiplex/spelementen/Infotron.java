@@ -5,7 +5,7 @@ import java.awt.Image;
 
 import multiplex.level.Level;
 
-public class Infotron extends DynamischObject implements IsEetbaar {
+public class Infotron extends DynamischObject implements IsEetbaar, KanVallen {
 	
 	public Infotron(Level level)
 	{
@@ -23,5 +23,10 @@ public class Infotron extends DynamischObject implements IsEetbaar {
 	public void eet() {
 		currentLevel.remove(this);
 		currentLevel.repaint();		
+	}
+
+	@Override
+	public void val() {
+		System.out.println("Infotron valt");
 	}
 }

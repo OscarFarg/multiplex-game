@@ -8,4 +8,14 @@ public class DynamischObject extends SpelElement {
 	{
 		super(level);
 	}
+	
+	public void doAnimatie()
+	{
+		
+	}
+	
+	public int getAnimatieStatus()
+	{
+		return 0;
+	}
 }

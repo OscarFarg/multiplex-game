@@ -14,7 +14,6 @@ public class GamePlayPanel extends JPanel {
 		this.app = app;
 		this.setLayout(null);
 		currentLevel = new Level();
-		currentLevel.setBounds(0, 0, 640, 400);
 		this.add(currentLevel);
 	}
 
