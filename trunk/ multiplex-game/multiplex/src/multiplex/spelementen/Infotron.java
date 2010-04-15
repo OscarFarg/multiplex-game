@@ -27,6 +27,6 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen {
 
 	@Override
 	public void val() {
-		System.out.println("Infotron valt");
+
 	}
 }
