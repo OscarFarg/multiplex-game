@@ -13,6 +13,9 @@ public class Base extends StatischObject implements IsEetbaar {
 	@Override
 	public void eet() {
 		currentLevel.remove(this);
+		currentLevel.getEetbaarList().remove(this);
+		currentLevel.getElementList().remove(this);
 		currentLevel.repaint();
+		
 	}
 }

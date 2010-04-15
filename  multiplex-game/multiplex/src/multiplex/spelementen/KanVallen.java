@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class KanVallen {
-
+public interface KanVallen {
+	public void val();
 }

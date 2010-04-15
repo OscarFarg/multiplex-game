@@ -9,7 +9,6 @@ import java.awt.event.KeyListener;
 import multiplex.botsing.Botsing;
 import multiplex.constanten.Richting;
 import multiplex.level.Level;
-import multiplex.tasks.Bewegen;
 
 public class Murphy extends SpelElement implements KeyListener {
 
@@ -35,16 +34,18 @@ public class Murphy extends SpelElement implements KeyListener {
 
 	public void setLocation(int x, int y)
 	{
-		super.setLocation(x, y);
-		this.setxPos(x);
-		this.setyPos(y);
+			super.setLocation(x, y);
+			this.setxPos(x);
+			this.setyPos(y);
 	}
 
 	public void setLocation(Point p)
 	{
-		super.setLocation(p);
-		this.setxPos(p.x);
-		this.setyPos(p.y);
+
+			super.setLocation(p);
+			this.setxPos(p.x);
+			this.setyPos(p.y);
+
 	}
 
 	public void tekenAfbeelding(Graphics g)
@@ -85,7 +86,6 @@ public class Murphy extends SpelElement implements KeyListener {
 			this.setxPos(xPos + 32); break;
 		}
 		this.setLocation(xPos, yPos);
-		repaint();
 	}
 
 	public boolean checkRichting(Richting richting)

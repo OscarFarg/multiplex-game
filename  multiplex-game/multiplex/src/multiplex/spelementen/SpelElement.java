@@ -13,7 +13,7 @@ public class SpelElement extends JPanel {
 	protected int xPos, yPos;
 	protected Timer actieTimer;
 	protected Level currentLevel;
-	
+
 	public SpelElement(Level level)
 	{
 		this.currentLevel = level;
@@ -33,7 +33,8 @@ public class SpelElement extends JPanel {
 	}
 
 	public void setxPos(int xPos) {
-		this.xPos = xPos;
+		if (xPos >= 0 && xPos <= (currentLevel.getLevelWidth() * 32) - 32)
+			this.xPos = xPos;
 	}
 
 	public int getyPos() {
@@ -41,7 +42,8 @@ public class SpelElement extends JPanel {
 	}
 
 	public void setyPos(int yPos) {
-		this.yPos = yPos;
+		if (yPos >= 0 && yPos <= (currentLevel.getLevelHeight() * 32) - 32)
+			this.yPos = yPos;
 	}
 
 	public Timer getActieTimer() {
@@ -58,7 +60,7 @@ public class SpelElement extends JPanel {
 		if ( afbeelding != null )
 			tekenAfbeelding( g );                        
 	}
-	
+
 	protected ImageIcon createImageIcon(String path)
 	{
 		java.net.URL imgURL = getClass().getResource(path);
