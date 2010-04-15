@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class Bug {
+public class Bug extends Vijand {
 
 }

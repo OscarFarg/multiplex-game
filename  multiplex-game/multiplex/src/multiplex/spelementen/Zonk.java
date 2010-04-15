@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class Zonk {
+public class Zonk extends DynamischObject{
 
 }

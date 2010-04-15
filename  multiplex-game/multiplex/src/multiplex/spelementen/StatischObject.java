@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class StatischObject {
+public class StatischObject extends SpelElement {
 
 }

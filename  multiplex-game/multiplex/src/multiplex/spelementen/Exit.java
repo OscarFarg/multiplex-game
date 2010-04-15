@@ -1,5 +1,5 @@
 package multiplex.spelementen;
 
-public class Exit {
+public class Exit extends StatischObject {
 
 }

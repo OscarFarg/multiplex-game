@@ -1,5 +1,9 @@
 package multiplex.constanten;
 
-public class Richting {
-
+public enum Richting {
+	START,
+	BOVEN,
+	RECHTS,
+	ONDER,
+	LINKS
 }
