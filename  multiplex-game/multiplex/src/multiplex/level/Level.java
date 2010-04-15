@@ -9,14 +9,14 @@ import multiplex.spelementen.*;
 public class Level extends JPanel {
 
 	private Murphy murphy;
-	
+
 	private ArrayList<SpelElement> elementList = new ArrayList<SpelElement>();
 	private ArrayList<Vijand> vijandList = new ArrayList<Vijand>();
 	private ArrayList<IsEetbaar> eetbaarList = new ArrayList<IsEetbaar>();
 	private ArrayList<KanVallen> vallenList = new ArrayList<KanVallen>();
 	private ArrayList<IsDuwbaar> duwerList = new ArrayList<IsDuwbaar>();
 	private ValChecker valChecker = new ValChecker(this);
-	
+
 	private int levelWidth, levelHeight; //hoogte van het level. in vakjes, niet pixels.
 
 	public Level()
@@ -48,7 +48,7 @@ public class Level extends JPanel {
 		};
 	}
 
-	
+
 	public void addElement(SpelElement element, Point location)
 	{
 		elementList.add(element);
@@ -56,17 +56,21 @@ public class Level extends JPanel {
 		if (element == murphy)
 			this.add(element, 0);
 		else
-			if (element instanceof IsEetbaar)
-			{
+		{
+			if (element instanceof IsEetbaar) {
 				IsEetbaar eetbaar = (IsEetbaar) element;
 				eetbaarList.add(eetbaar);
-			} else if (element instanceof KanVallen) {
+			} 
+			if (element instanceof KanVallen) {
 				KanVallen valler = (KanVallen) element;
 				vallenList.add(valler);
-			} else if (element instanceof IsDuwbaar) {
+			} 
+			if (element instanceof IsDuwbaar) {
 				IsDuwbaar duwbaar = (IsDuwbaar) element;
 				duwerList.add(duwbaar);
 			}
+		}
+
 		this.add(element);
 	}
 
