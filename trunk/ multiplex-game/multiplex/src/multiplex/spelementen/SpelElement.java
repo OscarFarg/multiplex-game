@@ -13,6 +13,7 @@ public class SpelElement extends JPanel {
 	protected int xPos, yPos;
 	protected Timer actieTimer;
 	protected Level currentLevel;
+	protected int elementType;
 
 	public SpelElement(Level level)
 	{
@@ -54,6 +55,12 @@ public class SpelElement extends JPanel {
 		this.actieTimer = actieTimer;
 	}
 
+	public int getElementType() {
+		return elementType;
+	}
+	public void setElementType(int elementType) {
+		this.elementType = elementType;
+	}
 	public void paintComponent(Graphics g)
 	{ 
 		super.paintComponent( g );
