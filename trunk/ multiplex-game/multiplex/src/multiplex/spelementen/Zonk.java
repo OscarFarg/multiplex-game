@@ -3,11 +3,13 @@ package multiplex.spelementen;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import multiplex.level.Level;
+
 public class Zonk extends DynamischObject {
 	
-	public Zonk()
+	public Zonk(Level level)
 	{
-		super(); //nodig zodat de breedte, hoogte en doorzichtigheid worden ingesteld.
+		super(level); //nodig zodat de breedte, hoogte en doorzichtigheid worden ingesteld.
 		this.setAfbeelding(createImageIcon("images/zonk.png"));
 	}
 	

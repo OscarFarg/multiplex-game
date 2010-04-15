@@ -1,5 +1,11 @@
 package multiplex.spelementen;
 
-public class DynamischObject extends SpelElement {
+import multiplex.level.Level;
 
+public class DynamischObject extends SpelElement {
+	
+	public DynamischObject(Level level)
+	{
+		super(level);
+	}
 }

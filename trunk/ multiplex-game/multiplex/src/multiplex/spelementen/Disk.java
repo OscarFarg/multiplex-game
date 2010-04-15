@@ -1,5 +1,10 @@
 package multiplex.spelementen;
 
-public class Disk extends DynamischObject {
+import multiplex.level.Level;
 
+public class Disk extends DynamischObject {
+	public Disk(Level level)
+	{
+		super(level);
+	}
 }

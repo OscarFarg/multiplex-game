@@ -6,13 +6,14 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import multiplex.botsing.Botsing;
 import multiplex.constanten.Richting;
 import multiplex.level.Level;
+import multiplex.tasks.Bewegen;
 
 public class Murphy extends SpelElement implements KeyListener {
 
 	private Richting richting = Richting.START;
-	private Level currentLevel;
 
 	public Murphy(int x, int y, Level level)
 	{
@@ -24,8 +25,7 @@ public class Murphy extends SpelElement implements KeyListener {
 
 	public Murphy(Level level)
 	{
-		super();
-		this.currentLevel = level;
+		super(level);
 		this.setAfbeelding(createImageIcon("images/murphy2.png"));
 		this.addKeyListener(this);
 		this.setFocusable(true);
@@ -49,7 +49,6 @@ public class Murphy extends SpelElement implements KeyListener {
 
 	public void tekenAfbeelding(Graphics g)
 	{
-
 		Image im = getAfbeelding().getImage();
 
 		switch (richting)
@@ -69,10 +68,7 @@ public class Murphy extends SpelElement implements KeyListener {
 		case RECHTS: 
 			g.drawImage(im, 0, 0, getWidth(), getHeight(), 0, 64, 32, 96, this);
 			break;
-
 		}
-
-
 	}
 
 	public void beweeg(Richting richting)
@@ -90,6 +86,40 @@ public class Murphy extends SpelElement implements KeyListener {
 		}
 		this.setLocation(xPos, yPos);
 		repaint();
+	}
+
+	public boolean checkRichting(Richting richting)
+	{
+		SpelElement element = null;
+		switch (richting)
+		{
+		case BOVEN: 
+			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() - 32)); break;
+		case ONDER: 
+			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() + 32)); break;
+		case LINKS: 
+			element = currentLevel.getElementAt(new Point(getxPos() - 32, getyPos())); break;
+		case RECHTS: 
+			element = currentLevel.getElementAt(new Point(getxPos() + 32, getyPos())); break;
+		}
+
+		if (element != null)
+		{
+			if (!Botsing.raakt(this, element))
+			{
+				return true;
+			}
+			else
+				if (element instanceof IsEetbaar)
+				{
+					IsEetbaar eetbaar = (IsEetbaar) element;
+					eetbaar.eet();
+					return true;
+				}
+				else
+					return false;
+		}
+		return true;
 	}
 
 	public Richting getRichting() {
@@ -122,14 +152,15 @@ public class Murphy extends SpelElement implements KeyListener {
 			setRichting(Richting.RECHTS) ; break;
 		}
 
-		beweeg(richting);
+		if (checkRichting(richting))
+			beweeg(richting);
 
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void keyReleased(KeyEvent ke) {
+		setRichting(Richting.START);
+		repaint();
 	}
 
 	@Override
