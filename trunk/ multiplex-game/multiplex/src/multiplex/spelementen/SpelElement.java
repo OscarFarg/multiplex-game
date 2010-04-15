@@ -1,7 +1,6 @@
 package multiplex.spelementen;
 
 import java.awt.Graphics;
-import java.awt.Point;
 import javax.swing.*;
 
 public class SpelElement extends JPanel {

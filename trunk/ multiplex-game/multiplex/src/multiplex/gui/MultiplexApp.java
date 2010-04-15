@@ -1,8 +1,6 @@
 package multiplex.gui;
 
-import java.awt.Color;
 import javax.swing.*;
-
 
 public class MultiplexApp extends JFrame
 {
