@@ -7,3 +7,4 @@ public enum Richting {
 	ONDER,
 	LINKS
 }
+// oscar is vaag
