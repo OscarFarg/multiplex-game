@@ -1,5 +1,11 @@
 package multiplex.spelementen;
 
-public class Vijand {
+import multiplex.level.Level;
 
+public class Vijand extends DynamischObject
+{
+	public Vijand(Level level)
+	{
+		super(level);
+	}
 }
