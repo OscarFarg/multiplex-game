@@ -1,4 +1,4 @@
-package multiplex.gui;
+package multiplex.gui.main;
 
 import java.awt.*;
 import javax.swing.*;

@@ -1,7 +1,9 @@
-package multiplex.gui;
+package multiplex.gui.game;
 
 import java.awt.Color;
 import javax.swing.JPanel;
+
+import multiplex.gui.MultiplexApp;
 import multiplex.level.Level;
 
 public class GamePlayPanel extends JPanel {
