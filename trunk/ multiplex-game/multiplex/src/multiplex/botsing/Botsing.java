@@ -11,7 +11,7 @@ import java.awt.Rectangle;
  * <p>Deze klasse is gemaakt ter ondersteuning bij het project "Realisatie van Software" 
  * van de opleiding Informatica aan de hogeschool Leiden</p>
  * 
- * <p>Voorbeeld van gebruik:</p>
+ * <p>Voorbeeld van gebruik:</p> //test
  * 
  * <code>if (<strong>Botsing.overlapt( pacman, spookje )</strong> )</code>
  * <code>     // doe iets...</code>
