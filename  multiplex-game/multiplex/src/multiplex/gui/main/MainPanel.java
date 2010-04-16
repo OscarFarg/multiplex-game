@@ -7,12 +7,12 @@ import javax.swing.*;
 
 public class MainPanel extends JPanel implements MouseListener
 {
-	private JLabel newPlayerKnop, skipLevelKnop, creditsKnop, viewHighscoresKnop, helpKnop;
+	private JLabel newPlayerKnop, skipLevelKnop, titelMenuGrafisch, creditsKnop, viewHighscoresKnop, helpKnop, startKnop, loadKnop;
 
 	public MainPanel()
 	{
 		setLayout(null);
-		setBackground(new Color(130, 130, 130));
+		setBackground(Color.PINK);
 		
 		newPlayerKnop = new JLabel();
 		newPlayerKnop.addMouseListener(this);
@@ -43,6 +43,24 @@ public class MainPanel extends JPanel implements MouseListener
 		this.add(creditsKnop);
 		creditsKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/creditsKnop.png")));
 		creditsKnop.setBounds(17,363,108,18);
+		
+		startKnop = new JLabel();
+		this.add(startKnop);
+		startKnop.addMouseListener(this);
+		startKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/startKnop.png")));
+		startKnop.setBounds(19,207,66,48);
+		
+		loadKnop = new JLabel();
+		this.add(loadKnop);
+		loadKnop.addMouseListener(this);
+		loadKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/loadKnop.png")));
+		loadKnop.setBounds(119,207,54,50);
+		
+		
+		titelMenuGrafisch = new JLabel();
+		this.add(titelMenuGrafisch);
+		titelMenuGrafisch.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/titelMenuGrafisch.png")));
+		titelMenuGrafisch.setBounds(0,0,640,400);
 		
 		setVisible(true);
 	}
