@@ -12,12 +12,13 @@ public class MultiplexApp extends JFrame
 	
 	public MultiplexApp()
 	{
-		this.setSize(640, 400);
+		this.setSize(648, 438);
 		this.setLocation(300,100);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setContentPane(mainPanel);
-		//this.setContentPane(gamePanel);
+		this.setTitle("Multiplex v0.01");
+		//this.setContentPane(mainPanel);
+		this.setContentPane(gamePanel);
 		this.setVisible(true);
 	}
 	
