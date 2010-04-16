@@ -57,6 +57,7 @@ public class MainPanel extends JPanel implements MouseListener
 		loadKnop.setBounds(119,207,54,50);
 		
 		
+		
 		titelMenuGrafisch = new JLabel();
 		this.add(titelMenuGrafisch);
 		titelMenuGrafisch.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/titelMenuGrafisch.png")));
@@ -86,6 +87,14 @@ public class MainPanel extends JPanel implements MouseListener
 		else if (e.getSource() == creditsKnop)
 		{
 			System.out.println("laat credits zien");
+		}
+		else if (e.getSource() == startKnop)
+		{
+			System.out.println("spel starten");
+		}
+		else if (e.getSource() == loadKnop)
+		{
+			System.out.println("spel laden");
 		}
 	}
 	public void mouseEntered(MouseEvent e) {}
