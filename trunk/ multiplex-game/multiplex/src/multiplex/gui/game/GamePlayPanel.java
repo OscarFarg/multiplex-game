@@ -1,22 +1,27 @@
 package multiplex.gui.game;
 
-import java.awt.Color;
 import javax.swing.JPanel;
 
+import multiplex.gui.AppPanel;
 import multiplex.gui.MultiplexApp;
 import multiplex.level.Level;
 
 public class GamePlayPanel extends JPanel {
 	
-	private MultiplexApp app;
+	private AppPanel appPanel;
 	private Level currentLevel;
+	private LevelPanel levelPanel;
+	private LevelDataPanel levelDataPanel;
 	
-	public GamePlayPanel(MultiplexApp app)
+	public GamePlayPanel(AppPanel appPanel)
 	{
-		this.app = app;
+		this.appPanel = appPanel;
 		this.setLayout(null);
-		currentLevel = new Level();
-		this.add(currentLevel);
+		levelPanel = new LevelPanel(appPanel);
+		levelDataPanel = new LevelDataPanel(currentLevel);
+		this.add(levelPanel);
+		levelDataPanel.setBounds(0, 362, 640, 48);
+		this.add(levelDataPanel);
 	}
 
 }

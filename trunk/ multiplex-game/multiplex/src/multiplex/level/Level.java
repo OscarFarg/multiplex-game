@@ -3,27 +3,36 @@ package multiplex.level;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
+import multiplex.gui.AppPanel;
+import multiplex.gui.MultiplexApp;
 import multiplex.spelementen.*;
 
 public class Level extends JPanel {
 
 	private Murphy murphy;
+	private Exit exit;
+	private AppPanel appPanel;
 
 	private ArrayList<SpelElement> elementList = new ArrayList<SpelElement>();
 	private ArrayList<Vijand> vijandList = new ArrayList<Vijand>();
 	private ArrayList<IsEetbaar> eetbaarList = new ArrayList<IsEetbaar>();
 	private ArrayList<KanVallen> vallenList = new ArrayList<KanVallen>();
 	private ArrayList<IsDuwbaar> duwerList = new ArrayList<IsDuwbaar>();
+	
 	private ValChecker valChecker = new ValChecker(this);
-
 	private int levelWidth, levelHeight; //hoogte van het level. in vakjes, niet pixels.
 
-	public Level()
+	public Level(AppPanel appPanel)
 	{
+		this.appPanel = appPanel;
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
 		this.showLevel(createFirstLevel());
+		//this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 10));
 		valChecker.start();
 	}
 
@@ -33,18 +42,17 @@ public class Level extends JPanel {
 		this.setLevelHeight(11);
 		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
 		return new int[][] {
-				{8, 1, 1, 3, 3, 3, 3, 3, 1, 1, 1, 1, 0, 1, 1, 1, 9, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
+				{8, 1, 1, 2, 2, 2, 3, 2, 1, 1, 1, 1, 0, 1, 1, 1, 9, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
+				{1, 1, 1, 2, 3, 2, 2, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
+				{1, 1, 1, 3, 2, 3, 3, 3, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 0},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 0},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1}
 		};
 	}
 
@@ -91,7 +99,7 @@ public class Level extends JPanel {
 				case 5: break;		//5: Port
 				case 6: break;		//6: SnikSnak
 				case 7: break;		//7: Bug
-				case 8: addElement(new Exit(this), location); break; 		//8: Exit
+				case 8: addElement(exit = new Exit(this), location); break; 		//8: Exit
 				case 9: addElement(murphy = new Murphy(this), location); break; //9: murphy
 				}
 			}
@@ -209,6 +217,8 @@ public class Level extends JPanel {
 
 				if ((elementLocation.y == location.y) && (elementLocation.x == location.x))
 				{
+					if (elementList.get(i) == exit)
+						exit.eindeLevel();
 					return elementList.get(i);
 				}
 			}
@@ -243,7 +253,9 @@ public class Level extends JPanel {
 
 	public void doUitgespeeld()
 	{
-
+		appPanel.remove(appPanel.getGamePanel());
+		appPanel.add(appPanel.getMainPanel());
+		appPanel.repaint();
 	}
 
 

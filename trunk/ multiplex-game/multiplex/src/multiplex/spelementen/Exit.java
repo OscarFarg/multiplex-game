@@ -12,6 +12,6 @@ public class Exit extends StatischObject {
 	
 	public void eindeLevel()
 	{
-		System.out.println("Einde van level");
+		currentLevel.doUitgespeeld();
 	}
 }
