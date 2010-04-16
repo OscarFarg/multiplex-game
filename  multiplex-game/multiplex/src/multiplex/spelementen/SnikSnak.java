@@ -127,12 +127,14 @@ public class SnikSnak extends Vijand implements ActionListener
 				richting ++; //verander de richting naar rechts
 				beweeg(richting);
 				
-				if( !checkRichting(richting + 1) )
+				if( !checkRichting(richting + 1) ) //
 				{
 					// ga terug
-					
+					richting += 2;
+					beweeg(richting);
 				}
 			}
 		}
+		richting += 3;
 	}
 }
