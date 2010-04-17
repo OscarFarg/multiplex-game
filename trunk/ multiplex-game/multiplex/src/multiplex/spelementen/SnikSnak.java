@@ -13,20 +13,16 @@ public class SnikSnak extends Vijand implements ActionListener
 {
 	private int richting = 3;
 	
-	SnikSnak(int x, int y, Level level)
-	{
-		this(level);
-		this.setxPos(x);
-		this.setyPos(y);
-		this.setLocation(xPos, yPos);
-		actieTimer = new Timer(250, this);
-		actieTimer.start();
-	}
-	
 	public SnikSnak(Level level)
 	{
 		super(level);
 		this.setAfbeelding(createImageIcon("images/SnikSnaks.png"));
+		actieTimer = new Timer(250, this);
+		actieTimer.start();
+		System.out.println("kaas");
+//		this.setxPos(x);
+//		this.setyPos(y);
+		this.setLocation(xPos, yPos);
 	}
 	
 	public void setLocation(int x, int y)
@@ -119,21 +115,26 @@ public class SnikSnak extends Vijand implements ActionListener
 		{
 			// ga recht door
 			beweeg(richting);
+			repaint();
 			
 			if( !checkRichting(richting) ) // als recht vol zit
 			{
 				// ga rechts
 				richting ++; //verander de richting naar rechts
 				beweeg(richting);
+				repaint();
 				
 				if( !checkRichting(richting + 1) ) //
 				{
 					// ga terug
 					richting += 2;
 					beweeg(richting);
+					repaint();
 				}
 			}
 		}
 		richting += 3;
+		beweeg(richting);
+		repaint();
 	}
 }
