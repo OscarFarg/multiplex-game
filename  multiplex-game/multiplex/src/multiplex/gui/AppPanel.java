@@ -7,7 +7,7 @@ import multiplex.gui.main.MainPanel;
 
 public class AppPanel extends JPanel {
 	
-	private MainPanel mainPanel = new MainPanel();
+	private MainPanel mainPanel = new MainPanel(this);
 	private GamePlayPanel gamePanel = new GamePlayPanel(this);
 	
 	public AppPanel()
@@ -16,7 +16,8 @@ public class AppPanel extends JPanel {
 		gamePanel.setLocation(0,0);
 		gamePanel.setSize(646, 410);
 		mainPanel.setBounds(0, 0, 646, 410);
-		this.add(gamePanel);
+		this.add(gamePanel); //opstarten in level
+		//this.add(mainPanel); //opstarten in menu
 	}
 	
 	public MainPanel getMainPanel() {

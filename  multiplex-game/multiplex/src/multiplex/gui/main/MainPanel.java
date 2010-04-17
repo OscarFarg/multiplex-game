@@ -5,56 +5,62 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import multiplex.gui.AppPanel;
+
 public class MainPanel extends JPanel implements MouseListener
 {
 	private JLabel newPlayerKnop, skipLevelKnop, creditsKnop, viewHighscoresKnop, helpKnop, startKnop, loadKnop;
 
-	public MainPanel()
+	private AppPanel appPanel;
+
+	public MainPanel(AppPanel appPanel)
 	{
 		setLayout(null);
 		setBackground(Color.PINK);
+		this.appPanel = appPanel;
+
 		
 		newPlayerKnop = new JLabel();
 		newPlayerKnop.addMouseListener(this);
 		this.add(newPlayerKnop);
 		newPlayerKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/newPlayerKnop.png")));
-		newPlayerKnop.setBounds(17,263,148,18);
+		newPlayerKnop.setBounds(17,271,148,18);
 		
 		skipLevelKnop = new JLabel();
 		this.add(skipLevelKnop);
 		skipLevelKnop.addMouseListener(this);
 		skipLevelKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/skipLevelKnop.png")));
-		skipLevelKnop.setBounds(17,288,130,18);
+		skipLevelKnop.setBounds(17,296,130,18);
 		
 		viewHighscoresKnop = new JLabel();
 		viewHighscoresKnop.addMouseListener(this);
 		this.add(viewHighscoresKnop);
 		viewHighscoresKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/viewHighscoresKnop.png")));
-		viewHighscoresKnop.setBounds(17,313,208,19);
+		viewHighscoresKnop.setBounds(17,321,208,19);
 		
 		helpKnop = new JLabel();
 		helpKnop.addMouseListener(this);
 		this.add(helpKnop);
 		helpKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/helpKnop.png")));
-		helpKnop.setBounds(17,338,71,18);
+		helpKnop.setBounds(17,346,71,18);
 		
 		creditsKnop = new JLabel();
 		creditsKnop.addMouseListener(this);
 		this.add(creditsKnop);
 		creditsKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/creditsKnop.png")));
-		creditsKnop.setBounds(17,363,108,18);
+		creditsKnop.setBounds(17,371,108,18);
 		
 		startKnop = new JLabel();
 		this.add(startKnop);
 		startKnop.addMouseListener(this);
 		startKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/startKnop.png")));
-		startKnop.setBounds(19,207,66,48);
+		startKnop.setBounds(19,215,66,48);
 		
 		loadKnop = new JLabel();
 		this.add(loadKnop);
 		loadKnop.addMouseListener(this);
 		loadKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/loadKnop.png")));
-		loadKnop.setBounds(119,207,54,50);
+		loadKnop.setBounds(119,218,54,50);
 		
 		
 		//Is handiger in de paint component.
@@ -71,7 +77,7 @@ public class MainPanel extends JPanel implements MouseListener
 	
 	public void paintComponent(Graphics g)
 	{
-		g.drawImage(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/titelMenuGrafisch2.png")).getImage(),0, 0, getWidth(), getHeight(), null);
+		g.drawImage(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/titelMenuGrafisch.png")).getImage(),0, 0, getWidth(), getHeight(), null);
 	}
 	
 	public void mouseClicked(MouseEvent e) 

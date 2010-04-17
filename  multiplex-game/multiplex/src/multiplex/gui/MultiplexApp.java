@@ -1,6 +1,7 @@
 package multiplex.gui;
 
 import javax.swing.*;
+
 public class MultiplexApp extends JFrame
 {
 
