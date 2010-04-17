@@ -7,7 +7,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import multiplex.level.Level;
-import multiplex.constanten.Richting;
 import multiplex.botsing.Botsing;
 
 public class SnikSnak extends Vijand implements ActionListener
