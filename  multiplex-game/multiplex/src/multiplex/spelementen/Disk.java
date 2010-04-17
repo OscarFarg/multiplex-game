@@ -19,4 +19,14 @@ public class Disk extends DynamischObject implements IsDuwbaar, KanVallen {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean isOpBodem() {
+		return true;
+	}
+
+	@Override
+	public boolean isVallend() {
+		return false;
+	}
 }

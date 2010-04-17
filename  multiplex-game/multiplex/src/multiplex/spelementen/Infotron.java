@@ -10,18 +10,25 @@ import javax.swing.Timer;
 
 import multiplex.botsing.Botsing;
 import multiplex.level.Level;
+import multiplex.level.ValChecker;
 
 public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, ActionListener {
 
 	private boolean vallend;
 	private boolean opBodem = false;
+	
+	private ValChecker valChecker;
+
 
 
 	public Infotron(Level level)
 	{
 		super(level); //nodig zodat de breedte, hoogte en doorzichtigheid worden ingesteld.
 		this.setAfbeelding(createImageIcon("images/infotron.png"));
-		actieTimer = new Timer(10, this);
+		actieTimer = new Timer(20, this);
+		
+		valChecker = new ValChecker(this);
+		valChecker.start();
 	}
 
 	public void tekenAfbeelding(Graphics g)
@@ -61,20 +68,31 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 		{
 			if (!opBodem)
 			{
-				if (!(this.getY() + 36 > (currentLevel.getLevelHeight()*32)))
+				if (!(this.getY() + 40 > (currentLevel.getLevelHeight()*32)))
 				{
-					this.setLocation(getX(), getY() + 4);
+					this.setLocation(getX(), getY() + 8);
 					currentLevel.repaint();
 				}
 				else
 				{
-					System.out.println("stop");
 					actieTimer.stop();
 					vallend = false;
 					opBodem = true;
 				}
 			}
+			else
+				valChecker = null;
 
 		}
+	}
+
+	@Override
+	public boolean isOpBodem() {
+		return opBodem;
+	}
+
+	@Override
+	public boolean isVallend() {
+		return vallend;
 	}
 }
