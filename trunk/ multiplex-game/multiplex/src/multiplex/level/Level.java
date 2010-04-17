@@ -33,7 +33,7 @@ public class Level extends JPanel {
 		this.setLayout(null);
 		this.showLevel(createFirstLevel());
 		//this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 10));
-		valChecker.start();
+		//valChecker.start();
 	}
 
 	public int[][] createFirstLevel()
