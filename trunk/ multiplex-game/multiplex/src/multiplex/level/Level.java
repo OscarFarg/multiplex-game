@@ -42,7 +42,7 @@ public class Level extends JPanel {
 		this.setLevelHeight(11);
 		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
 		return new int[][] {
-				{8, 1, 1, 2, 2, 2, 3, 2, 1, 1, 1, 1, 0, 1, 1, 1, 9, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
+				{8, 1, 1, 2, 2, 2, 3, 2, 1, 1, 1, 1, 6, 1, 1, 1, 9, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 2, 3, 2, 2, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 3, 2, 3, 3, 3, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
@@ -90,16 +90,16 @@ public class Level extends JPanel {
 				Point location = new Point(j* 32, i * 32);
 				switch (level[i][j])
 				{
-				case -1: break;												//-1: Lege plek
-				case 0: addElement(new Muur(this), location); break; 		//0: Muur toevoegen
-				case 1: addElement(new Base(this), location); break; 		//1: Base toevoegen
-				case 2: addElement(new Zonk(this), location); break; 		//2: Zonk toevoegen
-				case 3: addElement(new Infotron(this), location); break; 	//3: Infotron
+				case -1: break;													//-1: Lege plek
+				case 0: addElement(new Muur(this), location); break; 			//0: Muur toevoegen
+				case 1: addElement(new Base(this), location); break; 			//1: Base toevoegen
+				case 2: addElement(new Zonk(this), location); break; 			//2: Zonk toevoegen
+				case 3: addElement(new Infotron(this), location); break; 		//3: Infotron
 				case 4: break;		//4: Disk
 				case 5: break;		//5: Port
-				case 6: break;		//6: SnikSnak
+				case 6: addElement(new SnikSnak(this), location); break;		//6: SnikSnak
 				case 7: break;		//7: Bug
-				case 8: addElement(exit = new Exit(this), location); break; 		//8: Exit
+				case 8: addElement(exit = new Exit(this), location); break; 	//8: Exit
 				case 9: addElement(murphy = new Murphy(this), location); break; //9: murphy
 				}
 			}
