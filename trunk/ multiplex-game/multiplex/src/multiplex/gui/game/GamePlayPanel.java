@@ -20,7 +20,8 @@ public class GamePlayPanel extends JPanel {
 		levelPanel = new LevelPanel(appPanel);
 		levelDataPanel = new LevelDataPanel(currentLevel);
 		this.add(levelPanel);
-		levelDataPanel.setBounds(0, 362, 640, 48);
+		//levelDataPanel.setLocation(0, 362);
+		levelDataPanel.setBounds(0, 362, 644, 48);
 		this.add(levelDataPanel);
 	}
 

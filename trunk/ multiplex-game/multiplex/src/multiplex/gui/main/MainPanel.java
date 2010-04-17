@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class MainPanel extends JPanel implements MouseListener
 {
-	private JLabel newPlayerKnop, skipLevelKnop, titelMenuGrafisch, creditsKnop, viewHighscoresKnop, helpKnop, startKnop, loadKnop;
+	private JLabel newPlayerKnop, skipLevelKnop, creditsKnop, viewHighscoresKnop, helpKnop, startKnop, loadKnop;
 
 	public MainPanel()
 	{
@@ -57,13 +57,21 @@ public class MainPanel extends JPanel implements MouseListener
 		loadKnop.setBounds(119,207,54,50);
 		
 		
+		//Is handiger in de paint component.
 		
+		/*
 		titelMenuGrafisch = new JLabel();
 		this.add(titelMenuGrafisch);
 		titelMenuGrafisch.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/titelMenuGrafisch.png")));
 		titelMenuGrafisch.setBounds(0,0,640,400);
+		*/
 		
 		setVisible(true);
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		g.drawImage(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/titelMenuGrafisch2.png")).getImage(),0, 0, getWidth(), getHeight(), null);
 	}
 	
 	public void mouseClicked(MouseEvent e) 

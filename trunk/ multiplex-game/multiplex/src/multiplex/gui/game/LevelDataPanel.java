@@ -25,7 +25,7 @@ public class LevelDataPanel extends JPanel {
 	{
 		super.paintComponent(g);
 		//Teken het achtergrond plaatje
-		g.drawImage(createImageIcon("leveldata.png").getImage(), 0, 0, this);
+		g.drawImage(createImageIcon("leveldata.png").getImage(), 0, 0, getWidth(), 48, this);
 		
 		//Teken de tekst
 		g.setColor(new Color(227, 17, 17));

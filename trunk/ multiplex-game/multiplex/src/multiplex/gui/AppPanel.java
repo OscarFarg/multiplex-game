@@ -14,8 +14,8 @@ public class AppPanel extends JPanel {
 	{
 		this.setLayout(null);
 		gamePanel.setLocation(0,0);
-		gamePanel.setSize(646, 428);
-		mainPanel.setBounds(0, 0, 646, 428);
+		gamePanel.setSize(646, 410);
+		mainPanel.setBounds(0, 0, 646, 410);
 		this.add(gamePanel);
 	}
 	
