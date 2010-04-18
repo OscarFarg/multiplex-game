@@ -109,32 +109,75 @@ public class SnikSnak extends Vijand implements ActionListener
 		return true;
 	}
 
-	public void actionPerformed(ActionEvent arg0) 
+	synchronized public void actionPerformed(ActionEvent arg0) 
 	{
-		while( !checkRichting(richting + 3) ) // zolang links vol zit
+		while( !checkRichting((richting + 3) % 4) ) // zolang links vol zit
 		{
 			// ga recht door
 			beweeg(richting);
 			repaint();
+			try {
+				wait(125);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			
 			if( !checkRichting(richting) ) // als recht vol zit
 			{
 				// ga rechts
-				richting ++; //verander de richting naar rechts
+				richting = (richting + 1) % 4; //verander de richting naar rechts
+				repaint();
+				try {
+					wait(125);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				beweeg(richting);
 				repaint();
 				
-				if( !checkRichting(richting + 1) ) //
+				if( !checkRichting((richting + 1) % 4) ) //
 				{
 					// ga terug
-					richting += 2;
+					richting = (richting + 2) % 4;
+					repaint();
+					try {
+						wait(125);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					beweeg(richting);
 					repaint();
 				}
+				else
+				{
+					richting =(richting + 3) % 4;
+					repaint();
+					try {
+						
+						wait(125);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					repaint();
+					System.out.println("hier komt ie");
+				}
 			}
 		}
-		richting += 3;
-		beweeg(richting);
-		repaint();
+		while( checkRichting((richting + 3) % 4) ) // zolang links leeg is
+		{	
+			richting = (richting + 3) % 4;
+			repaint();
+			try {
+				wait(125);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			beweeg(richting);
+			repaint();
+		}
 	}
 }
