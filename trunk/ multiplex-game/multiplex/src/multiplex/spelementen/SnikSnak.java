@@ -9,7 +9,7 @@ import javax.swing.*;
 import multiplex.level.Level;
 import multiplex.botsing.Botsing;
 
-public class SnikSnak extends Vijand implements ActionListener
+public class SnikSnak extends Vijand implements ActionListener, Runnable
 {
 	private int richting = 3;
 	
@@ -109,15 +109,20 @@ public class SnikSnak extends Vijand implements ActionListener
 		return true;
 	}
 
-	synchronized public void actionPerformed(ActionEvent arg0) 
+	public void actionPerformed(ActionEvent e) 
 	{
+		run();
+	}
+
+	public void run() 
+	{		
 		while( !checkRichting((richting + 3) % 4) ) // zolang links vol zit
 		{
 			// ga rechtdoor
 			beweeg(richting);
 			repaint();
 			try {
-				wait(125);
+				Thread.sleep(125);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -128,7 +133,7 @@ public class SnikSnak extends Vijand implements ActionListener
 				richting = (richting + 1) % 4; //verander de richting naar rechts
 				repaint();
 				try {
-					wait(125);
+					Thread.sleep(125);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -141,10 +146,11 @@ public class SnikSnak extends Vijand implements ActionListener
 					richting = (richting + 2) % 4;
 					repaint();
 					try {
-						wait(125);
+						Thread.sleep(125);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					System.out.println("twee");
 					beweeg(richting);
 					repaint();
 				}
@@ -153,8 +159,7 @@ public class SnikSnak extends Vijand implements ActionListener
 					richting =(richting + 3) % 4;
 					repaint();
 					try {
-						
-						wait(125);
+						Thread.sleep(125);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -168,12 +173,12 @@ public class SnikSnak extends Vijand implements ActionListener
 			richting = (richting + 3) % 4;
 			repaint();
 			try {
-				wait(125);
+				Thread.sleep(125);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			beweeg(richting);
 			repaint();
-		}
+		}	
 	}
 }
