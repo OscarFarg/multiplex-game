@@ -113,7 +113,7 @@ public class SnikSnak extends Vijand implements ActionListener
 	{
 		while( !checkRichting((richting + 3) % 4) ) // zolang links vol zit
 		{
-			// ga recht door
+			// ga rechtdoor
 			beweeg(richting);
 			repaint();
 			try {
@@ -122,7 +122,7 @@ public class SnikSnak extends Vijand implements ActionListener
 				e.printStackTrace();
 			}
 			
-			if( !checkRichting(richting) ) // als recht vol zit
+			if( !checkRichting(richting) ) // als rechtdoor vol zit
 			{
 				// ga rechts
 				richting = (richting + 1) % 4; //verander de richting naar rechts
@@ -130,13 +130,12 @@ public class SnikSnak extends Vijand implements ActionListener
 				try {
 					wait(125);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				beweeg(richting);
 				repaint();
 				
-				if( !checkRichting((richting + 1) % 4) ) //
+				if( !checkRichting((richting + 1) % 4) ) // als rechts vol zit
 				{
 					// ga terug
 					richting = (richting + 2) % 4;
@@ -144,7 +143,6 @@ public class SnikSnak extends Vijand implements ActionListener
 					try {
 						wait(125);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					beweeg(richting);
@@ -158,11 +156,10 @@ public class SnikSnak extends Vijand implements ActionListener
 						
 						wait(125);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					repaint();
-					System.out.println("hier komt ie");
+					System.out.println("");
 				}
 			}
 		}
@@ -173,7 +170,6 @@ public class SnikSnak extends Vijand implements ActionListener
 			try {
 				wait(125);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			beweeg(richting);
