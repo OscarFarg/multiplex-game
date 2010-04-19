@@ -123,19 +123,8 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 				if (element instanceof IsEetbaar)
 				{
 					IsEetbaar eetbaar = (IsEetbaar) element;
-					try {
-						Bug bug = (Bug) eetbaar;
-						if (bug.isEetbaar())
-						{
-							bug.eet();
-							return true;
-						}
-						else
-							return false;
-					} catch (ClassCastException ex) {
-						eetbaar.eet();
-						return true;
-					}
+					eetbaar.eet();
+					return true;
 				}
 				else
 					return false;
@@ -173,10 +162,50 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 			setRichting(Richting.RECHTS); break;
 		case KeyEvent.VK_ESCAPE:
 			ontplof(); removeKeyListener(this); break;
+		case KeyEvent.VK_M:
+			getThreads(); break;
+
 		}
 
 		if (checkRichting(richting))
 			beweeg(richting);
+	}
+
+	public void getThreads()
+	{
+		// Walk up all the way to the root thread group
+		ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
+		ThreadGroup parent;
+		while ((parent = rootGroup.getParent()) != null) {
+			rootGroup = parent;
+		}
+
+		listThreads(rootGroup, "");
+
+	}
+
+	public static void listThreads(ThreadGroup group, String indent) {
+		System.out.println(indent + "Group[" + group.getName() + 
+				":" + group.getClass()+"]");
+		int nt = group.activeCount();
+		Thread[] threads = new Thread[nt*2 + 10]; //nt is not accurate
+		nt = group.enumerate(threads, false);
+
+		// List every thread in the group
+		for (int i=0; i<nt; i++) {
+			Thread t = threads[i];
+			System.out.println(indent + "  Thread[" + t.getName() 
+					+ ":" + t.getClass() + "]");
+		}
+
+		// Recursively list all subgroups
+		int ng = group.activeGroupCount();
+		ThreadGroup[] groups = new ThreadGroup[ng*2 + 10];
+		ng = group.enumerate(groups, false);
+
+		for (int i=0; i<ng; i++) {
+			listThreads(groups[i], indent + "  ");
+		}
 	}
 
 	public void ontplof()
@@ -225,12 +254,16 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 		{
 			if (ontplofTeller == 7)
 			{
+
 				eindTimer = new Timer(100, this);
 				eindTimer.setInitialDelay(500);
 				eindTimer.start();
 			}
 		}
 		if (e.getSource() == eindTimer)
+		{
 			currentLevel.eindeLevel();
+			eindTimer.stop();
+		}
 	}
 }

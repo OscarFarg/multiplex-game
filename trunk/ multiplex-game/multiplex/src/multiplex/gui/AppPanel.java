@@ -13,8 +13,6 @@ public class AppPanel extends JPanel {
 	public AppPanel()
 	{
 		this.setLayout(null);
-		gamePanel.setLocation(0,0);
-		gamePanel.setSize(646, 410);
 		//this.add(gamePanel); //opstarten in level
 		this.add(mainPanel); //opstarten in menu
 	}

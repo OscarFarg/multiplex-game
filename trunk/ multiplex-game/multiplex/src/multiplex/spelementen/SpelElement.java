@@ -17,7 +17,6 @@ public class SpelElement extends JPanel implements ActionListener {
 	protected int levelX, levelY;
 	protected Timer actieTimer;
 	protected Level currentLevel;
-	protected int elementType;
 	protected Timer ontplofTimer;
 	protected boolean ontplof;
 	protected int ontplofTeller;
@@ -82,12 +81,7 @@ public class SpelElement extends JPanel implements ActionListener {
 	public void setLevelY(int levelY) {
 		this.levelY = levelY;
 	}
-	public int getElementType() {
-		return elementType;
-	}
-	public void setElementType(int elementType) {
-		this.elementType = elementType;
-	}
+
 	public void paintComponent(Graphics g)
 	{ 
 		super.paintComponent( g );
@@ -116,18 +110,17 @@ public class SpelElement extends JPanel implements ActionListener {
 			g.drawImage(afbeelding.getImage(), 0, 0, getWidth(), getHeight(), clipX, 0, clipX + 32, 32, this);
 		}
 	}
-
+	
 	public void ontplof()
 	{
-		System.out.println(this);
 		if (!ontplof)
 		{
+			ontplof = true;
 			this.setAfbeelding(createImageIcon("images/explosion.png"));
 			ontplofTimer.start();
-			ontplof = true;
 		}
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ontplofTimer)

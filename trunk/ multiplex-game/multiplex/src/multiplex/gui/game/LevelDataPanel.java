@@ -3,16 +3,20 @@ package multiplex.gui.game;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import multiplex.level.Level;
 
 public class LevelDataPanel extends JPanel {
 	
 	private Level currentLevel;
+	private int infotronCount = 0;
 	
 	public LevelDataPanel(Level level)
 	{
@@ -48,7 +52,7 @@ public class LevelDataPanel extends JPanel {
 		g.drawString("----- TEST LEVEL -----", 130, 42);
 		
 		//Infotron count
-		g.drawString("25", 546, 42);
+		g.drawString(Integer.toString(infotronCount), 546, 42);
 		
 		
 		
@@ -65,5 +69,15 @@ public class LevelDataPanel extends JPanel {
 			return null;
 		}
 	}
+
+	public int getInfotronCount() {
+		return infotronCount;
+	}
+
+	public void setInfotronCount(int infotronCount) {
+		this.infotronCount = infotronCount;
+		repaint();
+	}
+
 	
 }

@@ -18,4 +18,5 @@ public class DynamischObject extends SpelElement {
 	{
 		return 0;
 	}
+
 }

@@ -10,7 +10,6 @@ import javax.swing.Timer;
 
 import multiplex.botsing.Botsing;
 import multiplex.level.Level;
-import multiplex.level.ValChecker;
 import multiplex.spelementen.interfaces.IsEetbaar;
 import multiplex.spelementen.interfaces.KanVallen;
 
@@ -18,17 +17,14 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 
 	private boolean vallend;
 	private boolean opBodem = false;
-	
+
 	private ValChecker valChecker;
-
-
 
 	public Infotron(Level level)
 	{
 		super(level); //nodig zodat de breedte, hoogte en doorzichtigheid worden ingesteld.
 		this.setAfbeelding(createImageIcon("images/infotron.png"));
 		actieTimer = new Timer(20, this);
-		
 		valChecker = new ValChecker(this);
 		valChecker.start();
 	}
@@ -49,11 +45,12 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 
 	@Override
 	public void eet() {
-		currentLevel.removeElement(this);
-		currentLevel.getEetbaarList().remove(this);
 		currentLevel.verminderInfotron();
+		currentLevel.removeElement(this);
+		this.valChecker.stopThread();
+		actieTimer.stop();
 	}
-
+	
 	@Override
 	public void val() {
 		SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32));
@@ -71,12 +68,20 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 		}
 	}
 
+	public void stopValChecker()
+	{
+		valChecker.stopThread();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ontplofTimer)
 		{
+			System.out.println(ontplofTeller);
 			actieTimer.stop();
 			super.actionPerformed(e);
+			if (ontplofTeller == 7)
+				valChecker.stopThread();
 		}
 		if (e.getSource() == actieTimer)
 		{
@@ -88,13 +93,15 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 					currentLevel.repaint();
 					if (Botsing.raakt(this, currentLevel.getMurphy()))
 					{
-						if (this.getX() == currentLevel.getMurphy().getxPos())
+						if ((this.getX() == currentLevel.getMurphy().getxPos()) 
+								&& this.getY() <= currentLevel.getMurphy().getyPos() - 32)
 						{
 							currentLevel.removeElement(this);
 							this.actieTimer.stop();
+							valChecker.stopThread();
 							currentLevel.getMurphy().ontplof();
 						}
-							
+
 					}
 				}
 				else
