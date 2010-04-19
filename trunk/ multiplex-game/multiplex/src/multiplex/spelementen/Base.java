@@ -1,6 +1,7 @@
 package multiplex.spelementen;
 
 import multiplex.level.Level;
+import multiplex.spelementen.interfaces.IsEetbaar;
 
 public class Base extends StatischObject implements IsEetbaar {
 

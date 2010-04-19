@@ -11,6 +11,7 @@ public class SpelElement extends JPanel {
 	protected final int BREEDTE = 32;
 	protected final int HOOGTE = 32;
 	protected int xPos, yPos;
+	protected int levelX, levelY;
 	protected Timer actieTimer;
 	protected Level currentLevel;
 	protected int elementType;
@@ -20,6 +21,13 @@ public class SpelElement extends JPanel {
 		this.currentLevel = level;
 		this.setSize(BREEDTE, HOOGTE);
 		this.setOpaque(false);
+	}
+	
+	public SpelElement (Level level, int x, int y)
+	{
+		this(level);
+		setLevelX(x);
+		setLevelY(y);
 	}
 	public ImageIcon getAfbeelding() {
 		return afbeelding;
@@ -55,6 +63,18 @@ public class SpelElement extends JPanel {
 		this.actieTimer = actieTimer;
 	}
 
+	public int getLevelX() {
+		return levelX;
+	}
+	public void setLevelX(int levelX) {
+		this.levelX = levelX;
+	}
+	public int getLevelY() {
+		return levelY;
+	}
+	public void setLevelY(int levelY) {
+		this.levelY = levelY;
+	}
 	public int getElementType() {
 		return elementType;
 	}

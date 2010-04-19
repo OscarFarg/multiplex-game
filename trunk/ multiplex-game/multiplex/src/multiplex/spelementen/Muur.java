@@ -9,6 +9,7 @@ public class Muur extends StatischObject {
 		super(level); //nodig zodat de breedte, hoogte en doorzichtigheid worden ingesteld.
 		this.setAfbeelding(createImageIcon("images/muur.png"));
 	}
+
 	
 
 }

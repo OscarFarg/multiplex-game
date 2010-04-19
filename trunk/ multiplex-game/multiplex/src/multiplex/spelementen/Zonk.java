@@ -10,6 +10,8 @@ import javax.swing.Timer;
 
 import multiplex.level.Level;
 import multiplex.level.ValChecker;
+import multiplex.spelementen.interfaces.IsDuwbaar;
+import multiplex.spelementen.interfaces.KanVallen;
 
 public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, ActionListener {
 
