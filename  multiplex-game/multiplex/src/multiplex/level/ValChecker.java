@@ -20,11 +20,6 @@ public class ValChecker extends Thread {
 		this.element = element;
 	}
 
-	public void start()
-	{
-		super.start();
-	}
-
 	public void run() {
 		if (currentLevel == null)
 		{

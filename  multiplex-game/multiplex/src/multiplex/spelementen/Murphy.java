@@ -172,7 +172,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 		case KeyEvent.VK_RIGHT:
 			setRichting(Richting.RECHTS); break;
 		case KeyEvent.VK_ESCAPE:
-			ontplof(); break;
+			ontplof(); removeKeyListener(this); break;
 		}
 
 		if (checkRichting(richting))
@@ -181,6 +181,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 	public void ontplof()
 	{
+		System.out.println("ontplof");
 		super.ontplof();
 		for (int i = -1; i < 2; i++)
 			for (int j = -1; j < 2; j++)
