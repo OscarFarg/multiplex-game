@@ -5,12 +5,10 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.*;
 
-import javax.swing.*;
-
 import multiplex.level.Level;
 import multiplex.botsing.Botsing;
 
-public class SnikSnak extends Vijand implements ActionListener, Runnable
+public class SnikSnak extends Vijand implements Runnable
 {
 	private int richting = 3;
 	private final int DELAY = 250;
@@ -70,16 +68,16 @@ public class SnikSnak extends Vijand implements ActionListener, Runnable
 		switch (richting)
 		{
 		case 0:
-			g.drawImage(im, 0, 0, getWidth(), getHeight(), 350, 61, 382, 93, this);
+			g.drawImage(im, 0, 0, getWidth(), getHeight(), 95, 1, 127, 33, this);
 			break;
 		case 2: 
-			g.drawImage(im, 0, 0, getWidth(), getHeight(), 412, 63, 444, 95, this);
+			g.drawImage(im, 0, 0, getWidth(), getHeight(), 415, 0, 447, 32, this);
 			break;
 		case 3:
-			g.drawImage(im, 0, 0, getWidth(), getHeight(), 382, 61, 414, 93, this);
+			g.drawImage(im, 0, 0, getWidth(), getHeight(), 304, 32, 336, 64, this);
 			break;
 		case 1: 
-			g.drawImage(im, 0, 0, getWidth(), getHeight(), 446, 64, 478, 96, this);
+			g.drawImage(im, 0, 0, getWidth(), getHeight(), 2, 61, 34, 93, this);
 			break;
 		}
 	}
@@ -115,23 +113,115 @@ public class SnikSnak extends Vijand implements ActionListener, Runnable
 	{		
 		while (true)
 		{
-
-
-			while( !checkRichting((richting + 3) % 4) ) // zolang links vol zit
 			{
-				// ga rechtdoor
-				beweeg(richting);
-				repaint();
-				try {
-					Thread.sleep(DELAY);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				if( !checkRichting(richting) ) // als rechtdoor vol zit
+				if( !checkRichting((richting + 3) % 4) ) //als links vol is
 				{
-					// ga rechts
-					richting = (richting + 1) % 4; //verander de richting naar rechts
+					if( !checkRichting(richting) ) // als rechtdoor vol zit
+					{
+						if ( !checkRichting((richting + 1) % 4) ) // als rechts vol zit
+						{
+							if( !checkRichting((richting + 2) % 4) ) //als achter vol zit
+							{
+								//verander dan alleen de richting maar beweeg niet
+								richting = (richting + 3) % 4;
+								repaint();
+								try {
+									Thread.sleep(DELAY);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+							}
+							else
+							{
+								// ga terug
+								richting = (richting + 2) % 4;
+								repaint();
+								try {
+									Thread.sleep(DELAY);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								System.out.println("twee");
+								beweeg(richting);
+								repaint();
+							}
+						}
+						else
+						{
+							// ga rechts
+							richting = (richting + 1) % 4; //verander de richting naar rechts
+							repaint();
+							try {
+								Thread.sleep(DELAY);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							beweeg(richting);
+							repaint();
+						}
+					}
+					else
+					{
+						// ga rechtdoor
+						if(richting == 1 || richting == 3)
+						{
+							if(xPos <= 0 || xPos >= (currentLevel.getLevelWidth() * 32))
+							{
+								// ga terug
+								richting = (richting + 2) % 4;
+								repaint();
+								try {
+									Thread.sleep(DELAY);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								beweeg(richting);
+								repaint();
+							}
+							else
+							{
+								//ga recht door
+								try {
+									Thread.sleep(DELAY);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								beweeg(richting);
+								repaint();
+							}
+						}
+						if(richting == 2 || richting == 0)
+						{
+							if(yPos <= 0 || yPos >= (currentLevel.getLevelWidth() * 32))
+							{
+								// ga terug
+								richting = (richting + 2) % 4;
+								repaint();
+								try {
+									Thread.sleep(DELAY);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								beweeg(richting);
+								repaint();
+							}
+							else
+							{
+								//ga recht door
+								try {
+									Thread.sleep(DELAY);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								beweeg(richting);
+								repaint();
+							}
+						}
+					}
+				}
+				else
+				{
+					richting = (richting + 3) % 4;
 					repaint();
 					try {
 						Thread.sleep(DELAY);
@@ -140,52 +230,8 @@ public class SnikSnak extends Vijand implements ActionListener, Runnable
 					}
 					beweeg(richting);
 					repaint();
-
-					if( !checkRichting((richting + 1) % 4) ) // als rechts vol zit
-					{
-						// ga terug
-						richting = (richting + 2) % 4;
-						repaint();
-						try {
-							Thread.sleep(DELAY);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						System.out.println("twee");
-						beweeg(richting);
-						repaint();
-					}
-					else
-					{
-						richting =(richting + 3) % 4;
-						repaint();
-						try {
-							Thread.sleep(DELAY);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						repaint();
-						System.out.println("");
-					}
 				}
-			}
-			while( checkRichting((richting + 3) % 4) ) // zolang links leeg is
-			{	
-				richting = (richting + 3) % 4;
-				repaint();
-				try {
-					Thread.sleep(DELAY);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				beweeg(richting);
-				repaint();
 			}
 		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
 	}
 }
