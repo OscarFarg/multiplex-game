@@ -41,10 +41,8 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 
 	@Override
 	public void eet() {
-		currentLevel.remove(this);
+		currentLevel.removeElement(this);
 		currentLevel.getEetbaarList().remove(this);
-		currentLevel.getElementList().remove(this);
-		currentLevel.repaint();		
 	}
 
 	@Override

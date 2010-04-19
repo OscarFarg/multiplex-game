@@ -1,11 +1,14 @@
 package multiplex.spelementen;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 import multiplex.level.Level;
 
-public class SpelElement extends JPanel {
+public class SpelElement extends JPanel implements ActionListener {
 
 	protected ImageIcon afbeelding;
 	protected final int BREEDTE = 32;
@@ -15,12 +18,16 @@ public class SpelElement extends JPanel {
 	protected Timer actieTimer;
 	protected Level currentLevel;
 	protected int elementType;
+	protected Timer ontplofTimer;
+	protected boolean ontplof;
+	protected int ontplofTeller;
 
 	public SpelElement(Level level)
 	{
 		this.currentLevel = level;
 		this.setSize(BREEDTE, HOOGTE);
 		this.setOpaque(false);
+		ontplofTimer = new Timer(70, this);
 	}
 	
 	public SpelElement (Level level, int x, int y)
@@ -99,14 +106,37 @@ public class SpelElement extends JPanel {
 			return null;
 		}
 	}
+	
 	public void tekenAfbeelding(Graphics g)
 	{
 		g.drawImage(afbeelding.getImage(), 0, 0, getWidth(), getHeight(), this);
-
+		if (ontplof)
+		{
+			int clipX = ontplofTeller * 32;
+			g.drawImage(afbeelding.getImage(), 0, 0, getWidth(), getHeight(), clipX, 0, clipX + 32, 32, this);
+		}
 	}
 
 	public void ontplof()
 	{
+		this.setAfbeelding(createImageIcon("images/explosion.png"));
+		ontplofTimer.start();
+		ontplof = true;
+	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == ontplofTimer)
+		{
+			ontplofTeller = ( ontplofTeller + 1 ) % 8;
+			repaint();
+			if (ontplofTeller == 7)
+			{
+				ontplof = false;
+				ontplofTimer.stop();
+				currentLevel.removeElement(this);
+			}
+
+		}		
 	}
 }

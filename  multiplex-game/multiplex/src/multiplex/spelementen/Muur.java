@@ -10,6 +10,10 @@ public class Muur extends StatischObject {
 		this.setAfbeelding(createImageIcon("images/muur.png"));
 	}
 
-	
+	@Override
+	public void ontplof()
+	{
+		//doe niets. muren onploffen niet.
+	}
 
 }
