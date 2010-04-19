@@ -23,6 +23,7 @@ public class CollisionChecker extends Thread {
 				Thread.sleep(100);
 				if (Botsing.raakt(vijand, murphy))
 				{
+					vijand.collision();
 					murphy.ontplof();
 				}
 			} catch (InterruptedException e) {

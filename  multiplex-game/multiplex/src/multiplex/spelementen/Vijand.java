@@ -13,5 +13,8 @@ public class Vijand extends DynamischObject
 		collisionChecker.start();
 	}
 	
-	
+	public void collision()
+	{
+		currentLevel.removeElement(this);
+	}	
 }

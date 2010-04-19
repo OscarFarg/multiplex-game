@@ -29,7 +29,7 @@ public class SpelElement extends JPanel implements ActionListener {
 		this.setOpaque(false);
 		ontplofTimer = new Timer(70, this);
 	}
-	
+
 	public SpelElement (Level level, int x, int y)
 	{
 		this(level);
@@ -106,7 +106,7 @@ public class SpelElement extends JPanel implements ActionListener {
 			return null;
 		}
 	}
-	
+
 	public void tekenAfbeelding(Graphics g)
 	{
 		g.drawImage(afbeelding.getImage(), 0, 0, getWidth(), getHeight(), this);
@@ -119,9 +119,13 @@ public class SpelElement extends JPanel implements ActionListener {
 
 	public void ontplof()
 	{
-		this.setAfbeelding(createImageIcon("images/explosion.png"));
-		ontplofTimer.start();
-		ontplof = true;
+		System.out.println(this);
+		if (!ontplof)
+		{
+			this.setAfbeelding(createImageIcon("images/explosion.png"));
+			ontplofTimer.start();
+			ontplof = true;
+		}
 	}
 
 	@Override
@@ -133,7 +137,6 @@ public class SpelElement extends JPanel implements ActionListener {
 			{
 				ontplofTimer.stop();
 				currentLevel.removeElement(this);
-				ontplof = false;
 			}
 			repaint();
 

@@ -181,25 +181,30 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 	public void ontplof()
 	{
-		System.out.println("ontplof");
-		super.ontplof();
-		for (int i = -1; i < 2; i++)
-			for (int j = -1; j < 2; j++)
-			{
-				int x = this.getxPos() + (i * 32);
-				int y = this.getyPos() + (j * 32);
-				Point p = new Point( x, y);
-				SpelElement element = currentLevel.getElementAt(p);
-				if (element == null)
+		if (!ontplof)
+		{
+			this.setAfbeelding(createImageIcon("images/explosion.png"));
+			ontplofTimer.start();
+			ontplof = true;
+
+			for (int i = -1; i < 2; i++)
+				for (int j = -1; j < 2; j++)
 				{
-					element = new SpelElement(currentLevel);
-					currentLevel.addElement(element, p);
-					element.ontplof();
-				}
-				else
-					if (element != this)
+					int x = this.getxPos() + (i * 32);
+					int y = this.getyPos() + (j * 32);
+					Point p = new Point( x, y);
+					SpelElement element = currentLevel.getElementAt(p);
+					if (element == null)
+					{
+						element = new SpelElement(currentLevel);
+						currentLevel.addElement(element, p);
 						element.ontplof();
-			}
+					}
+					else
+						if (element != this)
+							element.ontplof();
+				}
+		}
 	}
 
 	@Override
