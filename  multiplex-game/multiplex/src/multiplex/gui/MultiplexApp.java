@@ -14,7 +14,7 @@ public class MultiplexApp extends JFrame
 		this.setLocation(300,100);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setTitle("Multiplex v0.01");
+		this.setTitle("Multiplex v0.02");
 		this.setContentPane(appPanel);
 		this.setVisible(true);
 	}
