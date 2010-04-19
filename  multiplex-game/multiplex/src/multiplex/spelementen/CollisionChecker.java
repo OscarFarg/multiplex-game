@@ -8,6 +8,7 @@ public class CollisionChecker extends Thread {
 
 	private Vijand vijand;
 	private Murphy murphy;
+	private boolean alive = false;
 
 	public CollisionChecker(Vijand vijand, Murphy murphy)
 	{
@@ -15,24 +16,26 @@ public class CollisionChecker extends Thread {
 		this.murphy = murphy;
 	}
 
+	public void stopThread()
+	{
+		alive = false;
+	}
+	
 	public void run()
 	{
-		while (true)
+		while (alive)
 		{
 			try {
 				Thread.sleep(100);
 				if (Botsing.raakt(vijand, murphy))
 				{
 					vijand.collision();
-					murphy.ontplof();
 				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-
-
 		}
+		interrupt();
 	}
 }

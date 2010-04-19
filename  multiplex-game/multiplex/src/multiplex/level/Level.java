@@ -21,12 +21,12 @@ public class Level extends JPanel {
 	private AppPanel appPanel;
 
 	private ArrayList<SpelElement> elementList = new ArrayList<SpelElement>();
-	private ArrayList<Vijand> vijandList = new ArrayList<Vijand>();
-	private ArrayList<IsEetbaar> eetbaarList = new ArrayList<IsEetbaar>();
-	private ArrayList<KanVallen> vallenList = new ArrayList<KanVallen>();
-	private ArrayList<IsDuwbaar> duwerList = new ArrayList<IsDuwbaar>();
+	//private ArrayList<Vijand> vijandList = new ArrayList<Vijand>();
+	//private ArrayList<IsEetbaar> eetbaarList = new ArrayList<IsEetbaar>();
+	//private ArrayList<KanVallen> vallenList = new ArrayList<KanVallen>();
+	//private ArrayList<IsDuwbaar> duwerList = new ArrayList<IsDuwbaar>();
 
-	private ValChecker valChecker = new ValChecker(this);
+	//private ValChecker valChecker = new ValChecker(this);
 	private int levelWidth, levelHeight; //hoogte van het level. in vakjes, niet pixels.
 	private int[][] level;
 	private int aantalInfotrons;
@@ -34,14 +34,12 @@ public class Level extends JPanel {
 	public Level(AppPanel appPanel)
 	{
 		this.appPanel = appPanel;
-		murphy = new Murphy(this);
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
 		level = createFirstLevel();
-		this.showLevel(level);
 		aantalInfotrons = 0;
 	}
-	
+
 
 	public int[][] createFirstLevel()
 	{
@@ -49,61 +47,31 @@ public class Level extends JPanel {
 		this.setLevelHeight(11);
 		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
 		return new int[][] {
-				{8, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 6, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, -1, 9, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1}
+				{8, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 7, 7, 9, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 		};
 	}
 
-	public void addElement(SpelElement element, Point location)
+	public void startLevel()
 	{
-		elementList.add(element);
-		element.setLocation(location);
-		if (element == murphy)
-			this.add(element, 0);
-		else
-		{
-			if (element instanceof IsEetbaar) {
-				IsEetbaar eetbaar = (IsEetbaar) element;
-				eetbaarList.add(eetbaar);
-			} 
-			if (element instanceof KanVallen) {
-				KanVallen valler = (KanVallen) element;
-				vallenList.add(valler);
-			} 
-			if (element instanceof IsDuwbaar) {
-				IsDuwbaar duwbaar = (IsDuwbaar) element;
-				duwerList.add(duwbaar);
-			}
-		}
+		if (level == null)
+			level = createFirstLevel();		
 
-		this.add(element);
+		murphy = new Murphy(this);
+		showLevel(level);
+		murphy.setFocusable(true);
+		murphy.requestFocus();
 	}
 
-	public int getAantalInfotrons() {
-		return aantalInfotrons;
-	}
-
-	public void setAantalInfotrons(int aantalInfotrons) {
-		this.aantalInfotrons = aantalInfotrons;
-	}
-
-	public void removeElement(SpelElement element)
-	{
-		this.remove(element);
-		this.getElementList().remove(element);
-		this.repaint();
-		element = null;
-
-	}
 	public void showLevel(int[][] level)
 	{
 		for (int i = 0; i < level.length; i++)
@@ -139,6 +107,34 @@ public class Level extends JPanel {
 		}
 	}
 
+	public void addElement(SpelElement element, Point location)
+	{
+		elementList.add(element);
+		element.setLocation(location);
+		if (element == murphy)
+			this.add(element, 0);
+
+		this.add(element);
+	}
+
+	public void removeElement(SpelElement element)
+	{
+		this.remove(element);
+		this.getElementList().remove(element);
+		this.repaint();
+		element = null;
+	}
+
+	public int getAantalInfotrons() {
+		return aantalInfotrons;
+	}
+
+	public void setAantalInfotrons(int aantalInfotrons) {
+		this.aantalInfotrons = aantalInfotrons;
+	}
+
+
+
 	public Murphy getMurphy() {
 		return murphy;
 	}
@@ -155,21 +151,6 @@ public class Level extends JPanel {
 		this.elementList = elementList;
 	}
 
-	public ArrayList<Vijand> getVijandList() {
-		return vijandList;
-	}
-
-	public void setVijandList(ArrayList<Vijand> vijandList) {
-		this.vijandList = vijandList;
-	}
-
-	public ArrayList<IsEetbaar> getEetbaarList() {
-		return eetbaarList;
-	}
-
-	public void setEetbaarList(ArrayList<IsEetbaar> eetbaarList) {
-		this.eetbaarList = eetbaarList;
-	}
 
 	public int getLevelWidth() {
 		return levelWidth;
@@ -191,14 +172,19 @@ public class Level extends JPanel {
 
 	public boolean isEetbaar(SpelElement element)
 	{
-		for (int i = 0; i < eetbaarList.size(); i ++)
+
+		for (int i = 0; i < elementList.size(); i++)
 		{
-			if (element == (SpelElement) eetbaarList.get(i))
+			try {
+				IsEetbaar eetbaar = (IsEetbaar) element;
 				return true;
+			} catch (Exception e) {
+				return false;
+			}
 		}
 		return false;
 	}
-	
+
 	public void verminderInfotron()
 	{
 		aantalInfotrons--;
@@ -217,10 +203,7 @@ public class Level extends JPanel {
 
 	}
 
-	public void startLevel()
-	{
 
-	}
 
 	public SpelElement getElement()
 	{
@@ -233,7 +216,7 @@ public class Level extends JPanel {
 		return 0;
 
 	}
-	
+
 
 	public SpelElement getElementAt(Point location)
 	{
@@ -254,9 +237,7 @@ public class Level extends JPanel {
 		return null;
 	}
 
-	public ArrayList<KanVallen> getVallenList() {
-		return vallenList;
-	}
+
 
 
 	public void tekenSpelElement(int ElementNr)
@@ -284,16 +265,33 @@ public class Level extends JPanel {
 		if(aantalInfotrons == 0)
 		{
 			appPanel.remove(appPanel.getGamePanel());
-			appPanel.add(appPanel.getMainPanel());
+			appPanel.getMainPanel().setVisible(true);
+			appPanel.getGamePanel().endGame();
 			appPanel.repaint();
+
 		}
 	}
 
 	public void eindeLevel()
 	{
 		appPanel.remove(appPanel.getGamePanel());
-		appPanel.add(appPanel.getMainPanel());
+		appPanel.getMainPanel().setVisible(true);
+		appPanel.getGamePanel().endGame();
 		appPanel.repaint();
+		for (int i = 0; i < elementList.size(); i++)
+		{
+			try {
+				Zonk zonk = (Zonk) elementList.get(i);
+				zonk.stopValChecker();
+			} catch (Exception e1)
+			{
+				try
+				{
+					Infotron infi = (Infotron) elementList.get(i);
+					infi.stopValChecker();
+				} catch (Exception e2) {}
+			}
+		}
 	}
 
 }

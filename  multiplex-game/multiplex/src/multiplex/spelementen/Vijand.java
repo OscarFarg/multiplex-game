@@ -16,5 +16,7 @@ public class Vijand extends DynamischObject
 	public void collision()
 	{
 		currentLevel.removeElement(this);
-	}	
+		collisionChecker.stopThread();
+		currentLevel.getMurphy().ontplof();
+	}
 }

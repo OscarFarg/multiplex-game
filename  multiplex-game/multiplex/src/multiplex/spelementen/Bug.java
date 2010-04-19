@@ -29,9 +29,16 @@ public class Bug extends Vijand implements ActionListener, IsEetbaar {
 
 	public void tekenAfbeelding(Graphics g)
 	{
-		Image im = this.getAfbeelding().getImage();
-		int clipX = actieTeller * 32;
-		g.drawImage(im, 0, 0, getWidth(), getHeight(), clipX, 0, clipX + 32, 32, this);
+		if (ontplof)
+		{
+			super.tekenAfbeelding(g);
+		}
+		else
+		{
+			Image im = this.getAfbeelding().getImage();
+			int clipX = actieTeller * 32;
+			g.drawImage(im, 0, 0, getWidth(), getHeight(), clipX, 0, clipX + 32, 32, this);
+		}
 
 	}
 
@@ -68,16 +75,18 @@ public class Bug extends Vijand implements ActionListener, IsEetbaar {
 
 			return false;
 	}
-
+	
+	public void ontplof()
+	{
+		super.ontplof();
+		randomTimer.stop();
+		actieTimer.stop();
+	}
 	@Override
 	public void eet() {
 		if (isEetbaar())
-		{
-			currentLevel.remove(this);
-			currentLevel.getEetbaarList().remove(this);
-			currentLevel.getElementList().remove(this);
-			currentLevel.repaint();
-		}
-
+			currentLevel.removeElement(this);
+		else
+			collision();
 	}
 }

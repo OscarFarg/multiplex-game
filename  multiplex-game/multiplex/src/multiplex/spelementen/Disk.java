@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import multiplex.level.Level;
-import multiplex.level.ValChecker;
 import multiplex.spelementen.interfaces.IsDuwbaar;
 import multiplex.spelementen.interfaces.KanVallen;
 
@@ -32,8 +31,14 @@ public class Disk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 	
 	public void tekenAfbeelding(Graphics g)
 	{
-		Image im = getAfbeelding().getImage();
-		g.drawImage(im, 0, 0, getWidth(), getHeight(), 0, 0, 32, 32, this);
+		if (ontplof)
+			super.tekenAfbeelding(g);
+		else
+		{
+			Image im = getAfbeelding().getImage();
+			g.drawImage(im, 0, 0, getWidth(), getHeight(), 0, 0, 32, 32, this);
+		}
+
 	}
 
 	@Override
