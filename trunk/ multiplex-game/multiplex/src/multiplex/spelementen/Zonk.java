@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import multiplex.botsing.Botsing;
 import multiplex.level.Level;
 import multiplex.level.ValChecker;
 import multiplex.spelementen.interfaces.IsDuwbaar;
@@ -28,6 +29,7 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 
 		actieTimer = new Timer(20, this);
 		valChecker = new ValChecker(this);
+
 		valChecker.start();
 
 	}
@@ -64,7 +66,7 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 				vallend = false;
 				actieTimer.stop();
 			}
-		}	
+		}
 	}
 
 	@Override
@@ -73,7 +75,6 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 		{
 			actieTimer.stop();
 			super.actionPerformed(e);
-
 		}
 		if (e.getSource() == actieTimer)
 		{
@@ -83,6 +84,16 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 				{
 					this.setLocation(getX(), getY() + 8);
 					currentLevel.repaint();
+					if (Botsing.raakt(this, currentLevel.getMurphy()))
+					{
+						if (this.getX() == currentLevel.getMurphy().getxPos())
+						{
+							currentLevel.removeElement(this);
+							this.actieTimer.stop();
+							currentLevel.getMurphy().ontplof();
+						}
+							
+					}
 				}
 				else
 				{

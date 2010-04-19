@@ -129,13 +129,13 @@ public class SpelElement extends JPanel implements ActionListener {
 		if (e.getSource() == ontplofTimer)
 		{
 			ontplofTeller = ( ontplofTeller + 1 ) % 8;
-			repaint();
 			if (ontplofTeller == 7)
 			{
-				ontplof = false;
 				ontplofTimer.stop();
 				currentLevel.removeElement(this);
+				ontplof = false;
 			}
+			repaint();
 
 		}		
 	}

@@ -35,8 +35,16 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 
 	public void tekenAfbeelding(Graphics g)
 	{
-		Image im = getAfbeelding().getImage();
-		g.drawImage(im, 0, 0, getWidth(), getHeight(), 224, 0, 256, 32, this);
+		if (ontplof)
+		{
+			super.tekenAfbeelding(g);
+		}
+		else
+		{
+			Image im = getAfbeelding().getImage();
+			g.drawImage(im, 0, 0, getWidth(), getHeight(), 224, 0, 256, 32, this);
+		}
+
 	}
 
 	@Override
@@ -64,6 +72,12 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == ontplofTimer)
+		{
+			actieTimer.stop();
+			super.actionPerformed(e);
+
+		}
 		if (e.getSource() == actieTimer)
 		{
 			if (!opBodem)
@@ -72,6 +86,16 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 				{
 					this.setLocation(getX(), getY() + 8);
 					currentLevel.repaint();
+					if (Botsing.raakt(this, currentLevel.getMurphy()))
+					{
+						if (this.getX() == currentLevel.getMurphy().getxPos())
+						{
+							currentLevel.removeElement(this);
+							this.actieTimer.stop();
+							currentLevel.getMurphy().ontplof();
+						}
+							
+					}
 				}
 				else
 				{
