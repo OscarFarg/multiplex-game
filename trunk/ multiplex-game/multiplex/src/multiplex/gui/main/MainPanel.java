@@ -9,7 +9,8 @@ import multiplex.gui.AppPanel;
 
 public class MainPanel extends JPanel implements MouseListener
 {
-	private JLabel newPlayerKnop, skipLevelKnop, creditsKnop, viewHighscoresKnop, helpKnop, startKnop, loadKnop;
+	private JLabel newPlayerKnop, skipLevelKnop, creditsKnop, viewHighscoresKnop, helpKnop, startKnop, loadKnop, 
+		levelOmhoogKnop, levelOmlaagKnop, spelerOmhoogKnop, spelerOmlaagKnop;
 
 	private AppPanel appPanel;
 
@@ -60,17 +61,31 @@ public class MainPanel extends JPanel implements MouseListener
 		this.add(loadKnop);
 		loadKnop.addMouseListener(this);
 		loadKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/loadKnop.png")));
-		loadKnop.setBounds(119,218,54,50);
+		loadKnop.setBounds(119,215,54,50);
 		
+		levelOmhoogKnop = new JLabel();
+		this.add(levelOmhoogKnop);
+		levelOmhoogKnop.addMouseListener(this);
+		levelOmhoogKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/levelUpKnop.png")));
+		levelOmhoogKnop.setBounds(286,208,326,20);
 		
-		//Is handiger in de paint component.
+		spelerOmlaagKnop = new JLabel();
+		this.add(spelerOmlaagKnop);
+		spelerOmlaagKnop.addMouseListener(this);
+		spelerOmlaagKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/levelDownKnop.png")));
+		spelerOmlaagKnop.setBounds(286,286,326,20);
 		
-		/*
-		titelMenuGrafisch = new JLabel();
-		this.add(titelMenuGrafisch);
-		titelMenuGrafisch.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/titelMenuGrafisch.png")));
-		titelMenuGrafisch.setBounds(0,0,640,400);
-		*/
+		spelerOmhoogKnop = new JLabel();
+		this.add(spelerOmhoogKnop);
+		spelerOmhoogKnop.addMouseListener(this);
+		spelerOmhoogKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/spelerUpKnop.png")));
+		spelerOmhoogKnop.setBounds(215,91,110,20);
+		
+		spelerOmlaagKnop = new JLabel();
+		this.add(spelerOmlaagKnop);
+		spelerOmlaagKnop.addMouseListener(this);
+		spelerOmlaagKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/spelerDownKnop.png")));
+		spelerOmlaagKnop.setBounds(215,169,110,20);
 		
 		setVisible(true);
 	}
