@@ -40,17 +40,9 @@ public class Level extends JPanel {
 		level = createFirstLevel();
 		this.showLevel(level);
 		aantalInfotrons = 0;
-		for (int i = 0; i < level.length; i++)
-			for (int j = 0; j < level[i].length; j++)
-			{
-				if(level[i][i] == 3)
-				{
-					aantalInfotrons++;
-					System.out.println(aantalInfotrons);
-				}
-			}
 	}
 	
+
 	public int[][] createFirstLevel()
 	{
 		this.setLevelWidth(40);
@@ -124,7 +116,7 @@ public class Level extends JPanel {
 				case 0: addElement(new Muur(this), location); break; 			//0: Muur toevoegen
 				case 1: addElement(new Base(this), location); break; 			//1: Base toevoegen
 				case 2: addElement(new Zonk(this), location); break; 			//2: Zonk toevoegen
-				case 3: addElement(new Infotron(this), location); break; 		//3: Infotron
+				case 3: addElement(new Infotron(this), location); aantalInfotrons++ ;break; 		//3: Infotron
 				case 4: addElement(new Disk(this), location); break;			//4: Disk
 				case 5: break;		//5: Port
 				case 6: addElement(new SnikSnak(this), location); break;		//6: SnikSnak
