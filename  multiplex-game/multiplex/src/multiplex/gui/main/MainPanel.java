@@ -2,23 +2,35 @@ package multiplex.gui.main;
 
 import java.awt.*;
 import java.awt.event.*;
-
+import java.util.ArrayList;
 import javax.swing.*;
-
+import multiplex.gui.main.HighscoresPanel;
+import multiplex.gui.main.CreditsPanel;
+import multiplex.gui.main.HelpPanel;
 import multiplex.gui.AppPanel;
 
 public class MainPanel extends JPanel implements MouseListener
 {
+	private HighscoresPanel highscoresPanel = new HighscoresPanel(this);
+	private CreditsPanel creditsPanel = new CreditsPanel(this);
+	private HelpPanel helpPanel = new HelpPanel(this);
+	
 	private JLabel newPlayerKnop, skipLevelKnop, creditsKnop, viewHighscoresKnop, helpKnop, startKnop, loadKnop, 
 		levelOmhoogKnop, levelOmlaagKnop, spelerOmhoogKnop, spelerOmlaagKnop; // de knoppen
 	
 	private int level = 1; //het geselecteerde level
 	private AppPanel appPanel;
-	String[] levelArray = {" ", "001 -------------------------- Level 1 ------------------------", "002 -------------------------- Level 2 ------------------------", "003 -------------------------- Level 3 ------------------------", "004 -------------------------- Level 4 ------------------------", "005 -------------------------- Level 5 ------------------------", "006 -------------------------- Level 6 ------------------------", " "};
-
+	String[] levelArray = {" ", "001 -------------------------- Level 1 ------------------------", "002 -------------------------- Level 2 ------------------------", "003 -------------------------- Level 3 ------------------------",
+			"004 -------------------------- Level 4 ------------------------", "005 -------------------------- Level 5 ------------------------", "006 -------------------------- Level 6 ------------------------", " "};
+	ArrayList<String> spelernamen;
+	
 	public MainPanel(AppPanel appPanel)
 	{
+		spelernamen = new ArrayList<String>(); //aan deze arraylist worden nieuwe spelers toegevoegd met "new player"
+		
 		setLayout(null); //null layout, zodat je de knoppen zelf kan positioneren
+		
+		this.setBounds(0, 0, 646, 410); //grootte van het veld
 		
 		this.appPanel = appPanel;
 
@@ -129,14 +141,26 @@ public class MainPanel extends JPanel implements MouseListener
 		else if (e.getSource() == viewHighscoresKnop) // als er op "view highscores" geklikt wordt
 		{
 			System.out.println("highscores weergeven");
+			
+			this.setVisible(false);
+			appPanel.add(highscoresPanel);
+			highscoresPanel.setVisible(true);
 		}
 		else if (e.getSource() == helpKnop) //als er op "help" geklikt wordt
 		{
 			System.out.println("laat helpscherm zien");
+			
+			this.setVisible(false);
+			appPanel.add(helpPanel);
+			helpPanel.setVisible(true);
 		}
 		else if (e.getSource() == creditsKnop) //als er op "credits" geklikt wordt
 		{
 			System.out.println("laat credits zien");
+			
+			this.setVisible(false);
+			appPanel.add(creditsPanel);
+			creditsPanel.setVisible(true);
 		}
 		else if (e.getSource() == startKnop) //als er op "start" geklikt wordt
 		{
