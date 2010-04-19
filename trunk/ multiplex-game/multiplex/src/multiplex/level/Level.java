@@ -28,13 +28,26 @@ public class Level extends JPanel {
 
 	private ValChecker valChecker = new ValChecker(this);
 	private int levelWidth, levelHeight; //hoogte van het level. in vakjes, niet pixels.
+	private int[][] level;
+	private int aantalInfotrons;
 
 	public Level(AppPanel appPanel)
 	{
 		this.appPanel = appPanel;
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
-		this.showLevel(createFirstLevel()); 
+		level = createFirstLevel();
+		this.showLevel(level);
+		aantalInfotrons = 0;
+		for (int i = 0; i < level.length; i++)
+			for (int j = 0; j < level[i].length; j++)
+			{
+				if(level[i][i] == 3)
+				{
+					aantalInfotrons++;
+					System.out.println(aantalInfotrons);
+				}
+			}
 	}
 	
 	public int[][] createFirstLevel()
@@ -44,7 +57,7 @@ public class Level extends JPanel {
 		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
 		return new int[][] {
 				{8, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 6, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
@@ -80,6 +93,14 @@ public class Level extends JPanel {
 		}
 
 		this.add(element);
+	}
+
+	public int getAantalInfotrons() {
+		return aantalInfotrons;
+	}
+
+	public void setAantalInfotrons(int aantalInfotrons) {
+		this.aantalInfotrons = aantalInfotrons;
 	}
 
 	public void removeElement(SpelElement element)
@@ -182,6 +203,11 @@ public class Level extends JPanel {
 		}
 		return false;
 	}
+	
+	public void verminderInfotron()
+	{
+		aantalInfotrons--;
+	}
 
 
 	public void showLaadDialog()
@@ -212,6 +238,7 @@ public class Level extends JPanel {
 		return 0;
 
 	}
+	
 
 	public SpelElement getElementAt(Point location)
 	{
@@ -224,7 +251,7 @@ public class Level extends JPanel {
 				if ((elementLocation.y == location.y) && (elementLocation.x == location.x))
 				{
 					if (elementList.get(i) == exit)
-						exit.eindeLevel();
+						exit.doUitgespeeld();
 					return elementList.get(i);
 				}
 			}
@@ -259,9 +286,12 @@ public class Level extends JPanel {
 
 	public void doUitgespeeld()
 	{
-		appPanel.remove(appPanel.getGamePanel());
-		appPanel.add(appPanel.getMainPanel());
-		appPanel.repaint();
+		if(aantalInfotrons == 0)
+		{
+			appPanel.remove(appPanel.getGamePanel());
+			appPanel.add(appPanel.getMainPanel());
+			appPanel.repaint();
+		}
 	}
 
 	public void eindeLevel()
