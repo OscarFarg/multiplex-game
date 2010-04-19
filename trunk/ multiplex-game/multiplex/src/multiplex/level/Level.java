@@ -42,12 +42,12 @@ public class Level extends JPanel {
 		this.setLevelHeight(11);
 		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
 		return new int[][] {
-				{8, 1, 1, 2, 2, 2, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
+				{8, 1, 1, 2, 2, 2, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 2, 3, 2, 2, 2, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 3, 2, 3, 3, 3, 1, 1, 1, 7, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 4, 1, 7, 1, 7, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
+				{1, 1, 1, 3, 2, 3, 3, 3, 1, 1, 1, 7, 1, 1, 1, 1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 4, 1, 7, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 7, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 0},
-				{1, 1, 1, -1, -1, -1, -1, -1, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1},
@@ -55,7 +55,6 @@ public class Level extends JPanel {
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1}
 		};
 	}
-
 
 	public void addElement(SpelElement element, Point location)
 	{
@@ -82,6 +81,12 @@ public class Level extends JPanel {
 		this.add(element);
 	}
 
+	public void removeElement(SpelElement element)
+	{
+		this.remove(element);
+		this.getElementList().remove(element);
+		this.repaint();
+	}
 	public void showLevel(int[][] level)
 	{
 		for (int i = 0; i < level.length; i++)
@@ -172,7 +177,7 @@ public class Level extends JPanel {
 		for (int i = 0; i < eetbaarList.size(); i ++)
 		{
 			if (element == (SpelElement) eetbaarList.get(i))
-					return true;
+				return true;
 		}
 		return false;
 	}
@@ -258,5 +263,11 @@ public class Level extends JPanel {
 		appPanel.repaint();
 	}
 
+	public void eindeLevel()
+	{
+		appPanel.remove(appPanel.getGamePanel());
+		appPanel.add(appPanel.getMainPanel());
+		appPanel.repaint();
+	}
 
 }
