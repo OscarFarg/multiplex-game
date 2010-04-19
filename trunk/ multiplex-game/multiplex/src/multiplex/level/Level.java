@@ -34,6 +34,7 @@ public class Level extends JPanel {
 	public Level(AppPanel appPanel)
 	{
 		this.appPanel = appPanel;
+		murphy = new Murphy(this);
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
 		level = createFirstLevel();
@@ -108,6 +109,8 @@ public class Level extends JPanel {
 		this.remove(element);
 		this.getElementList().remove(element);
 		this.repaint();
+		element = null;
+
 	}
 	public void showLevel(int[][] level)
 	{
@@ -127,7 +130,7 @@ public class Level extends JPanel {
 				case 6: addElement(new SnikSnak(this), location); break;		//6: SnikSnak
 				case 7: addElement(new Bug(this), location); break;				//7: Bug
 				case 8: addElement(exit = new Exit(this), location); break; 	//8: Exit
-				case 9: addElement(murphy = new Murphy(this), location); break; //9: murphy
+				case 9: addElement(murphy, location); break; //9: murphy
 				}
 			}
 
