@@ -14,7 +14,7 @@ public class MainPanel extends JPanel implements MouseListener
 	
 	private int level = 1; //het geselecteerde level
 	private AppPanel appPanel;
-	String[] levelArray = {" ", "001 - Level 1", "002 - Level 2", "003 - Level 3", "004 - Level 4", "005 - Level 5", "006 - Level 6", " "};
+	String[] levelArray = {" ", "001 -------------------------- Level 1 ------------------------", "002 -------------------------- Level 2 ------------------------", "003 -------------------------- Level 3 ------------------------", "004 -------------------------- Level 4 ------------------------", "005 -------------------------- Level 5 ------------------------", "006 -------------------------- Level 6 ------------------------", " "};
 
 	public MainPanel(AppPanel appPanel)
 	{
@@ -150,7 +150,7 @@ public class MainPanel extends JPanel implements MouseListener
 		{
 			System.out.println("levelOmhoogKnop");
 			level--;
-			if (level == 0)
+			if (level == 0) // level mag niet kleiner zijn dan 1, er is geen level 0
 			{
 				level = 1;
 			}
@@ -160,9 +160,9 @@ public class MainPanel extends JPanel implements MouseListener
 		{
 			System.out.println("levelOmlaagKnop");
 			level++;
-			if (level == levelArray.length - 1)
+			if (level == levelArray.length - 1) //de laatste regel in de array is leeg, om een out of bounds exception te voorkomen
 			{
-				level = levelArray.length - 2;
+				level = levelArray.length - 2;// als level te hoog wordt, terug naar het toegestane maximum
 			}
 			repaint();
 		}
