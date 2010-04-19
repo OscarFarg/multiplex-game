@@ -2,7 +2,7 @@ package multiplex.level;
 
 import java.util.ArrayList;
 
-import multiplex.spelementen.KanVallen;
+import multiplex.spelementen.interfaces.KanVallen;
 
 public class ValChecker extends Thread {
 

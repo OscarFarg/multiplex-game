@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import multiplex.botsing.Botsing;
 import multiplex.constanten.Richting;
 import multiplex.level.Level;
+import multiplex.spelementen.interfaces.IsEetbaar;
 
 public class Murphy extends SpelElement implements KeyListener {
 
@@ -113,8 +114,19 @@ public class Murphy extends SpelElement implements KeyListener {
 				if (element instanceof IsEetbaar)
 				{
 					IsEetbaar eetbaar = (IsEetbaar) element;
-					eetbaar.eet();
-					return true;
+					try {
+						Bug bug = (Bug) eetbaar;
+						if (bug.isEetbaar())
+						{
+							bug.eet();
+							return true;
+						}
+						else
+							return false;
+					} catch (ClassCastException ex) {
+						eetbaar.eet();
+						return true;
+					}
 				}
 				else
 					return false;

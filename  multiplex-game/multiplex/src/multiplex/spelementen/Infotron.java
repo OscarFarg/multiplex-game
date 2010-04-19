@@ -11,6 +11,8 @@ import javax.swing.Timer;
 import multiplex.botsing.Botsing;
 import multiplex.level.Level;
 import multiplex.level.ValChecker;
+import multiplex.spelementen.interfaces.IsEetbaar;
+import multiplex.spelementen.interfaces.KanVallen;
 
 public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, ActionListener {
 
