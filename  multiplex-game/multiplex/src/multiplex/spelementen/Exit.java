@@ -10,8 +10,9 @@ public class Exit extends StatischObject {
 		this.setAfbeelding(createImageIcon("images/exit.png"));
 	}
 	
-	public void eindeLevel()
+	public void doUitgespeeld()
 	{
+		if(currentLevel.getAantalInfotrons() == 0)
 		currentLevel.doUitgespeeld();
 	}
 }

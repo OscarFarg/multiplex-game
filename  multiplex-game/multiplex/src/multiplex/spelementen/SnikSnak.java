@@ -18,8 +18,6 @@ public class SnikSnak extends Vijand implements Runnable
 		super(level);
 		this.setAfbeelding(createImageIcon("images/SnikSnaks.png"));
 
-		System.out.println("kaas");
-
 		this.setLocation(xPos, yPos);
 		Thread thread = new Thread(this);
 		thread.start();
