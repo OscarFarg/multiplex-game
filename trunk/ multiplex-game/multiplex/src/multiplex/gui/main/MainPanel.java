@@ -11,8 +11,10 @@ public class MainPanel extends JPanel implements MouseListener
 {
 	private JLabel newPlayerKnop, skipLevelKnop, creditsKnop, viewHighscoresKnop, helpKnop, startKnop, loadKnop, 
 		levelOmhoogKnop, levelOmlaagKnop, spelerOmhoogKnop, spelerOmlaagKnop; // de knoppen
-
+	
+	private int level = 1; //het geselecteerde level
 	private AppPanel appPanel;
+	String[] levelArray = {" ", "001 - Level 1", "002 - Level 2", "003 - Level 3", "004 - Level 4", "005 - Level 5", "006 - Level 6", " "};
 
 	public MainPanel(AppPanel appPanel)
 	{
@@ -98,11 +100,20 @@ public class MainPanel extends JPanel implements MouseListener
 		spelerOmlaagKnop.setBounds(215,169,110,20);
 		
 		setVisible(true);
+		
 	}
 	
 	public void paintComponent(Graphics g)
 	{
+		super.paintComponent(g);
 		g.drawImage(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/titelMenuGrafisch.png")).getImage(),0, 0, getWidth(), getHeight(), null);
+		
+		g.setColor(new Color(227, 17, 17));
+		g.setFont(new Font("Lucida Sans", Font.BOLD, 16 ));
+		
+		g.drawString(levelArray[level - 1], 300, 247);
+		g.drawString(levelArray[level], 300, 264);
+		g.drawString(levelArray[level + 1], 300, 281);
 	}
 	
 	public void mouseClicked(MouseEvent e) //voor elke knop een apart event
@@ -123,34 +134,48 @@ public class MainPanel extends JPanel implements MouseListener
 		{
 			System.out.println("laat helpscherm zien");
 		}
-		else if (e.getSource() == creditsKnop)//als er op "credits" geklikt wordt
+		else if (e.getSource() == creditsKnop) //als er op "credits" geklikt wordt
 		{
 			System.out.println("laat credits zien");
 		}
-		else if (e.getSource() == startKnop)//als er op "start" geklikt wordt
+		else if (e.getSource() == startKnop) //als er op "start" geklikt wordt
 		{
 			System.out.println("spel starten");
 		}
-		else if (e.getSource() == loadKnop)//als er op "load" geklikt wordt
+		else if (e.getSource() == loadKnop) //als er op "load" geklikt wordt
 		{
 			System.out.println("spel laden");
 		}
-		else if (e.getSource() == levelOmhoogKnop)//als er op "level-list" (met de pijl omhoog) geklikt wordt
+		else if (e.getSource() == levelOmhoogKnop) //als er op "level-list" (met de pijl omhoog) geklikt wordt
 		{
 			System.out.println("levelOmhoogKnop");
+			level--;
+			if (level == 0)
+			{
+				level = 1;
+			}
+			repaint();
 		}
-		else if (e.getSource() == levelOmlaagKnop)//als er op "level-list" (met de pijl omlaag) geklikt wordt
+		else if (e.getSource() == levelOmlaagKnop) //als er op "level-list" (met de pijl omlaag) geklikt wordt
 		{
 			System.out.println("levelOmlaagKnop");
+			level++;
+			if (level == levelArray.length - 1)
+			{
+				level = levelArray.length - 2;
+			}
+			repaint();
 		}
-		else if (e.getSource() == spelerOmhoogKnop)//als er op "speler" (met de pijl omhoog) geklikt wordt
+		else if (e.getSource() == spelerOmhoogKnop) //als er op "speler" (met de pijl omhoog) geklikt wordt
 		{
 			System.out.println("spelerOmhoogKnop");
 		}
-		else if (e.getSource() == spelerOmlaagKnop)//als er op "speler" (met de pijl omlaag) geklikt wordt
+		else if (e.getSource() == spelerOmlaagKnop) //als er op "speler" (met de pijl omlaag) geklikt wordt
 		{
 			System.out.println("spelerOmlaagKnop");
 		}
+		
+
 	}
 	public void mouseEntered(MouseEvent e) {} 
 	public void mouseExited(MouseEvent e)  {} //deze worden niet gebruikt
