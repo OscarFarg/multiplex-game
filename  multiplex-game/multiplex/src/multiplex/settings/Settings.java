@@ -1,8 +1,19 @@
 package multiplex.settings;
 
+import java.awt.FileDialog;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.tools.JavaFileManager.Location;
+
 import multiplex.level.Level;
+import multiplex.level.LevelMap;
 
 public class Settings implements Serializable {
 
@@ -11,34 +22,47 @@ public class Settings implements Serializable {
 	private ArrayList<Player> rankingList;
 	private Player currentPlayer;
 
-	
+
 	public Settings()
 	{
 		levelList = new ArrayList<Level>();
 		playerList = new ArrayList<Player>();
 		playerList = new ArrayList<Player>();
 		createLevelList();
-		//createPlayerList();
 	}
 
-	private void createLevelList()
+	public void createLevelList()
 	{
-		String[] levelNames = {"Level Janneke","Level Hanno","Level Oscar","Level Test", "Level 5", "Level 6", 
-				"Level 7", "Level 8", "Level 9", "Level 10", "Level 11"};
-		for (int i = 0; i <= 10; i ++)
-			levelList.add(new Level(levelNames[i]));
-	}
-	
-	private void createPlayerList()
-	{
-		String[] playerNames = {"Oscar", "Hanno", "Janneke"};
-		for (int i = 0; i < 3; i++)
+		levelList = new ArrayList<Level>();
+		String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().toString();
+		path = path.replaceAll("%20"," ");
+		path = path.substring(0, path.lastIndexOf("/"));
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		LevelMap map = new LevelMap();
+
+		for (int i = 0; i < listOfFiles.length; i++)
 		{
-			playerList.add(new Player(playerNames[i], this));
+			String filename = listOfFiles[i].toString();
+			System.out.println(filename);
+
+			if (filename.substring( filename.length()- 4, filename.length()).equals(".lvl"))
+			{
+				try
+				{
+					ObjectInputStream objectLoader = new ObjectInputStream(new FileInputStream(filename));
+					levelList.add(new Level((LevelMap) objectLoader.readObject()));
+					objectLoader.close();
+				}
+				catch(IOException ex)
+				{ System.out.println("error");} 
+				catch (ClassNotFoundException e) 
+				{ System.out.println("error");}
+			}
 		}
-		currentPlayer = playerList.get(0);
 	}
-	
+
 	public boolean checkPlayerExists(Player player)
 	{
 		for (int i = 0; i < playerList.size(); i++)

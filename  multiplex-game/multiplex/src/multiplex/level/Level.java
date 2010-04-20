@@ -32,7 +32,7 @@ public class Level extends JPanel {
 	{
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
-		level = createFirstLevel();
+		//level = createFirstLevel();
 		aantalInfotrons = 0;
 	}
 
@@ -41,11 +41,18 @@ public class Level extends JPanel {
 		this();
 		this.appPanel = appPanel;
 	}
-
+	
 	public Level(String name)
 	{
 		this();
 		this.levelName = name;
+	}
+	
+	public Level(LevelMap levelMap)
+	{
+		this();
+		level = levelMap.getLevel();
+		this.levelName = levelMap.getLevelName();
 	}
 	
 	public AppPanel getAppPanel() {
@@ -64,13 +71,13 @@ public class Level extends JPanel {
 		return new int[][] {
 				{8, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 7, 7, 1, 1, -1, -1, 0, 0, 0, -1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 7, 1, -1, -1, 1, 1, 0, 7, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, -1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 7, 7, 1, 4, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 0, 7, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 		};
@@ -148,8 +155,6 @@ public class Level extends JPanel {
 		this.aantalInfotrons = aantalInfotrons;
 	}
 
-
-
 	public Murphy getMurphy() {
 		return murphy;
 	}
@@ -166,7 +171,6 @@ public class Level extends JPanel {
 		this.elementList = elementList;
 	}
 
-
 	public int getLevelWidth() {
 		return levelWidth;
 	}
@@ -175,11 +179,9 @@ public class Level extends JPanel {
 		this.levelWidth = levelWidth;
 	}
 
-
 	public int getLevelHeight() {
 		return levelHeight;
 	}
-
 
 	public void setLevelHeight(int levelHeight) {
 		this.levelHeight = levelHeight;
@@ -198,33 +200,21 @@ public class Level extends JPanel {
 		aantalInfotrons--;
 	}
 
-
 	public void showLaadDialog()
 	{
 
 	}
-
-
 
 	public void showLoadingError()
 	{
 
 	}
 
-
-
 	public SpelElement getElement()
 	{
 		return null;
 
 	}
-
-	public int getElementCount()
-	{
-		return 0;
-
-	}
-
 
 	public SpelElement getElementAt(Point location)
 	{
@@ -250,16 +240,22 @@ public class Level extends JPanel {
 
 	}
 
+	
 	public void pauseGame()
 	{
-
+		
 	}
 
 	public void saveGame()
 	{
 
 	}
-
+	
+	public void loadLevel()
+	{
+		
+	}
+	
 	public void resumeGame()
 	{
 
