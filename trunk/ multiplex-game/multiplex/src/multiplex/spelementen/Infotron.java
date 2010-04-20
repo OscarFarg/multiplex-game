@@ -47,7 +47,8 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 	public void eet() {
 		currentLevel.verminderInfotron();
 		currentLevel.removeElement(this);
-		this.valChecker.stopThread();
+		if (!opBodem)
+			this.valChecker.stopThread();
 		actieTimer.stop();
 	}
 

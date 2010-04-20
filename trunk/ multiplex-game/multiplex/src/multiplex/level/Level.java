@@ -2,9 +2,13 @@ package multiplex.level;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import multiplex.gui.AppPanel;
 import multiplex.spelementen.*;
@@ -40,6 +44,19 @@ public class Level extends JPanel {
 		this.setLevelWidth(levelMap.getLevelWidth());
 		this.setLevelHeight(levelMap.getLevelHeight());
 		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
+		
+		
+		AbstractAction pauseGame = new AbstractAction(){
+
+			public void actionPerformed(ActionEvent e) {
+				pauseGame();
+			}
+		};
+		
+		this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("F2"), "pauseGame");
+		this.getActionMap().put("pauseGame", pauseGame);
+
+
 	}
 
 	public AppPanel getAppPanel() {
@@ -208,9 +225,18 @@ public class Level extends JPanel {
 
 	public void pauseGame()
 	{
+		if (paused)
+		{
 		for (SpelElement e : elementList)
-			e.setPaused(true);
-		setPaused(true);
+			e.setPaused(false);
+		setPaused(false);
+		}
+		else
+		{
+			for (SpelElement e : elementList)
+				e.setPaused(true);
+			setPaused(true);
+		}
 	}
 
 	public void saveGame()
