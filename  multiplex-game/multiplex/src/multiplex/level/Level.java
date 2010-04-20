@@ -19,27 +19,42 @@ public class Level extends JPanel {
 	private Murphy murphy;
 	private Exit exit;
 	private AppPanel appPanel;
+	private String levelName;
+	private int levelId;
 
 	private ArrayList<SpelElement> elementList = new ArrayList<SpelElement>();
-	//private ArrayList<Vijand> vijandList = new ArrayList<Vijand>();
-	//private ArrayList<IsEetbaar> eetbaarList = new ArrayList<IsEetbaar>();
-	//private ArrayList<KanVallen> vallenList = new ArrayList<KanVallen>();
-	//private ArrayList<IsDuwbaar> duwerList = new ArrayList<IsDuwbaar>();
 
-	//private ValChecker valChecker = new ValChecker(this);
 	private int levelWidth, levelHeight; //hoogte van het level. in vakjes, niet pixels.
 	private int[][] level;
 	private int aantalInfotrons;
 
-	public Level(AppPanel appPanel)
+	public Level()
 	{
-		this.appPanel = appPanel;
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
 		level = createFirstLevel();
 		aantalInfotrons = 0;
 	}
 
+	public Level(AppPanel appPanel)
+	{
+		this();
+		this.appPanel = appPanel;
+	}
+
+	public Level(String name)
+	{
+		this();
+		this.levelName = name;
+	}
+	
+	public AppPanel getAppPanel() {
+		return appPanel;
+	}
+
+	public void setAppPanel(AppPanel appPanel) {
+		this.appPanel = appPanel;
+	}
 
 	public int[][] createFirstLevel()
 	{
@@ -48,14 +63,14 @@ public class Level extends JPanel {
 		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
 		return new int[][] {
 				{8, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 7, 6, 7, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 7, 7, 9, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 7, 7, 1, 1, -1, -1, 0, 0, 0, -1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 7, 1, -1, -1, 1, 1, 0, 7, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, -1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 		};
@@ -172,17 +187,10 @@ public class Level extends JPanel {
 
 	public boolean isEetbaar(SpelElement element)
 	{
-
-		for (int i = 0; i < elementList.size(); i++)
-		{
-			try {
-				IsEetbaar eetbaar = (IsEetbaar) element;
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
-		}
-		return false;
+		if (element instanceof IsEetbaar)
+			return true;
+		else
+			return false;
 	}
 
 	public void verminderInfotron()
@@ -237,9 +245,6 @@ public class Level extends JPanel {
 		return null;
 	}
 
-
-
-
 	public void tekenSpelElement(int ElementNr)
 	{
 
@@ -292,6 +297,19 @@ public class Level extends JPanel {
 				} catch (Exception e2) {}
 			}
 		}
+	}
+
+
+	public String getLevelName() {
+		return levelName;
+	}
+
+	public void setLevelId(int levelId) {
+		this.levelId = levelId;
+	}
+
+	public int getLevelId() {
+		return levelId;
 	}
 
 }
