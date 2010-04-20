@@ -16,8 +16,6 @@ public class AppPanel extends JPanel {
 	private MainPanel mainPanel = new MainPanel(this);
 	private GamePlayPanel gamePanel = new GamePlayPanel(this);
 	private Action showHelp;
-	private Action testAction;
-
 
 	public AppPanel()
 	{
@@ -28,10 +26,8 @@ public class AppPanel extends JPanel {
 		this.setFocusable(true);
 
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F1"), "showHelp");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F2"), "resumeGame");
 
 		this.getActionMap().put("showHelp", showHelp);
-		this.getActionMap().put("resumeGame", testAction);
 
 	}
 
@@ -59,13 +55,6 @@ public class AppPanel extends JPanel {
 						mainPanel.showHelp();
 					}
 				}
-			}
-		};
-		testAction = new AbstractAction(){
-			public void actionPerformed(ActionEvent e)
-			{
-				System.out.println("Ga verder");
-				gamePanel.getLevelPanel().getCurrentLevel().resumeGame();
 			}
 		};
 	}
