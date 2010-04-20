@@ -1,15 +1,13 @@
 package multiplex.gui.game;
 
 import javax.swing.JPanel;
-
 import multiplex.gui.AppPanel;
-import multiplex.gui.MultiplexApp;
-import multiplex.level.Level;
 
 public class GamePlayPanel extends JPanel {
 	
-	private AppPanel appPanel;
-	private Level currentLevel;
+	@SuppressWarnings("unused")
+	private AppPanel appPanel; //word wel gebruikt. Eclipse spaced em.
+	//private Level currentLevel;
 	private LevelPanel levelPanel;
 	private LevelDataPanel levelDataPanel;
 	
@@ -20,8 +18,8 @@ public class GamePlayPanel extends JPanel {
 		this.setLocation(0,0);
 		this.setSize(646, 410);
 		levelPanel = new LevelPanel(appPanel);
-		currentLevel = levelPanel.getCurrentLevel();
-		levelDataPanel = new LevelDataPanel(currentLevel);
+		//currentLevel = levelPanel.getCurrentLevel();
+		levelDataPanel = new LevelDataPanel();
 		this.add(levelPanel);
 		levelDataPanel.setBounds(0, 362, 644, 48);
 		this.add(levelDataPanel, 0);

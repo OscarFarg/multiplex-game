@@ -3,7 +3,6 @@ package multiplex.spelementen;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.event.*;
 
 import multiplex.level.Level;
 import multiplex.botsing.Botsing;

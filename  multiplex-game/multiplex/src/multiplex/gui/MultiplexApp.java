@@ -5,8 +5,6 @@ import java.awt.event.WindowListener;
 
 import javax.swing.*;
 
-import multiplex.gui.editor.EditorApp;
-
 public class MultiplexApp extends JFrame implements WindowListener
 {
 
@@ -42,7 +40,6 @@ public class MultiplexApp extends JFrame implements WindowListener
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		appPanel.getMainPanel().saveSettings();
-		//new EditorApp();
 	}
 
 	@Override

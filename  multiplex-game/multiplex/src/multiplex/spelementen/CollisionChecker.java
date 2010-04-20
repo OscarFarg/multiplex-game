@@ -1,8 +1,6 @@
 package multiplex.spelementen;
 
 import multiplex.botsing.Botsing;
-import multiplex.level.Level;
-import multiplex.spelementen.interfaces.KanVallen;
 
 public class CollisionChecker extends Thread {
 

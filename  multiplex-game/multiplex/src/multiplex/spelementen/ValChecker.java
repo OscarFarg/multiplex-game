@@ -1,21 +1,15 @@
 package multiplex.spelementen;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 import multiplex.spelementen.interfaces.KanVallen;
 
-public class ValChecker extends Thread {
+public class ValChecker extends Thread implements Serializable {
 
 	private KanVallen element;
 
 	private boolean firstrun = true;
 	private boolean running = true;
-
-	/*
-	public ValChecker(Level level)
-	{
-		currentLevel = level;
-	}*/
 
 	public ValChecker(KanVallen element) {
 		this.element = element;

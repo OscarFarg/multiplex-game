@@ -3,24 +3,16 @@ package multiplex.gui.game;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import multiplex.level.Level;
 
 public class LevelDataPanel extends JPanel {
 	
-	private Level currentLevel;
 	private int infotronCount = 0;
 	
-	public LevelDataPanel(Level level)
+	public LevelDataPanel()
 	{
-		this.currentLevel = level;
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
 	}
