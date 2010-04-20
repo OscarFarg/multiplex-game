@@ -212,6 +212,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 	{
 		if (!ontplof)
 		{
+			this.removeKeyListener(this);
 			this.setAfbeelding(createImageIcon("images/explosion.png"));
 			ontplofTimer.start();
 			ontplof = true;
