@@ -11,7 +11,7 @@ import multiplex.botsing.Botsing;
 public class SnikSnak extends Vijand implements Runnable
 {
 	private int richting = 1;
-	private final int DELAY = 300;
+	private final int DELAY = 200;
 
 	public SnikSnak(Level level)
 	{
@@ -168,7 +168,7 @@ public class SnikSnak extends Vijand implements Runnable
 						// ga rechtdoor
 						if(richting == 1 || richting == 3)
 						{
-							if(xPos <= 0 || xPos >= (currentLevel.getLevelWidth() * 32) - 32)
+							if(xPos <= 0 || xPos >= (currentLevel.getLevelWidth() * 32) + 32)
 							{
 								if( !checkRichting((richting + 3) % 4) ) //als links vol is
 								{//check links
@@ -241,7 +241,7 @@ public class SnikSnak extends Vijand implements Runnable
 						}
 						if(richting == 2 || richting == 0)
 						{
-							if(yPos <= 0 || yPos >= (currentLevel.getLevelWidth() * 32) + 32 )
+							if(yPos <= 0 || yPos >= (currentLevel.getLevelHeight() * 32) - 32)
 							{
 								if( !checkRichting((richting + 3) % 4) ) //als links vol is
 								{//check links
