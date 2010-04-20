@@ -11,7 +11,7 @@ import multiplex.botsing.Botsing;
 public class SnikSnak extends Vijand implements Runnable
 {
 	private int richting = 1;
-	private final int DELAY = 250;
+	private final int DELAY = 300;
 
 	public SnikSnak(Level level)
 	{
@@ -112,6 +112,11 @@ public class SnikSnak extends Vijand implements Runnable
 		while (true)
 		{
 			{
+				try {
+					Thread.sleep(DELAY);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				if( !checkRichting((richting + 3) % 4) ) //als links vol is
 				{
 					if( !checkRichting(richting) ) // als rechtdoor vol zit
