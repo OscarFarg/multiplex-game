@@ -4,15 +4,11 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import multiplex.gui.AppPanel;
-import multiplex.gui.MultiplexApp;
 import multiplex.spelementen.*;
-import multiplex.spelementen.interfaces.IsDuwbaar;
 import multiplex.spelementen.interfaces.IsEetbaar;
-import multiplex.spelementen.interfaces.KanVallen;
 
 public class Level extends JPanel {
 
@@ -24,37 +20,26 @@ public class Level extends JPanel {
 
 	private ArrayList<SpelElement> elementList = new ArrayList<SpelElement>();
 
+	private LevelMap levelMap;
+
 	private int levelWidth, levelHeight; //hoogte van het level. in vakjes, niet pixels.
-	private int[][] level;
+	//private int[][] level;
 	private int aantalInfotrons;
 
-	public Level()
+	public Level(AppPanel appPanel, LevelMap levelMap)
 	{
+		this.appPanel = appPanel;
+
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
-		//level = createFirstLevel();
 		aantalInfotrons = 0;
+		this.levelMap = levelMap;
+		this.levelName = levelMap.getLevelName();
+		this.setLevelWidth(levelMap.getLevelWidth());
+		this.setLevelHeight(levelMap.getLevelHeight());
+		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
 	}
 
-	public Level(AppPanel appPanel)
-	{
-		this();
-		this.appPanel = appPanel;
-	}
-	
-	public Level(String name)
-	{
-		this();
-		this.levelName = name;
-	}
-	
-	public Level(LevelMap levelMap)
-	{
-		this();
-		level = levelMap.getLevel();
-		this.levelName = levelMap.getLevelName();
-	}
-	
 	public AppPanel getAppPanel() {
 		return appPanel;
 	}
@@ -63,43 +48,21 @@ public class Level extends JPanel {
 		this.appPanel = appPanel;
 	}
 
-	public int[][] createFirstLevel()
-	{
-		this.setLevelWidth(40);
-		this.setLevelHeight(11);
-		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
-		return new int[][] {
-				{8, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 7, 7, 1, 4, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 0, 7, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-		};
-	}
-
 	public void startLevel()
 	{
-		if (level == null)
-			level = createFirstLevel();		
-
 		murphy = new Murphy(this);
-		showLevel(level);
+		showLevel(levelMap.getLevel());
 		murphy.setFocusable(true);
 		murphy.requestFocus();
 	}
 
 	public void showLevel(int[][] level)
 	{
+		System.out.println("test");
 		for (int i = 0; i < level.length; i++)
 			for (int j = 0; j < level[i].length; j++)
 			{
-				Point location = new Point(j* 32, i * 32);
+				Point location = new Point(i* 32, j * 32);
 				switch (level[i][j])
 				{
 				case -1: break;													//-1: Lege plek
@@ -112,7 +75,7 @@ public class Level extends JPanel {
 				case 6: addElement(new SnikSnak(this), location); break;		//6: SnikSnak
 				case 7: addElement(new Bug(this), location); break;				//7: Bug
 				case 8: addElement(exit = new Exit(this), location); break; 	//8: Exit
-				case 9: addElement(murphy, location); break; //9: murphy
+				case 9: addElement(murphy, location); break; 					//9: murphy
 				}
 			}
 
@@ -240,22 +203,22 @@ public class Level extends JPanel {
 
 	}
 
-	
+
 	public void pauseGame()
 	{
-		
+
 	}
 
 	public void saveGame()
 	{
 
 	}
-	
+
 	public void loadLevel()
 	{
-		
+
 	}
-	
+
 	public void resumeGame()
 	{
 

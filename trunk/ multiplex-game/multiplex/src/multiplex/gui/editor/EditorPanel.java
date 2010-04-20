@@ -29,7 +29,6 @@ public class EditorPanel extends JPanel implements ActionListener {
 	private JTextField levelWidth;
 	private JTextField levelHeight;
 
-	private JTextField levelName;
 	private LevelPanel levelPanel;
 	
 	public EditorPanel()
@@ -40,7 +39,6 @@ public class EditorPanel extends JPanel implements ActionListener {
 		changeSizeButton = new JButton("Wijzigen");
 
 		
-		levelName = new JTextField(10);
 		levelWidth = new JTextField("12", 4);
 		levelHeight = new JTextField("10", 4);
 		
@@ -53,8 +51,6 @@ public class EditorPanel extends JPanel implements ActionListener {
 		JPanel knoppenBalk = new JPanel();
 		knoppenBalk.add(saveButton);
 		knoppenBalk.add(loadButton);
-		knoppenBalk.add(new JLabel("Naam:"));
-		knoppenBalk.add(levelName);
 		knoppenBalk.add(new JLabel("Breedte:"));
 		knoppenBalk.add(levelWidth);
 		knoppenBalk.add(new JLabel("Hoogte:"));
@@ -76,8 +72,10 @@ public class EditorPanel extends JPanel implements ActionListener {
 		try
 		{
 			String bestandsnaam = (JOptionPane.showInputDialog(null, "Voer een levelnaam in", "Level naam") + ".lvl");
-			ObjectOutputStream objectSaver = new ObjectOutputStream(new FileOutputStream(bestandsnaam));
+			//TODO terug veranderen.
+			ObjectOutputStream objectSaver = new ObjectOutputStream(new FileOutputStream("/home/oscar/"+ bestandsnaam));
 			levelPanel.createLevelMap();
+			levelPanel.getLevelMap().setLevelName(bestandsnaam.substring(0, bestandsnaam.lastIndexOf(".")));
 			objectSaver.writeObject(levelPanel.getLevelMap());
 			objectSaver.close();
 		}
@@ -92,13 +90,15 @@ public class EditorPanel extends JPanel implements ActionListener {
 	public void loadMap()
 	{
 		FileDialog fDialog = new FileDialog(new JFrame(), "Open bestand", FileDialog.LOAD);
-		fDialog.show();
+		fDialog.setVisible(true);
+		String bestandsnaam = fDialog.getDirectory() + fDialog.getFile();
 		try
 		{
-			ObjectInputStream objectLoader = new ObjectInputStream(new FileInputStream(fDialog.getDirectory() + fDialog.getFile()));
-			levelPanel.setLevelMap((LevelMap) objectLoader.readObject());
-			levelPanel.addLabels();
-			objectLoader.close();
+				ObjectInputStream objectLoader = new ObjectInputStream(new FileInputStream(bestandsnaam));
+				levelPanel.setLevelMap((LevelMap) objectLoader.readObject());
+				levelPanel.addLabels();
+				objectLoader.close();
+
 		}
 		catch(IOException ex)
 		{

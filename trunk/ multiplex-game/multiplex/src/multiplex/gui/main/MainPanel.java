@@ -65,15 +65,16 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 			ObjectInputStream settingsLoader = new ObjectInputStream(new FileInputStream("settings.mtx"));
 			settings = (Settings) settingsLoader.readObject();
 			settings.createLevelList();
+			settings.setAppPanel(appPanel);
 			repaint();
 
 		} catch (IOException ioEx)
 		{
 			System.out.println("Geen settings gevonden.");
-			settings = new Settings();
+			settings = new Settings(appPanel);
 		} catch (ClassNotFoundException classEx) {
 			System.out.println("Geen settings gevonden.");
-			settings = new Settings();
+			settings = new Settings(appPanel);
 		} finally {
 			levelArray = settings.getLevelList();
 			playerList = settings.getPlayerList();
@@ -181,6 +182,10 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 
 	}
 
+	public Settings getSettings() {
+		return settings;
+	}
+
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
@@ -259,7 +264,6 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		}
 		else if (e.getSource() == viewHighscoresKnop) // als er op "view highscores" geklikt wordt
 		{
-			System.out.println("highscores weergeven");
 
 			this.setVisible(false);
 			appPanel.add(highscoresPanel);
@@ -267,7 +271,6 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		}
 		else if (e.getSource() == helpKnop) //als er op "help" geklikt wordt
 		{
-			System.out.println("laat helpscherm zien");
 
 			this.setVisible(false);
 			appPanel.add(helpPanel);
@@ -275,7 +278,6 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		}
 		else if (e.getSource() == creditsKnop) //als er op "credits" geklikt wordt
 		{
-			System.out.println("laat credits zien");
 
 			this.setVisible(false);
 			appPanel.add(creditsPanel);
@@ -284,7 +286,6 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		else if (e.getSource() == startKnop) //als er op "start" geklikt wordt
 		{
 			this.setVisible(false);
-			//appPanel.remove(this);
 			appPanel.add(appPanel.getGamePanel());
 			appPanel.repaint();
 			appPanel.getGamePanel().startGame();

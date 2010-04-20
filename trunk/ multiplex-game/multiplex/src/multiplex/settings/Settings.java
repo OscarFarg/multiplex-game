@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.tools.JavaFileManager.Location;
 
+import multiplex.gui.AppPanel;
 import multiplex.level.Level;
 import multiplex.level.LevelMap;
 
@@ -21,10 +22,11 @@ public class Settings implements Serializable {
 	private ArrayList<Player> playerList;
 	private ArrayList<Player> rankingList;
 	private Player currentPlayer;
-
-
-	public Settings()
+	private AppPanel appPanel;
+	
+	public Settings(AppPanel appPanel)
 	{
+		this.appPanel = appPanel;
 		levelList = new ArrayList<Level>();
 		playerList = new ArrayList<Player>();
 		playerList = new ArrayList<Player>();
@@ -34,25 +36,24 @@ public class Settings implements Serializable {
 	public void createLevelList()
 	{
 		levelList = new ArrayList<Level>();
-		String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().toString();
-		path = path.replaceAll("%20"," ");
-		path = path.substring(0, path.lastIndexOf("/"));
+		//String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().toString();
+		//path = path.replaceAll("%20"," ");
+		//path = path.substring(0, path.lastIndexOf("/"));
+		String path = "/home/oscar";
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
-
-		LevelMap map = new LevelMap();
 
 		for (int i = 0; i < listOfFiles.length; i++)
 		{
 			String filename = listOfFiles[i].toString();
-			System.out.println(filename);
 
 			if (filename.substring( filename.length()- 4, filename.length()).equals(".lvl"))
 			{
+				System.out.println(filename);
 				try
 				{
 					ObjectInputStream objectLoader = new ObjectInputStream(new FileInputStream(filename));
-					levelList.add(new Level((LevelMap) objectLoader.readObject()));
+					levelList.add(new Level(appPanel, (LevelMap) objectLoader.readObject()));
 					objectLoader.close();
 				}
 				catch(IOException ex)
@@ -117,6 +118,14 @@ public class Settings implements Serializable {
 
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+	}
+
+	public AppPanel getAppPanel() {
+		return appPanel;
+	}
+
+	public void setAppPanel(AppPanel appPanel) {
+		this.appPanel = appPanel;
 	}
 
 
