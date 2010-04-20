@@ -33,7 +33,7 @@ public class ValChecker extends Thread implements Serializable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} finally {
-				element.val();
+					element.val();
 			}
 			interrupt();
 	}

@@ -55,19 +55,24 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 
 	@Override
 	public void val() {
-		SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32));
-		if (!vallend)
+		if (!paused)
 		{
-			if (element == null) {
-				actieTimer.start();
-			}
-			else {
-				vallend = false;
-				actieTimer.stop();
+			SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32));
+			if (!vallend)
+			{
+				if (element == null) {
+					actieTimer.start();
+				}
+				else {
+					vallend = false;
+					actieTimer.stop();
+				}
 			}
 		}
+
+
 	}
-	
+
 	public void stopValChecker()
 	{
 		valChecker.stopThread();
@@ -75,39 +80,42 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == ontplofTimer)
+		if (!paused)
 		{
-			actieTimer.stop();
-			super.actionPerformed(e);
-		}
-		if (e.getSource() == actieTimer)
-		{
-			if (!opBodem)
+			if (e.getSource() == ontplofTimer)
 			{
-				if (!(this.getY() + 40 > (currentLevel.getLevelHeight()*32)))
+				actieTimer.stop();
+				super.actionPerformed(e);
+			}
+			if (e.getSource() == actieTimer)
+			{
+				if (!opBodem)
 				{
-					this.setLocation(getX(), getY() + 8);
-					currentLevel.repaint();
-					if (Botsing.raakt(this, currentLevel.getMurphy()))
+					if (!(this.getY() + 40 > (currentLevel.getLevelHeight()*32)))
 					{
-						if (this.getX() == currentLevel.getMurphy().getxPos())
+						this.setLocation(getX(), getY() + 8);
+						currentLevel.repaint();
+						if (Botsing.raakt(this, currentLevel.getMurphy()))
 						{
-							currentLevel.removeElement(this);
-							this.actieTimer.stop();
-							valChecker.stopThread();
-							currentLevel.getMurphy().ontplof();
+							if (this.getX() == currentLevel.getMurphy().getxPos())
+							{
+								currentLevel.removeElement(this);
+								this.actieTimer.stop();
+								valChecker.stopThread();
+								currentLevel.getMurphy().ontplof();
+							}
+
 						}
-							
+					}
+					else
+					{
+						actieTimer.stop();
+						vallend = false;
+						opBodem = true;
 					}
 				}
-				else
-				{
-					actieTimer.stop();
-					vallend = false;
-					opBodem = true;
-				}
-			}
 
+			}
 		}
 	}
 

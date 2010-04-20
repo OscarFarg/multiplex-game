@@ -40,22 +40,25 @@ public class SnikSnak extends Vijand implements Runnable
 
 	public void beweeg(int richting)
 	{
-		switch (richting)
+		if (!paused)
 		{
-		case 0:
-			this.setyPos(yPos - 32);
-			break;
-		case 2:
-			this.setyPos(yPos + 32);
-			break;
-		case 3:
-			this.setxPos(xPos - 32);
-			break;
-		case 1:
-			this.setxPos(xPos + 32);
-			break;
+			switch (richting)
+			{
+			case 0:
+				this.setyPos(yPos - 32);
+				break;
+			case 2:
+				this.setyPos(yPos + 32);
+				break;
+			case 3:
+				this.setxPos(xPos - 32);
+				break;
+			case 1:
+				this.setxPos(xPos + 32);
+				break;
+			}
+			this.setLocation(xPos, yPos);
 		}
-		this.setLocation(xPos, yPos);
 	}
 
 	public void tekenAfbeelding(Graphics g)
@@ -149,7 +152,7 @@ public class SnikSnak extends Vijand implements Runnable
 						}
 						else
 						{
-							
+
 							// ga rechts
 							richting = (richting + 1) % 4; //verander de richting naar rechts
 							repaint();
@@ -200,7 +203,7 @@ public class SnikSnak extends Vijand implements Runnable
 									}
 									else
 									{
-										
+
 										// ga rechts
 										richting = (richting + 1) % 4; //verander de richting naar rechts
 										repaint();
@@ -273,7 +276,7 @@ public class SnikSnak extends Vijand implements Runnable
 									}
 									else
 									{
-										
+
 										// ga rechts
 										richting = (richting + 1) % 4; //verander de richting naar rechts
 										repaint();

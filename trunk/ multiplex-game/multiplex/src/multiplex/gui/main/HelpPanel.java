@@ -12,14 +12,21 @@ public class HelpPanel extends JPanel implements MouseListener
 	
 	public HelpPanel(MainPanel mainPanel)
 	{
-		setLayout(null); 
-		this.setBounds(0, 0, 646, 410);
+		this();
 		this.mainPanel = mainPanel;
 		backKnop = new JLabel();
 		this.add(backKnop);
 		backKnop.addMouseListener(this);
 		backKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/backKnop.png")));
 		backKnop.setBounds(24,298,78,76);
+		this.setFocusable(true);
+
+	}
+	
+	public HelpPanel()
+	{
+		setLayout(null); 
+		this.setBounds(0, 0, 646, 410);
 		setVisible(true);
 	}
 	
@@ -33,9 +40,7 @@ public class HelpPanel extends JPanel implements MouseListener
 	{
 		if (e.getSource() == backKnop)
 		{
-			System.out.println("terug naar hoofdmenu");
 			this.setVisible(false);
-			
 			mainPanel.setVisible(true);
 		}
 	}

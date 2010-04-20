@@ -44,25 +44,28 @@ public class Bug extends Vijand implements ActionListener, IsEetbaar {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == randomTimer)
+		if (!paused)
 		{
-			randomTeller++;
-			if (randomTeller == randomDelay)
+			if (e.getSource() == randomTimer)
 			{
-				randomDelay = new Random().nextInt(4) + 1;
-				randomTeller = 0;
-				randomTimer.stop();
-				actieTimer.start();
+				randomTeller++;
+				if (randomTeller == randomDelay)
+				{
+					randomDelay = new Random().nextInt(4) + 1;
+					randomTeller = 0;
+					randomTimer.stop();
+					actieTimer.start();
+				}
 			}
-		}
-		if (e.getSource() == actieTimer)
-		{
-			actieTeller = ( actieTeller + 1 ) % 6;
-			repaint();
-			if (actieTeller == 5)
+			if (e.getSource() == actieTimer)
 			{
-				actieTimer.stop();
-				randomTimer.start();
+				actieTeller = ( actieTeller + 1 ) % 6;
+				repaint();
+				if (actieTeller == 5)
+				{
+					actieTimer.stop();
+					randomTimer.start();
+				}
 			}
 		}
 	}
@@ -75,13 +78,17 @@ public class Bug extends Vijand implements ActionListener, IsEetbaar {
 
 			return false;
 	}
-	
+
 	public void ontplof()
 	{
-		super.ontplof();
-		randomTimer.stop();
-		actieTimer.stop();
+		if (!paused)
+		{
+			super.ontplof();
+			randomTimer.stop();
+			actieTimer.stop();
+		}
 	}
+	
 	@Override
 	public void eet() {
 		if (isEetbaar())
