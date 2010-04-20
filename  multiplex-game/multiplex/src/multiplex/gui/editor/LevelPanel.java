@@ -18,7 +18,7 @@ public class LevelPanel extends JPanel {
 	public LevelPanel()
 	{
 		this.setLayout(null);
-		levelMap = new LevelMap(10,12);
+		levelMap = new LevelMap(12,10);
 
 		addLabels();
 
@@ -26,14 +26,10 @@ public class LevelPanel extends JPanel {
 
 	public void addLabels()
 	{
-		if (elementList.size() > 0)
-		{
-			for (int n = 0; n < elementList.size(); n++)
-			{
-				this.remove(elementList.get(n));
-			}
-			elementList.removeAll(elementList);
-		}
+		this.removeAll();
+		elementList = new ArrayList<ElementLabel>();
+		
+		
 
 		for (int i = 0; i < levelMap.getLevelWidth() ; i++)
 			for (int j = 0; j < levelMap.getLevelHeight(); j++)

@@ -24,7 +24,7 @@ public class GamePlayPanel extends JPanel {
 		levelDataPanel = new LevelDataPanel(currentLevel);
 		this.add(levelPanel);
 		levelDataPanel.setBounds(0, 362, 644, 48);
-		this.add(levelDataPanel);
+		this.add(levelDataPanel, 0);
 	}
 	
 	public void startGame()

@@ -21,7 +21,7 @@ public class Player implements Serializable {
 		this.name = name;
 		this.levelList = settings.getLevelList();
 		this.skippedLevels = new ArrayList<Level>();
-		Level l = new Level();
+		Level l = settings.getLevelList().get(0);
 		l.setLevelId(1);
 		this.currentLevel = l; 
 	}
