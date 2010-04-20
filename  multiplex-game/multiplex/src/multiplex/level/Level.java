@@ -25,6 +25,8 @@ public class Level extends JPanel {
 	private int levelWidth, levelHeight; //hoogte van het level. in vakjes, niet pixels.
 	//private int[][] level;
 	private int aantalInfotrons;
+	private boolean paused;
+	private boolean playing;
 
 	public Level(AppPanel appPanel, LevelMap levelMap)
 	{
@@ -54,6 +56,7 @@ public class Level extends JPanel {
 		showLevel(levelMap.getLevel());
 		murphy.setFocusable(true);
 		murphy.requestFocus();
+		setPlaying(true);
 	}
 
 	public void showLevel(int[][] level)
@@ -205,7 +208,9 @@ public class Level extends JPanel {
 
 	public void pauseGame()
 	{
-
+		for (SpelElement e : elementList)
+			e.setPaused(true);
+		setPaused(true);
 	}
 
 	public void saveGame()
@@ -220,6 +225,9 @@ public class Level extends JPanel {
 
 	public void resumeGame()
 	{
+		for (SpelElement e : elementList)
+			e.setPaused(false);
+		setPaused(false);
 
 	}
 
@@ -227,11 +235,7 @@ public class Level extends JPanel {
 	{
 		if(aantalInfotrons == 0)
 		{
-			appPanel.remove(appPanel.getGamePanel());
-			appPanel.getMainPanel().setVisible(true);
-			appPanel.getGamePanel().endGame();
-			appPanel.repaint();
-			stopThreads();
+			eindeLevel();
 		}
 	}
 
@@ -242,6 +246,7 @@ public class Level extends JPanel {
 		appPanel.getGamePanel().endGame();
 		appPanel.repaint();
 		stopThreads();
+		setPlaying(false);
 	}
 	
 	public void stopThreads()
@@ -273,6 +278,22 @@ public class Level extends JPanel {
 
 	public int getLevelId() {
 		return levelId;
+	}
+
+	public boolean isPaused() {
+		return paused;
+	}
+
+	public void setPaused(boolean paused) {
+		this.paused = paused;
+	}
+
+	public boolean isPlaying() {
+		return playing;
+	}
+
+	public void setPlaying(boolean playing) {
+		this.playing = playing;
 	}
 
 }

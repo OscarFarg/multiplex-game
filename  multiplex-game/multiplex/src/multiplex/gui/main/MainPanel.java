@@ -249,7 +249,22 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 
 		}
 	}
+	
+	public void showHelp()
+	{
+		this.setVisible(false);
+		appPanel.add(helpPanel);
+		helpPanel.setVisible(true);
+		helpPanel.requestFocus();
 
+	}
+
+	public void removeHelp()
+	{
+		helpPanel.setVisible(true);
+		appPanel.remove(helpPanel);
+	}
+	
 	public void mouseClicked(MouseEvent e) //voor elke knop een apart event
 	{
 		if (e.getSource() == newPlayerKnop) //als er op "new player" geklikt wordt
@@ -272,10 +287,7 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		}
 		else if (e.getSource() == helpKnop) //als er op "help" geklikt wordt
 		{
-
-			this.setVisible(false);
-			appPanel.add(helpPanel);
-			helpPanel.setVisible(true);
+			showHelp();
 		}
 		else if (e.getSource() == creditsKnop) //als er op "credits" geklikt wordt
 		{
@@ -302,18 +314,25 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		}
 		else if (e.getSource() == levelOmhoogKnop) //als er op "level-list" (met de pijl omhoog) geklikt wordt
 		{
-			if (level > 0)
-				level--;
+			if (settings.getCurrentPlayer() != null)
+			{
+				if (level > 0)
+					level--;
 
-			settings.getCurrentPlayer().setCurrentLevel(level);
-			repaint();
+				settings.getCurrentPlayer().setCurrentLevel(level);
+				repaint();
+			}
 		}
 		else if (e.getSource() == levelOmlaagKnop) //als er op "level-list" (met de pijl omlaag) geklikt wordt
 		{
-			if (level < levelArray.size() - 1)
-				level++;
-			settings.getCurrentPlayer().setCurrentLevel(level);
-			repaint();
+			if (settings.getCurrentPlayer() != null)
+			{
+				if (level < levelArray.size() - 1)
+					level++;
+				settings.getCurrentPlayer().setCurrentLevel(level);
+				repaint();
+			}
+
 		}
 		else if (e.getSource() == spelerOmhoogKnop) //als er op "speler" (met de pijl omhoog) geklikt wordt
 		{

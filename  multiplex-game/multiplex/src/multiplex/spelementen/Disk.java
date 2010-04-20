@@ -15,7 +15,7 @@ import multiplex.spelementen.interfaces.KanVallen;
 public class Disk extends DynamischObject implements IsDuwbaar, KanVallen, ActionListener {
 	private boolean vallend;
 	private boolean opBodem = false;
-	
+
 	private ValChecker valChecker;
 
 	public Disk(Level level)
@@ -24,11 +24,11 @@ public class Disk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 		this.setAfbeelding(createImageIcon("images/diskettes.png"));
 
 		actieTimer = new Timer(20, this);
-		
+
 		valChecker = new ValChecker(this);
 		valChecker.start();
 	}
-	
+
 	public void tekenAfbeelding(Graphics g)
 	{
 		if (ontplof)
@@ -44,24 +44,27 @@ public class Disk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 	@Override
 	public void duw() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void val() {
-		SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32));
-		if (!vallend)
+		if (!paused)
 		{
-			if (element == null)
+			SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32));
+			if (!vallend)
 			{
-				actieTimer.start();
+				if (element == null)
+				{
+					actieTimer.start();
+				}
+				else
+				{
+					vallend = false;
+					actieTimer.stop();
+				}
 			}
-			else
-			{
-				vallend = false;
-				actieTimer.stop();
-			}
-		}		
+		}
 	}
 
 	@Override
@@ -76,25 +79,28 @@ public class Disk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == actieTimer)
+		if (!paused)
 		{
-			if (!opBodem)
+			if (e.getSource() == actieTimer)
 			{
-				if (!(this.getY() + 40 > (currentLevel.getLevelHeight()*32)))
+				if (!opBodem)
 				{
-					this.setLocation(getX(), getY() + 8);
-					currentLevel.repaint();
+					if (!(this.getY() + 40 > (currentLevel.getLevelHeight()*32)))
+					{
+						this.setLocation(getX(), getY() + 8);
+						currentLevel.repaint();
+					}
+					else
+					{
+						actieTimer.stop();
+						vallend = false;
+						opBodem = true;
+					}
 				}
 				else
-				{
-					actieTimer.stop();
-					vallend = false;
-					opBodem = true;
-				}
-			}
-			else
-				valChecker = null;
+					valChecker = null;
 
+			}
 		}
 	}
 }

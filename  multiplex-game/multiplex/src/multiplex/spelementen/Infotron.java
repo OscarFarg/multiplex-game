@@ -50,20 +50,23 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 		this.valChecker.stopThread();
 		actieTimer.stop();
 	}
-	
+
 	@Override
 	public void val() {
-		SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32));
-		if (!vallend)
+		if (!paused)
 		{
-			if (element == null)
+			SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32));
+			if (!vallend)
 			{
-				actieTimer.start();
-			}
-			else
-			{
-				vallend = false;
-				actieTimer.stop();
+				if (element == null)
+				{
+					actieTimer.start();
+				}
+				else
+				{
+					vallend = false;
+					actieTimer.stop();
+				}
 			}
 		}
 	}
@@ -72,48 +75,51 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 	{
 		valChecker.stopThread();
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == ontplofTimer)
+		if (!paused)
 		{
-			System.out.println(ontplofTeller);
-			actieTimer.stop();
-			super.actionPerformed(e);
-			if (ontplofTeller == 7)
-				valChecker.stopThread();
-		}
-		if (e.getSource() == actieTimer)
-		{
-			if (!opBodem)
+			if (e.getSource() == ontplofTimer)
 			{
-				if (!(this.getY() + 40 > (currentLevel.getLevelHeight()*32)))
+				System.out.println(ontplofTeller);
+				actieTimer.stop();
+				super.actionPerformed(e);
+				if (ontplofTeller == 7)
+					valChecker.stopThread();
+			}
+			if (e.getSource() == actieTimer)
+			{
+				if (!opBodem)
 				{
-					this.setLocation(getX(), getY() + 8);
-					currentLevel.repaint();
-					if (Botsing.raakt(this, currentLevel.getMurphy()))
+					if (!(this.getY() + 40 > (currentLevel.getLevelHeight()*32)))
 					{
-						if ((this.getX() == currentLevel.getMurphy().getxPos()) 
-								&& this.getY() <= currentLevel.getMurphy().getyPos() - 32)
+						this.setLocation(getX(), getY() + 8);
+						currentLevel.repaint();
+						if (Botsing.raakt(this, currentLevel.getMurphy()))
 						{
-							currentLevel.removeElement(this);
-							this.actieTimer.stop();
-							valChecker.stopThread();
-							currentLevel.getMurphy().ontplof();
-						}
+							if ((this.getX() == currentLevel.getMurphy().getxPos()) 
+									&& this.getY() <= currentLevel.getMurphy().getyPos() - 32)
+							{
+								currentLevel.removeElement(this);
+								this.actieTimer.stop();
+								valChecker.stopThread();
+								currentLevel.getMurphy().ontplof();
+							}
 
+						}
+					}
+					else
+					{
+						actieTimer.stop();
+						vallend = false;
+						opBodem = true;
 					}
 				}
 				else
-				{
-					actieTimer.stop();
-					vallend = false;
-					opBodem = true;
-				}
-			}
-			else
-				valChecker = null;
+					valChecker = null;
 
+			}
 		}
 	}
 

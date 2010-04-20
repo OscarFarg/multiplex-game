@@ -20,6 +20,7 @@ public class SpelElement extends JPanel implements ActionListener {
 	protected Timer ontplofTimer;
 	protected boolean ontplof;
 	protected int ontplofTeller;
+	protected boolean paused;
 
 	public SpelElement(Level level)
 	{
@@ -82,6 +83,14 @@ public class SpelElement extends JPanel implements ActionListener {
 		this.levelY = levelY;
 	}
 
+	public boolean isPaused() {
+		return paused;
+	}
+
+	public void setPaused(boolean paused) {
+		this.paused = paused;
+	}
+
 	public void paintComponent(Graphics g)
 	{ 
 		super.paintComponent( g );
@@ -110,7 +119,7 @@ public class SpelElement extends JPanel implements ActionListener {
 			g.drawImage(afbeelding.getImage(), 0, 0, getWidth(), getHeight(), clipX, 0, clipX + 32, 32, this);
 		}
 	}
-	
+
 	public void ontplof()
 	{
 		if (!ontplof)
@@ -120,19 +129,20 @@ public class SpelElement extends JPanel implements ActionListener {
 			ontplofTimer.start();
 		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == ontplofTimer)
-		{
-			ontplofTeller = ( ontplofTeller + 1 ) % 8;
-			if (ontplofTeller == 7)
+		if (!paused)
+			if (e.getSource() == ontplofTimer)
 			{
-				ontplofTimer.stop();
-				currentLevel.removeElement(this);
-			}
-			repaint();
+				ontplofTeller = ( ontplofTeller + 1 ) % 8;
+				if (ontplofTeller == 7)
+				{
+					ontplofTimer.stop();
+					currentLevel.removeElement(this);
+				}
+				repaint();
 
-		}		
+			}		
 	}
 }

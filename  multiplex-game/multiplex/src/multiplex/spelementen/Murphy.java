@@ -84,18 +84,20 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 	public void beweeg(Richting richting)
 	{
-		switch (richting)
-		{
-		case BOVEN: 
-			this.setyPos(yPos - 32); break;
-		case ONDER: 
-			this.setyPos(yPos + 32); break;
-		case LINKS: 
-			this.setxPos(xPos - 32); break;
-		case RECHTS: 
-			this.setxPos(xPos + 32); break;
-		}
-		this.setLocation(xPos, yPos);
+
+			switch (richting)
+			{
+			case BOVEN: 
+				this.setyPos(yPos - 32); break;
+			case ONDER: 
+				this.setyPos(yPos + 32); break;
+			case LINKS: 
+				this.setxPos(xPos - 32); break;
+			case RECHTS: 
+				this.setxPos(xPos + 32); break;
+			}
+			this.setLocation(xPos, yPos);
+	
 	}
 
 	public boolean checkRichting(Richting richting)
@@ -162,85 +164,57 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 			setRichting(Richting.RECHTS); break;
 		case KeyEvent.VK_ESCAPE:
 			ontplof(); removeKeyListener(this); break;
-		case KeyEvent.VK_M:
-			getThreads(); break;
-
 		}
-
-		if (checkRichting(richting))
-			beweeg(richting);
-	}
-
-	public void getThreads()
-	{
-		// Walk up all the way to the root thread group
-		ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
-		ThreadGroup parent;
-		while ((parent = rootGroup.getParent()) != null) {
-			rootGroup = parent;
+		
+		if (!paused)
+		{
+			if (checkRichting(richting))
+				beweeg(richting);
 		}
-
-		listThreads(rootGroup, "");
 
 	}
 
-	public static void listThreads(ThreadGroup group, String indent) {
-		System.out.println(indent + "Group[" + group.getName() + 
-				":" + group.getClass()+"]");
-		int nt = group.activeCount();
-		Thread[] threads = new Thread[nt*2 + 10]; //nt is not accurate
-		nt = group.enumerate(threads, false);
 
-		// List every thread in the group
-		for (int i=0; i<nt; i++) {
-			Thread t = threads[i];
-			System.out.println(indent + "  Thread[" + t.getName() 
-					+ ":" + t.getClass() + "]");
-		}
-
-		// Recursively list all subgroups
-		int ng = group.activeGroupCount();
-		ThreadGroup[] groups = new ThreadGroup[ng*2 + 10];
-		ng = group.enumerate(groups, false);
-
-		for (int i=0; i<ng; i++) {
-			listThreads(groups[i], indent + "  ");
-		}
-	}
 
 	public void ontplof()
 	{
-		if (!ontplof)
-		{
-			this.removeKeyListener(this);
-			this.setAfbeelding(createImageIcon("images/explosion.png"));
-			ontplofTimer.start();
-			ontplof = true;
+		if (!paused)
+			if (!ontplof)
+			{
+				this.removeKeyListener(this);
+				this.setAfbeelding(createImageIcon("images/explosion.png"));
+				ontplofTimer.start();
+				ontplof = true;
 
-			for (int i = -1; i < 2; i++)
-				for (int j = -1; j < 2; j++)
-				{
-					int x = this.getxPos() + (i * 32);
-					int y = this.getyPos() + (j * 32);
-					Point p = new Point( x, y);
-					SpelElement element = currentLevel.getElementAt(p);
-					if (element == null)
+				for (int i = -1; i < 2; i++)
+					for (int j = -1; j < 2; j++)
 					{
-						element = new SpelElement(currentLevel);
-						currentLevel.addElement(element, p);
-						element.ontplof();
-					}
-					else
-						if (element != this)
+						int x = this.getxPos() + (i * 32);
+						int y = this.getyPos() + (j * 32);
+						Point p = new Point( x, y);
+						SpelElement element = currentLevel.getElementAt(p);
+						if (element == null)
+						{
+							element = new SpelElement(currentLevel);
+							currentLevel.addElement(element, p);
 							element.ontplof();
-				}
-		}
+						}
+						else
+							if (element != this)
+								element.ontplof();
+					}
+			}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent ke) {
-		setRichting(Richting.START);
-		repaint();
+		if (!paused)
+		{
+			setRichting(Richting.START);
+			repaint();
+
+		}
+
 	}
 
 	@Override
@@ -250,21 +224,25 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 	public void actionPerformed(ActionEvent e)
 	{
-		super.actionPerformed(e);
-		if (e.getSource() == ontplofTimer)
+		if (!paused)
 		{
-			if (ontplofTeller == 7)
+			super.actionPerformed(e);
+			if (e.getSource() == ontplofTimer)
 			{
+				if (ontplofTeller == 7)
+				{
 
-				eindTimer = new Timer(100, this);
-				eindTimer.setInitialDelay(500);
-				eindTimer.start();
+					eindTimer = new Timer(100, this);
+					eindTimer.setInitialDelay(500);
+					eindTimer.start();
+				}
+			}
+			if (e.getSource() == eindTimer)
+			{
+				currentLevel.eindeLevel();
+				eindTimer.stop();
 			}
 		}
-		if (e.getSource() == eindTimer)
-		{
-			currentLevel.eindeLevel();
-			eindTimer.stop();
-		}
+
 	}
 }
