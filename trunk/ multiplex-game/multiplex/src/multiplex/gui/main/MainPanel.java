@@ -2,14 +2,22 @@ package multiplex.gui.main;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.*;
 import multiplex.gui.main.HighscoresPanel;
 import multiplex.gui.main.CreditsPanel;
 import multiplex.gui.main.HelpPanel;
 import multiplex.gui.AppPanel;
+import multiplex.level.Level;
+import multiplex.settings.Player;
+import multiplex.settings.Settings;
 
-public class MainPanel extends JPanel implements MouseListener
+public class MainPanel extends JPanel implements MouseListener, KeyListener
 {
 	private HighscoresPanel highscoresPanel = new HighscoresPanel(this);
 	private CreditsPanel creditsPanel = new CreditsPanel(this);
@@ -19,30 +27,77 @@ public class MainPanel extends JPanel implements MouseListener
 	helpKnop, startKnop, loadKnop, levelOmhoogKnop, levelOmlaagKnop, 
 	spelerOmhoogKnop, spelerOmlaagKnop; // de knoppen
 
-
 	private int level = 0; //het geselecteerde level
-
 	private AppPanel appPanel;
 
-	private ArrayList<String> levelArray;
+	private ArrayList<Level> levelArray;
+	private ArrayList<Player> playerList;
+	private Settings settings;
 
-	private ArrayList<String> spelernamen;
+	private boolean playerInput;
+	private boolean playerExists;
+	private String newPlayer = "";
 
 	public MainPanel(AppPanel appPanel)
 	{
-		spelernamen = new ArrayList<String>(); //aan deze arraylist worden nieuwe spelers toegevoegd met "new player"
-		levelArray = new ArrayList<String>();
-
-		//tijdelijke for lus om level array te vullen.
-		for (int i = 0; i <= 10; i ++)
-			levelArray.add("Level " + i);
+		//spelernamen = new ArrayList<String>(); //aan deze arraylist worden nieuwe spelers toegevoegd met "new player"
+		//levelArray = new ArrayList<Level>();
 
 		setLayout(null); //null layout, zodat je de knoppen zelf kan positioneren
 
 		this.setBounds(0, 0, 646, 410); //grootte van het veld
-
 		this.appPanel = appPanel;
+		this.addKeyListener(this);
+		this.setFocusable(true);
+		addButtons();
 
+		loadSettings();
+
+		setVisible(true);
+	}
+
+	public void loadSettings()
+	{
+		try {
+			ObjectInputStream settingsLoader = new ObjectInputStream(new FileInputStream("settings.mtx"));
+			settings = (Settings) settingsLoader.readObject();
+			repaint();
+
+		} catch (IOException ioEx)
+		{
+			System.out.println("Geen settings gevonden.");
+			settings = new Settings();
+		} catch (ClassNotFoundException classEx) {
+			System.out.println("Geen settings gevonden.");
+			settings = new Settings();
+		} finally {
+			levelArray = settings.getLevelList();
+			playerList = settings.getPlayerList();
+		}
+
+
+	}
+
+	public void saveSettings()
+	{
+		try
+		{
+			ObjectOutputStream objectSaver = new ObjectOutputStream(new FileOutputStream("settings.mtx"));
+			objectSaver.writeObject(settings);
+			objectSaver.close();
+		}
+		catch(IOException ex)
+		{
+			System.out.println(ex.getStackTrace());
+			JOptionPane.showMessageDialog(null, "Er is een fout opgetreden bij het schrijven.", 
+					"Bewaren van het spel is mislukt.", JOptionPane.WARNING_MESSAGE);
+		}
+
+	}
+
+	//aparte methode op alle knoppen toe te voegen.
+	public void addButtons()
+	{
 		// teken de knop "new player" en hang er een mouselistener aan
 		newPlayerKnop = new JLabel(); //knop is een JLabel
 		newPlayerKnop.addMouseListener(this); //hang er een mouselistener aan, knop moet op een muisklik reageren
@@ -120,8 +175,6 @@ public class MainPanel extends JPanel implements MouseListener
 		spelerOmlaagKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/spelerDownKnop.png")));
 		spelerOmlaagKnop.setBounds(215,169,110,20);
 
-		setVisible(true);
-
 	}
 
 	public void paintComponent(Graphics g)
@@ -132,25 +185,69 @@ public class MainPanel extends JPanel implements MouseListener
 		g.setColor(new Color(227, 17, 17));
 		g.setFont(new Font("Lucida Sans", Font.BOLD, 16 ));
 
-		//bovenste regel alleen tekenen als level groter is dan 0
-		if (level > 0)
-			g.drawString(levelArray.get(level - 1), 300, 247);
-		
-		//middelste regel
-		g.drawString(levelArray.get(level), 300, 264);
+		//alleen tekenen als er levels in de lijst staan.
+		if (levelArray.size() > 0)
+		{
+			//bovenste regel alleen tekenen als level groter is dan 0
+			if (level > 0)
+				g.drawString(levelArray.get(level - 1).getLevelName(), 300, 247);
 
-		//onderste regel alleen tekenen als level kleiner is dan het aantal levels in levelArray
-		if (level < levelArray.size() -1)
-			g.drawString(levelArray.get(level + 1), 300, 281);
-		
+			//middelste regel
+			g.drawString(levelArray.get(level).getLevelName(), 300, 264);
 
+			//onderste regel alleen tekenen als level kleiner is dan het aantal levels in levelArray
+			if (level < levelArray.size() -1)
+				g.drawString(levelArray.get(level + 1).getLevelName(), 300, 281);
+		}
+
+		if (playerList.size() > 0)
+		{
+			int i = playerList.indexOf(settings.getCurrentPlayer());
+
+			//Huidige speler
+			g.drawString(settings.getCurrentPlayer().getName(), 225, 145);
+
+			g.setColor(new Color(112, 146, 227));
+
+			//Huidige speler -1
+			if (i > 0)
+				g.drawString(settings.getPlayerList().get(i - 1).getName(), 225, 130);
+
+			//Huidige speler + 1
+			if (i + 1 < settings.getPlayerList().size())
+				g.drawString(settings.getPlayerList().get(i + 1).getName(), 225, 160);
+		}
+
+		if (playerInput)
+		{
+			g.setColor(new Color(227, 17, 17));
+			g.drawString("Voer een naam in: " + newPlayer, 315, 370);
+		}
+		
+		if (playerExists)
+		{
+			g.setColor(new Color(227, 17, 17));
+			g.drawString("Speler bestaat al", 315, 370);
+		}
+		
+		if (settings.getCurrentPlayer() != null)
+		{
+			g.setColor(new Color(112, 146, 227));
+			g.drawString(settings.getCurrentPlayer().getName(), 350, 125);
+			g.drawString("000:00:00", 460, 125);
+			g.drawString(Integer.toString(settings.getCurrentPlayer().getCurrentLevel().getLevelId()), 580, 125);
+
+		}
 	}
 
 	public void mouseClicked(MouseEvent e) //voor elke knop een apart event
 	{
 		if (e.getSource() == newPlayerKnop) //als er op "new player" geklikt wordt
 		{
-			System.out.println("maak nieuwe speler");
+			//settings.createPlayer(new Player("Oscar", settings));
+			playerInput = true;
+			this.requestFocus();
+			repaint();
 		}
 		else if (e.getSource() == skipLevelKnop) // als er op "skip level" geklikt wordt
 		{
@@ -207,11 +304,17 @@ public class MainPanel extends JPanel implements MouseListener
 		}
 		else if (e.getSource() == spelerOmhoogKnop) //als er op "speler" (met de pijl omhoog) geklikt wordt
 		{
-			System.out.println("spelerOmhoogKnop");
+			int i = settings.getPlayerList().indexOf(settings.getCurrentPlayer());
+			if (i > 0)
+				settings.setCurrentPlayer(settings.getPlayerList().get(i - 1));
+			repaint();
 		}
 		else if (e.getSource() == spelerOmlaagKnop) //als er op "speler" (met de pijl omlaag) geklikt wordt
 		{
-			System.out.println("spelerOmlaagKnop");
+			int i= settings.getPlayerList().indexOf(settings.getCurrentPlayer());
+			if (i + 1 < settings.getPlayerList().size())
+				settings.setCurrentPlayer(settings.getPlayerList().get(i + 1));
+			repaint();
 		}
 
 
@@ -219,5 +322,44 @@ public class MainPanel extends JPanel implements MouseListener
 	public void mouseEntered(MouseEvent e) {} 
 	public void mouseExited(MouseEvent e)  {} //deze worden niet gebruikt
 	public void mousePressed(MouseEvent e)  {}
-	public void mouseReleased(MouseEvent e) {} 
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		switch (e.getKeyCode())
+		{
+		case KeyEvent.VK_BACK_SPACE:
+			if (newPlayer.length() > 0)
+			{
+				newPlayer = newPlayer.substring(0, newPlayer.length() -1).toString();
+			}
+			break;
+		case KeyEvent.VK_ENTER:
+			playerInput = false;
+			playerExists = settings.checkPlayerExists(new Player(newPlayer, settings));
+			settings.createPlayer(new Player(newPlayer, settings));
+			newPlayer = "";
+			break;
+		}
+		repaint();
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if (playerInput)
+		{
+			if (newPlayer.length() < 7)
+			{
+				if (Character.isLetter(e.getKeyChar()))
+						newPlayer = newPlayer + e.getKeyChar();
+			}
+			repaint();
+		}
+	} 
 }
