@@ -32,7 +32,7 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 	private int level = 0; //het geselecteerde level
 	private AppPanel appPanel;
 
-	private ArrayList<Level> levelArray;
+	private ArrayList<Level> levelArray = new ArrayList<Level>();
 	private ArrayList<Player> playerList;
 	private Settings settings;
 
@@ -42,9 +42,6 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 
 	public MainPanel(AppPanel appPanel)
 	{
-		//spelernamen = new ArrayList<String>(); //aan deze arraylist worden nieuwe spelers toegevoegd met "new player"
-		//levelArray = new ArrayList<Level>();
-
 		setLayout(null); //null layout, zodat je de knoppen zelf kan positioneren
 
 		this.setBounds(0, 0, 646, 410); //grootte van het veld
@@ -65,19 +62,23 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 			ObjectInputStream settingsLoader = new ObjectInputStream(new FileInputStream("settings.mtx"));
 			settings = (Settings) settingsLoader.readObject();
 			settings.createLevelList();
-			settings.setAppPanel(appPanel);
 			repaint();
 
 		} catch (IOException ioEx)
 		{
-			System.out.println("Geen settings gevonden.");
+			//System.out.println("Geen settings gevonden.");
 			settings = new Settings(appPanel);
 		} catch (ClassNotFoundException classEx) {
-			System.out.println("Geen settings gevonden.");
+			//System.out.println("Geen settings gevonden.");
 			settings = new Settings(appPanel);
 		} finally {
-			levelArray = settings.getLevelList();
+			for (int i = 0; i < settings.getLevelList().size(); i++)
+			{
+				levelArray.add(new Level(appPanel, settings.getLevelList().get(i)));
+			}
 			playerList = settings.getPlayerList();
+			if (settings.getCurrentPlayer() != null)
+				level = settings.getCurrentPlayer().getCurrentLevel();
 		}
 
 
@@ -93,9 +94,9 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		}
 		catch(IOException ex)
 		{
-			System.out.println(ex.getStackTrace());
+			System.out.println(ex.getMessage());
 			JOptionPane.showMessageDialog(null, "Er is een fout opgetreden bij het schrijven.", 
-					"Bewaren van het spel is mislukt.", JOptionPane.WARNING_MESSAGE);
+					"Bewaren van het spel is mislukt.", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -232,19 +233,19 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 			g.setColor(new Color(227, 17, 17));
 			g.drawString("Voer een naam in: " + newPlayer, 315, 370);
 		}
-		
+
 		if (playerExists)
 		{
 			g.setColor(new Color(227, 17, 17));
 			g.drawString("Speler bestaat al", 315, 370);
 		}
-		
+
 		if (settings.getCurrentPlayer() != null)
 		{
 			g.setColor(new Color(112, 146, 227));
 			g.drawString(settings.getCurrentPlayer().getName(), 350, 125);
 			g.drawString("000:00:00", 460, 125);
-			g.drawString(Integer.toString(settings.getCurrentPlayer().getCurrentLevel().getLevelId()), 580, 125);
+			g.drawString(Integer.toString(settings.getCurrentPlayer().getCurrentLevel()), 580, 125);
 
 		}
 	}
@@ -285,11 +286,15 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		}
 		else if (e.getSource() == startKnop) //als er op "start" geklikt wordt
 		{
-			this.setVisible(false);
-			appPanel.add(appPanel.getGamePanel());
-			appPanel.repaint();
-			appPanel.getGamePanel().startGame();
-			appPanel.repaint();
+			if (settings.getCurrentPlayer() != null)
+			{
+				this.setVisible(false);
+				appPanel.add(appPanel.getGamePanel());
+				appPanel.repaint();
+				appPanel.getGamePanel().startGame();
+				appPanel.repaint();
+			}
+
 		}
 		else if (e.getSource() == loadKnop) //als er op "load" geklikt wordt
 		{
@@ -299,12 +304,15 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		{
 			if (level > 0)
 				level--;
+
+			settings.getCurrentPlayer().setCurrentLevel(level);
 			repaint();
 		}
 		else if (e.getSource() == levelOmlaagKnop) //als er op "level-list" (met de pijl omlaag) geklikt wordt
 		{
 			if (level < levelArray.size() - 1)
 				level++;
+			settings.getCurrentPlayer().setCurrentLevel(level);
 			repaint();
 		}
 		else if (e.getSource() == spelerOmhoogKnop) //als er op "speler" (met de pijl omhoog) geklikt wordt
@@ -341,8 +349,8 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 			break;
 		case KeyEvent.VK_ENTER:
 			playerInput = false;
-			playerExists = settings.checkPlayerExists(new Player(newPlayer, settings));
-			settings.createPlayer(new Player(newPlayer, settings));
+			playerExists = settings.checkPlayerExists(new Player(newPlayer));
+			settings.createPlayer(new Player(newPlayer));
 			newPlayer = "";
 			break;
 		case KeyEvent.VK_F8:
@@ -365,9 +373,19 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 			if (newPlayer.length() < 7)
 			{
 				if (Character.isLetter(e.getKeyChar()))
-						newPlayer = newPlayer + e.getKeyChar();
+					newPlayer = newPlayer + e.getKeyChar();
 			}
 			repaint();
 		}
 	} 
+
+	@Override
+	public void setVisible(boolean visible)
+	{
+		super.setVisible(visible);
+		if (visible)
+		{
+			requestFocus();
+		}
+	}
 }

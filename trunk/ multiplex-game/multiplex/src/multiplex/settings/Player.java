@@ -10,22 +10,18 @@ public class Player implements Serializable {
 	private String name;
 	private int playTime;
 	
-	private ArrayList<Level> levelList;
+	//private ArrayList<Level> levelList;
 	private ArrayList<Level> skippedLevels;
-	private Level currentLevel;
-	private Settings settings;
+	private int currentLevel;
 	
-	public Player(String name, Settings settings)
+	public Player(String name)
 	{
-		this.settings = settings;
+		//this.settings = settings;
 		this.name = name;
-		this.levelList = settings.getLevelList();
+		//this.levelList = settings.getLevelList();
 		this.skippedLevels = new ArrayList<Level>();
-		Level l = settings.getLevelList().get(0);
-		l.setLevelId(1);
-		this.currentLevel = l; 
+		this.currentLevel = 0; 
 	}
-	
 	
 	public ArrayList<Level> getSkippedLevels()
 	{
@@ -56,12 +52,12 @@ public class Player implements Serializable {
 	}
 
 
-	public void setCurrentLevel(Level currentLevel) {
+	public void setCurrentLevel(int currentLevel) {
 		this.currentLevel = currentLevel;
 	}
 
 
-	public Level getCurrentLevel() {
+	public int getCurrentLevel() {
 		return currentLevel;
 	}
 }

@@ -58,7 +58,6 @@ public class Level extends JPanel {
 
 	public void showLevel(int[][] level)
 	{
-		System.out.println("test");
 		for (int i = 0; i < level.length; i++)
 			for (int j = 0; j < level[i].length; j++)
 			{
@@ -232,7 +231,7 @@ public class Level extends JPanel {
 			appPanel.getMainPanel().setVisible(true);
 			appPanel.getGamePanel().endGame();
 			appPanel.repaint();
-
+			stopThreads();
 		}
 	}
 
@@ -242,6 +241,11 @@ public class Level extends JPanel {
 		appPanel.getMainPanel().setVisible(true);
 		appPanel.getGamePanel().endGame();
 		appPanel.repaint();
+		stopThreads();
+	}
+	
+	public void stopThreads()
+	{
 		for (int i = 0; i < elementList.size(); i++)
 		{
 			try {
