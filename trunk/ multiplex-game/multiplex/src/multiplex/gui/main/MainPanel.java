@@ -9,6 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.*;
+
+import multiplex.gui.editor.EditorApp;
 import multiplex.gui.main.HighscoresPanel;
 import multiplex.gui.main.CreditsPanel;
 import multiplex.gui.main.HelpPanel;
@@ -49,6 +51,7 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		this.appPanel = appPanel;
 		this.addKeyListener(this);
 		this.setFocusable(true);
+		this.requestFocus();
 		addButtons();
 
 		loadSettings();
@@ -61,6 +64,7 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		try {
 			ObjectInputStream settingsLoader = new ObjectInputStream(new FileInputStream("settings.mtx"));
 			settings = (Settings) settingsLoader.readObject();
+			settings.createLevelList();
 			repaint();
 
 		} catch (IOException ioEx)
@@ -339,6 +343,9 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 			playerExists = settings.checkPlayerExists(new Player(newPlayer, settings));
 			settings.createPlayer(new Player(newPlayer, settings));
 			newPlayer = "";
+			break;
+		case KeyEvent.VK_F8:
+			new EditorApp();
 			break;
 		}
 		repaint();
