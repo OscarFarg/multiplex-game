@@ -398,6 +398,14 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		}
 	} 
 
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	@Override
 	public void setVisible(boolean visible)
 	{

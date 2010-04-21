@@ -7,4 +7,6 @@ public interface KanVallen {
 	public boolean isOpBodem();
 	
 	public boolean isVallend();
+
+	public void restart();
 }

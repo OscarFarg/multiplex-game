@@ -1,6 +1,8 @@
 package multiplex.gui.editor;
 
+
 import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
 import multiplex.level.LevelMap;
@@ -9,6 +11,7 @@ public class LevelPanel extends JPanel {
 
 	private LevelMap levelMap;
 	private ArrayList<ElementLabel> elementList = new ArrayList<ElementLabel>();
+	
 	public LevelPanel()
 	{
 		this.setLayout(null);
@@ -38,7 +41,6 @@ public class LevelPanel extends JPanel {
 
 	public void createLevelMap()
 	{
-		//int[][] level = levelMap.getLevel();
 		for (int i = 0; i < elementList.size(); i++)
 		{
 			int x = elementList.get(i).x;
@@ -55,5 +57,7 @@ public class LevelPanel extends JPanel {
 	public void setLevelMap(LevelMap levelMap) {
 		this.levelMap = levelMap;
 	}
+	
+	
 
 }

@@ -44,18 +44,19 @@ public class Level extends JPanel {
 		this.setLevelWidth(levelMap.getLevelWidth());
 		this.setLevelHeight(levelMap.getLevelHeight());
 		this.setSize(getLevelWidth() * 32, getLevelHeight() * 32);
-		
-		
+
+
 		AbstractAction pauseGame = new AbstractAction(){
 
 			public void actionPerformed(ActionEvent e) {
 				pauseGame();
 			}
 		};
-		
-		this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("F2"), "pauseGame");
-		this.getActionMap().put("pauseGame", pauseGame);
 
+
+		this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("F2"), "pauseGame");
+
+		this.getActionMap().put("pauseGame", pauseGame);
 
 	}
 
@@ -74,6 +75,7 @@ public class Level extends JPanel {
 		murphy.setFocusable(true);
 		murphy.requestFocus();
 		setPlaying(true);
+		resumeGame();
 	}
 
 	public void showLevel(int[][] level)
@@ -182,23 +184,13 @@ public class Level extends JPanel {
 		aantalInfotrons--;
 	}
 
-	public void showLaadDialog()
-	{
-
-	}
-
-	public void showLoadingError()
-	{
-
-	}
-
 	public SpelElement getElement()
 	{
 		return null;
 
 	}
 
-	public SpelElement getElementAt(Point location)
+	public SpelElement getElementAt(Point location, SpelElement element)
 	{
 		if (location.x >= 0 && location.y >= 0)
 		{
@@ -209,7 +201,8 @@ public class Level extends JPanel {
 				if ((elementLocation.y == location.y) && (elementLocation.x == location.x))
 				{
 					if (elementList.get(i) == exit)
-						exit.doUitgespeeld();
+						if (element == murphy)
+							exit.doUitgespeeld();
 					return elementList.get(i);
 				}
 			}
@@ -217,19 +210,11 @@ public class Level extends JPanel {
 		return null;
 	}
 
-	public void tekenSpelElement(int ElementNr)
-	{
-
-	}
-
-
 	public void pauseGame()
 	{
 		if (paused)
 		{
-		for (SpelElement e : elementList)
-			e.setPaused(false);
-		setPaused(false);
+			resumeGame();
 		}
 		else
 		{
@@ -239,22 +224,13 @@ public class Level extends JPanel {
 		}
 	}
 
-	public void saveGame()
-	{
-
-	}
-
-	public void loadLevel()
-	{
-
-	}
 
 	public void resumeGame()
 	{
 		for (SpelElement e : elementList)
 			e.setPaused(false);
 		setPaused(false);
-
+		murphy.requestFocus();
 	}
 
 	public void doUitgespeeld()
@@ -274,7 +250,7 @@ public class Level extends JPanel {
 		stopThreads();
 		setPlaying(false);
 	}
-	
+
 	public void stopThreads()
 	{
 		for (int i = 0; i < elementList.size(); i++)

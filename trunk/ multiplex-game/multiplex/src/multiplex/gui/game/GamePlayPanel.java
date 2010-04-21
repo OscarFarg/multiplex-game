@@ -8,10 +8,6 @@ public class GamePlayPanel extends JPanel {
 	@SuppressWarnings("unused")
 	private AppPanel appPanel; //word wel gebruikt. Eclipse spaced em.
 	private LevelPanel levelPanel;
-	public LevelPanel getLevelPanel() {
-		return levelPanel;
-	}
-
 	private LevelDataPanel levelDataPanel;
 	
 	public GamePlayPanel(AppPanel appPanel)
@@ -21,8 +17,8 @@ public class GamePlayPanel extends JPanel {
 		this.setLocation(0,0);
 		this.setSize(646, 410);
 		levelPanel = new LevelPanel(appPanel);
-		levelDataPanel = new LevelDataPanel();
 		this.add(levelPanel);
+		levelDataPanel = new LevelDataPanel();
 		levelDataPanel.setBounds(0, 362, 644, 48);
 		this.add(levelDataPanel, 0);
 	}
@@ -39,6 +35,10 @@ public class GamePlayPanel extends JPanel {
 
 	public LevelDataPanel getLevelDataPanel() {
 		return levelDataPanel;
+	}
+
+	public LevelPanel getLevelPanel() {
+		return levelPanel;
 	}
 
 

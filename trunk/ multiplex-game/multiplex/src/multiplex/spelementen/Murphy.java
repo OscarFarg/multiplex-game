@@ -106,13 +106,13 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 		switch (richting)
 		{
 		case BOVEN: 
-			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() - 32)); break;
+			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() - 32), this); break;
 		case ONDER: 
-			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() + 32)); break;
+			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() + 32), this); break;
 		case LINKS: 
-			element = currentLevel.getElementAt(new Point(getxPos() - 32, getyPos())); break;
+			element = currentLevel.getElementAt(new Point(getxPos() - 32, getyPos()), this); break;
 		case RECHTS: 
-			element = currentLevel.getElementAt(new Point(getxPos() + 32, getyPos())); break;
+			element = currentLevel.getElementAt(new Point(getxPos() + 32, getyPos()), this); break;
 		}
 
 		if (element != null)
@@ -192,7 +192,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 						int x = this.getxPos() + (i * 32);
 						int y = this.getyPos() + (j * 32);
 						Point p = new Point( x, y);
-						SpelElement element = currentLevel.getElementAt(p);
+						SpelElement element = currentLevel.getElementAt(p, this);
 						if (element == null)
 						{
 							element = new SpelElement(currentLevel);

@@ -1,14 +1,11 @@
 package multiplex.spelementen;
 
-import java.io.Serializable;
-
 import multiplex.spelementen.interfaces.KanVallen;
 
-public class ValChecker extends Thread implements Serializable {
+public class ValChecker extends Thread {
 
 	private KanVallen element;
 
-	private boolean firstrun = true;
 	private boolean running = true;
 
 	public ValChecker(KanVallen element) {
@@ -23,12 +20,6 @@ public class ValChecker extends Thread implements Serializable {
 	public void run() {
 		while (running && !element.isOpBodem())
 			try {
-				if (firstrun)
-				{
-					firstrun = !firstrun;
-					Thread.sleep(1000);
-				}
-				else
 					Thread.sleep(15);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
