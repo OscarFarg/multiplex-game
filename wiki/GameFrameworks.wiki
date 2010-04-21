@@ -1,14 +1,14 @@
 #summary Lijst met game frameworks
 
 = Links =
-http://stackoverflow.com/questions/293079/java-2d-game-frameworks
-http://www.interactivepulp.com/pulpcore/ (schijnt de shit te zijn)
-http://slick.cokeandcode.com/index.php
-http://www.goldenstudios.or.id/products/GTGE/index.php
-http://www.13thmonkey.org/~boris/jgame/ (schijnt goed te zijn)
-http://gameframe.sourceforge.net/
-http://sourceforge.net/projects/basiliskgl/
-http://www.genuts.com/ (Commercieel)
-
-http://processing.org/
-http://www.gamegardens.com/
+http://stackoverflow.com/questions/293079/java-2d-game-frameworks <br>
+http://www.interactivepulp.com/pulpcore/ (schijnt de shit te zijn) <br>
+http://slick.cokeandcode.com/index.php <br>
+http://www.goldenstudios.or.id/products/GTGE/index.php <br>
+http://www.13thmonkey.org/~boris/jgame/ (schijnt goed te zijn) <br>
+http://gameframe.sourceforge.net/ <br>
+http://sourceforge.net/projects/basiliskgl/ <br>
+http://www.genuts.com/ (Commercieel) <br>
+<br>
+http://processing.org/ <br>
+http://www.gamegardens.com/ <br>
