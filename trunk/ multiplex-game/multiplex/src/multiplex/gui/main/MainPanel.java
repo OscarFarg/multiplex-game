@@ -298,7 +298,7 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		}
 		else if (e.getSource() == startKnop) //als er op "start" geklikt wordt
 		{
-			if (settings.getCurrentPlayer() != null)
+			if (settings.getCurrentPlayer() != null && settings.getLevelList().size() > 0)
 			{
 				this.setVisible(false);
 				appPanel.add(appPanel.getGamePanel());
@@ -371,9 +371,6 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 			playerExists = settings.checkPlayerExists(new Player(newPlayer));
 			settings.createPlayer(new Player(newPlayer));
 			newPlayer = "";
-			break;
-		case KeyEvent.VK_F8:
-			new EditorApp();
 			break;
 		}
 		repaint();

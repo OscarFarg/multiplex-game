@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import multiplex.gui.editor.EditorApp;
 import multiplex.gui.game.GamePlayPanel;
 import multiplex.gui.main.MainPanel;
 
@@ -15,7 +16,7 @@ public class AppPanel extends JPanel {
 
 	private MainPanel mainPanel = new MainPanel(this);
 	private GamePlayPanel gamePanel = new GamePlayPanel(this);
-	private Action showHelp, showThreads;
+	private Action showHelp, showThreads, showEditor;
 
 	public AppPanel()
 	{
@@ -26,12 +27,12 @@ public class AppPanel extends JPanel {
 		this.setFocusable(true);
 
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F1"), "showHelp");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F8"), "showEditor");
 		this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("F12"), "showThreads");
 
 		this.getActionMap().put("showHelp", showHelp);
+		this.getActionMap().put("showEditor", showEditor);
 		this.getActionMap().put("showThreads", showThreads);
-
-
 	}
 
 	public void createAction()
@@ -65,6 +66,13 @@ public class AppPanel extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				getThreads();
+			}
+		};
+		
+		showEditor = new AbstractAction(){
+
+			public void actionPerformed(ActionEvent e) {
+				new EditorApp();
 			}
 		};
 	}
