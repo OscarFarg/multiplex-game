@@ -10,7 +10,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.*;
 
-import multiplex.gui.editor.EditorApp;
 import multiplex.gui.main.HighscoresPanel;
 import multiplex.gui.main.CreditsPanel;
 import multiplex.gui.main.HelpPanel;
