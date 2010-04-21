@@ -42,10 +42,15 @@ public class Bug extends Vijand implements ActionListener, IsEetbaar {
 
 	}
 
+	public void collision()
+	{
+		//doe niets.
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (!paused)
-		{
+		{			
 			if (e.getSource() == randomTimer)
 			{
 				randomTeller++;
@@ -70,6 +75,14 @@ public class Bug extends Vijand implements ActionListener, IsEetbaar {
 		}
 	}
 
+	public void restart()
+	{
+		super.restart();
+		actieTimer = new Timer(100, this);
+		randomTimer = new Timer(1000, this);
+		randomTimer.start();
+		
+	}
 	public boolean isEetbaar()
 	{
 		if (!actieTimer.isRunning())

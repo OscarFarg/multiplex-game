@@ -21,6 +21,7 @@ public class MultiplexApp extends JFrame implements WindowListener
 		this.setContentPane(appPanel);
 		this.setVisible(true);
 		this.addWindowListener(this);
+		
 	}
 	
 	public static void main(String[] args) {

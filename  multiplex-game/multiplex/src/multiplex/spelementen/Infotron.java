@@ -18,7 +18,7 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 	private boolean vallend;
 	private boolean opBodem = false;
 
-	private ValChecker valChecker;
+	transient private ValChecker valChecker;
 
 	public Infotron(Level level)
 	{
@@ -56,7 +56,7 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 	public void val() {
 		if (!paused)
 		{
-			SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32));
+			SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32), this);
 			if (!vallend)
 			{
 				if (element == null)
@@ -132,5 +132,11 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 	@Override
 	public boolean isVallend() {
 		return vallend;
+	}
+
+	@Override
+	public void restart() {
+		valChecker = new ValChecker(this);
+		valChecker.start();		
 	}
 }

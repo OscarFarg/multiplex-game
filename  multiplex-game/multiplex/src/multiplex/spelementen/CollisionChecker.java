@@ -6,7 +6,7 @@ public class CollisionChecker extends Thread {
 
 	private Vijand vijand;
 	private Murphy murphy;
-	private boolean alive = false;
+	private boolean alive = true;
 
 	public CollisionChecker(Vijand vijand, Murphy murphy)
 	{

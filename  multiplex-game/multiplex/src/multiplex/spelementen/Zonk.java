@@ -19,7 +19,7 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 	private boolean opBodem = false;
 
 	//private Timer valTimer;
-	private ValChecker valChecker;
+	transient private ValChecker valChecker;
 
 	public Zonk(Level level)
 	{
@@ -30,7 +30,6 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 		valChecker = new ValChecker(this);
 
 		valChecker.start();
-
 	}
 
 
@@ -57,7 +56,7 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 	public void val() {
 		if (!paused)
 		{
-			SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32));
+			SpelElement element = currentLevel.getElementAt(new Point(getX(), getY() + 32), this);
 			if (!vallend)
 			{
 				if (element == null) {
@@ -127,5 +126,13 @@ public class Zonk extends DynamischObject implements IsDuwbaar, KanVallen, Actio
 	@Override
 	public boolean isVallend() {
 		return vallend;
+	}
+
+
+	@Override
+	public void restart() {
+		actieTimer = new Timer(20, this);
+		valChecker = new ValChecker(this);
+		valChecker.start();
 	}
 }

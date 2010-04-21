@@ -10,7 +10,9 @@ import multiplex.botsing.Botsing;
 public class SnikSnak extends Vijand implements Runnable
 {
 	private int richting = 1;
-	private final int DELAY = 200;
+	private final int DELAY = 100;
+
+	transient private Thread thread;
 
 	public SnikSnak(Level level)
 	{
@@ -18,7 +20,14 @@ public class SnikSnak extends Vijand implements Runnable
 		this.setAfbeelding(createImageIcon("images/SnikSnaks.png"));
 
 		this.setLocation(xPos, yPos);
-		Thread thread = new Thread(this);
+		thread = new Thread(this);
+		thread.start();
+	}
+
+	public void restart()
+	{
+		super.restart();
+		thread = new Thread(this);
 		thread.start();
 	}
 
@@ -63,22 +72,28 @@ public class SnikSnak extends Vijand implements Runnable
 
 	public void tekenAfbeelding(Graphics g)
 	{
-		Image im = getAfbeelding().getImage();
-
-		switch (richting)
+		if (ontplof)
 		{
-		case 0:
-			g.drawImage(im, 0, 0, getWidth(), getHeight(), 95, 1, 127, 33, this);
-			break;
-		case 2: 
-			g.drawImage(im, 0, 0, getWidth(), getHeight(), 415, 0, 447, 32, this);
-			break;
-		case 3:
-			g.drawImage(im, 0, 0, getWidth(), getHeight(), 304, 32, 336, 64, this);
-			break;
-		case 1: 
-			g.drawImage(im, 0, 0, getWidth(), getHeight(), 2, 61, 34, 93, this);
-			break;
+			super.tekenAfbeelding(g);
+		}
+		else {
+			Image im = getAfbeelding().getImage();
+
+			switch (richting)
+			{
+			case 0:
+				g.drawImage(im, 0, 0, getWidth(), getHeight(), 95, 1, 127, 33, this);
+				break;
+			case 2: 
+				g.drawImage(im, 0, 0, getWidth(), getHeight(), 415, 0, 447, 32, this);
+				break;
+			case 3:
+				g.drawImage(im, 0, 0, getWidth(), getHeight(), 304, 32, 336, 64, this);
+				break;
+			case 1: 
+				g.drawImage(im, 0, 0, getWidth(), getHeight(), 2, 61, 34, 93, this);
+				break;
+			}
 		}
 	}
 
@@ -88,13 +103,13 @@ public class SnikSnak extends Vijand implements Runnable
 		switch (richting)
 		{
 		case 0: 
-			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() - 32)); break;
+			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() - 32), this); break;
 		case 2: 
-			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() + 32)); break;
+			element = currentLevel.getElementAt(new Point(getxPos(), getyPos() + 32), this); break;
 		case 3: 
-			element = currentLevel.getElementAt(new Point(getxPos() - 32, getyPos())); break;
+			element = currentLevel.getElementAt(new Point(getxPos() - 32, getyPos()), this); break;
 		case 1: 
-			element = currentLevel.getElementAt(new Point(getxPos() + 32, getyPos())); break;
+			element = currentLevel.getElementAt(new Point(getxPos() + 32, getyPos()), this); break;
 		}
 
 		if (element != null)

@@ -20,7 +20,7 @@ public class SpelElement extends JPanel implements ActionListener {
 	protected Timer ontplofTimer;
 	protected boolean ontplof;
 	protected int ontplofTeller;
-	protected boolean paused;
+	protected boolean paused = true;
 
 	public SpelElement(Level level)
 	{
@@ -130,6 +130,11 @@ public class SpelElement extends JPanel implements ActionListener {
 		}
 	}
 
+	public void restart()
+	{
+		ontplofTimer = new Timer(70, this);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (!paused)

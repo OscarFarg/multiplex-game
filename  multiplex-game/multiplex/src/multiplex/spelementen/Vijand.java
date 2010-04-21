@@ -4,12 +4,12 @@ import multiplex.level.Level;
 
 public class Vijand extends DynamischObject
 {
-	private CollisionChecker collisionChecker;
+	transient private CollisionChecker collisionChecker;
 	
 	public Vijand(Level level)
 	{
 		super(level);
-		collisionChecker = new CollisionChecker(this, level.getMurphy());
+		collisionChecker = new CollisionChecker(this, currentLevel.getMurphy());
 		collisionChecker.start();
 	}
 	
@@ -18,5 +18,11 @@ public class Vijand extends DynamischObject
 		currentLevel.removeElement(this);
 		collisionChecker.stopThread();
 		currentLevel.getMurphy().ontplof();
+	}
+	
+	public void restart()
+	{
+		collisionChecker = new CollisionChecker(this, currentLevel.getMurphy());
+		collisionChecker.start();
 	}
 }
