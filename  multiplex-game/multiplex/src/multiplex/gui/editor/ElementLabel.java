@@ -1,10 +1,12 @@
 package multiplex.gui.editor;
 
 import java.awt.Font;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
 
-public class ElementLabel extends JTextField {
+public class ElementLabel extends JTextField implements FocusListener {
 	public int x;
 	public int y;
 	
@@ -16,5 +18,17 @@ public class ElementLabel extends JTextField {
 		this.x = x;
 		this.y = y;
 		this.setBounds(x * 25, y * 25, 25, 25);
+		this.addFocusListener(this);
+	}
+
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		this.selectAll();
+	}
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

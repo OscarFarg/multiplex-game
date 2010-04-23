@@ -20,6 +20,7 @@ public class Level extends JPanel {
 	private Exit exit;
 	private AppPanel appPanel;
 	private String levelName;
+	
 	private int levelId;
 
 	private ArrayList<SpelElement> elementList = new ArrayList<SpelElement>();
@@ -27,7 +28,6 @@ public class Level extends JPanel {
 	private LevelMap levelMap;
 
 	private int levelWidth, levelHeight; //hoogte van het level. in vakjes, niet pixels.
-	//private int[][] level;
 	private int aantalInfotrons;
 	private boolean paused;
 	private boolean playing;
@@ -74,6 +74,7 @@ public class Level extends JPanel {
 		showLevel(levelMap.getLevel());
 		murphy.setFocusable(true);
 		murphy.requestFocus();
+
 		setPlaying(true);
 		resumeGame();
 	}
@@ -99,18 +100,6 @@ public class Level extends JPanel {
 				case 9: addElement(murphy, location); break; 					//9: murphy
 				}
 			}
-
-
-		if (murphy.getxPos() > 640)
-		{
-			if ((this.getLevelWidth()*32)- 640 < murphy.getxPos())
-			{
-				System.out.println("helemaal rechts");
-				this.setLocation(620 - (this.getLevelWidth()*32), this.getY());
-			}
-			else
-				this.setLocation(this.getX() - (murphy.getxPos() - 320), this.getY());
-		}
 	}
 
 	public void addElement(SpelElement element, Point location)

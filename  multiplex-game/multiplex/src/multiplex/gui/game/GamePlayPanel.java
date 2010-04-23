@@ -16,11 +16,13 @@ public class GamePlayPanel extends JPanel {
 		this.setLayout(null);
 		this.setLocation(0,0);
 		this.setSize(646, 410);
+		//this.setSize(600, 410);
 		levelPanel = new LevelPanel(appPanel);
-		this.add(levelPanel);
+		levelPanel.setBounds(0, 0, 646, 362);
+		this.add(levelPanel, 0);
 		levelDataPanel = new LevelDataPanel();
 		levelDataPanel.setBounds(0, 362, 644, 48);
-		this.add(levelDataPanel, 0);
+		this.add(levelDataPanel, 1);
 	}
 	
 	public void startGame()
