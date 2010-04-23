@@ -8,7 +8,7 @@ public class EditorApp extends JFrame {
 	{
 		this.setSize(800,600); 
 		this.setLocation(300,100);
-		this.setResizable(false);
+		//this.setResizable(false);
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setContentPane(new EditorPanel());
 		this.setTitle("Multiplex v0.02 Editor");

@@ -13,12 +13,15 @@ import javax.swing.Timer;
 import multiplex.botsing.Botsing;
 import multiplex.constanten.Richting;
 import multiplex.level.Level;
+import multiplex.level.LocationChecker;
 import multiplex.spelementen.interfaces.IsEetbaar;
 
 public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 	private Richting richting = Richting.START;
 	private Timer eindTimer;
+	private LocationChecker locChecker;
+
 
 	public Murphy(int x, int y, Level level)
 	{
@@ -35,6 +38,8 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 		this.addKeyListener(this);
 		this.setFocusable(true);
 		this.requestFocus();
+		locChecker = new LocationChecker(currentLevel, this);
+
 	}
 
 	public void setLocation(int x, int y)
@@ -88,16 +93,15 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 			switch (richting)
 			{
 			case BOVEN: 
-				this.setyPos(yPos - 32); break;
+				this.setyPos(yPos - 32); locChecker.moveY(); break;
 			case ONDER: 
-				this.setyPos(yPos + 32); break;
+				this.setyPos(yPos + 32); locChecker.moveY(); break;
 			case LINKS: 
-				this.setxPos(xPos - 32); break;
+				this.setxPos(xPos - 32); locChecker.moveX(); break;
 			case RECHTS: 
-				this.setxPos(xPos + 32); break;
+				this.setxPos(xPos + 32); locChecker.moveX(); break;
 			}
 			this.setLocation(xPos, yPos);
-	
 	}
 
 	public boolean checkRichting(Richting richting)

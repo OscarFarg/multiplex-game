@@ -64,7 +64,7 @@ public class LevelPanel extends JPanel implements ActionListener {
 	public void startGame()
 	{
 		this.currentLevel = new Level(appPanel, appPanel.getMainPanel().getSettings().getLevelList().get(appPanel.getMainPanel().getSettings().getCurrentPlayer().getCurrentLevel()));
-		this.setSize(currentLevel.getWidth() + 10, currentLevel.getHeight() + 10);
+		//this.setSize(currentLevel.getWidth() + 10, currentLevel.getHeight() + 10);
 		currentLevel.setLocation(5, 5);
 		this.add(currentLevel);
 		currentLevel.startLevel();

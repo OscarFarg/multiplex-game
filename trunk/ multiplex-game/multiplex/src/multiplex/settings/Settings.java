@@ -33,10 +33,10 @@ public class Settings implements Serializable {
 		//levelList = new ArrayList<Level>();
 		levelList = new ArrayList<LevelMap>();
 
-		String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().toString();
-		path = path.replaceAll("%20"," ");
-		path = path.substring(0, path.lastIndexOf("/"));
-		//String path = "/home/oscar"; //TODO terug veranderen
+		//String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().toString();
+		//path = path.replaceAll("%20"," ");
+		//path = path.substring(0, path.lastIndexOf("/"));
+		String path = "c:/downloads"; //TODO terug veranderen
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
 
