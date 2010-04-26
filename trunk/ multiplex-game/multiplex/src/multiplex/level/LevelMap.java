@@ -21,6 +21,11 @@ public class LevelMap implements Serializable {
 	
 	public void setLevel(int[][] level) {
 		this.level = level;
+		for (int i = 0; i < level.length; i++)
+			for (int j = 0; j < level[i].length; j++)
+			{
+				level[i][j] = 1;			
+			}
 	}
 
 	public int[][] getLevel() {

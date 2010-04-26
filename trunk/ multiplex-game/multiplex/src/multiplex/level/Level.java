@@ -104,40 +104,6 @@ public class Level extends JPanel {
 			}
 	}
 
-	public void hAlignLevel()
-	{
-		Rectangle r1 = new Rectangle(murphy.getX(), murphy.getY(), murphy.getWidth(), murphy.getHeight());
-		Rectangle r2 = new Rectangle(-5, 5, 10*32, 11*32); //zichtbare deel
-		Rectangle r3 = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-
-		while (!r2.intersects(r1))
-		{
-			r2.setLocation(r2.x + 32, r2.y);
-			repaint();
-		}
-		if (r3.contains(r2))
-		{
-			this.setLocation(r2.x * -1, r2.y);
-			System.out.println("beweeg");
-		}
-	}
-	
-	
-	public void vAlignLevel()
-	{
-		Rectangle r1 = new Rectangle(murphy.getX(), murphy.getY(), murphy.getWidth(), murphy.getHeight());
-		Rectangle r2 = new Rectangle(-5, 5, 21*32, (int) (5.5*32)); //zichtbare deel 
-		Rectangle r3 = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-
-		if (!r2.intersects(r1))
-		{
-			r2.setLocation(r2.x, r2.y - 32);
-		}
-		if (r3.contains(r2))
-			this.setLocation(r2.x, r2.y * -1);
-
-	}
-
 	public void addElement(SpelElement element, Point location)
 	{
 		elementList.add(element);

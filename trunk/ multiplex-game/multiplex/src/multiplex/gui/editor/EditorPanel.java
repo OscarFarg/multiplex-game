@@ -73,7 +73,7 @@ public class EditorPanel extends JPanel implements ActionListener {
 		{
 			String bestandsnaam = (JOptionPane.showInputDialog(null, "Voer een levelnaam in", "Level naam") + ".lvl");
 			//TODO terug veranderen. /home/oscar/" toevoegen aan bestandsnaam.
-			ObjectOutputStream objectSaver = new ObjectOutputStream(new FileOutputStream("C:/Documents and Settings/informatica/My Documents/My Workspace/Ozzie/multiplex/levels/" + bestandsnaam));
+			ObjectOutputStream objectSaver = new ObjectOutputStream(new FileOutputStream("/home/oscar/levels/" + bestandsnaam));
 			levelPanel.createLevelMap();
 			levelPanel.getLevelMap().setLevelName(bestandsnaam.substring(0, bestandsnaam.lastIndexOf(".")));
 			objectSaver.writeObject(levelPanel.getLevelMap());

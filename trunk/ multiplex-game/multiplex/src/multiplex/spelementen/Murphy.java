@@ -3,6 +3,7 @@ package multiplex.spelementen;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,7 +21,8 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 	private Richting richting = Richting.START;
 	private Timer eindTimer;
-	private LocationChecker locChecker;
+
+	//private LocationChecker locChecker;
 
 
 	public Murphy(int x, int y, Level level)
@@ -38,7 +40,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 		this.addKeyListener(this);
 		this.setFocusable(true);
 		this.requestFocus();
-		locChecker = new LocationChecker(currentLevel, this);
+		//locChecker = new LocationChecker(currentLevel, this);
 
 	}
 
@@ -90,19 +92,73 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 	public void beweeg(Richting richting)
 	{
 
-			switch (richting)
-			{
-			case BOVEN: 
-				this.setyPos(yPos - 32); break;
-			case ONDER: 
-				this.setyPos(yPos + 32); break;
-			case LINKS: 
-				this.setxPos(xPos - 32); currentLevel.hAlignLevel(); break;
-			case RECHTS: 
-				this.setxPos(xPos + 32); currentLevel.hAlignLevel(); break;
-			}
-			this.setLocation(xPos, yPos);
+		switch (richting)
+		{
+		case BOVEN: 
+			this.setyPos(yPos - 32); break;
+		case ONDER: 
+			this.setyPos(yPos + 32); break;
+		case LINKS: 
+			this.setxPos(xPos - 32); break;
+		case RECHTS: 
+			this.setxPos(xPos + 32); break;
+		}
+		this.setLocation(xPos, yPos);
+		scrollLevel(richting);
+		currentLevel.repaint();
 
+	}
+
+	public void scrollLevel(Richting richting)
+	{
+		Rectangle rElement = this.getBounds();
+		Rectangle rView = new Rectangle(0, 0, 640, 352);
+
+		if (richting == Richting.BOVEN) //omhoog
+		{
+			Rectangle rMovement =  new Rectangle(rView.x, rView.y + rView.height / 2, rView.width, rView.height / 2);
+			if (!rMovement.contains(rElement))
+			{
+				if (currentLevel.getBounds().contains(new Point(rView.x + 5, rView.y + 5 - 31)))
+
+					currentLevel.setLocation(currentLevel.getX(), currentLevel.getY() + 32);
+
+			}	
+
+		} 
+
+		else if (richting == richting.ONDER) //beneden
+		{
+			Rectangle rMovement =  new Rectangle(rView.x, rView.y, rView.width, rView.height / 2);
+
+			if (!rMovement.contains(rElement))
+			{
+				if (currentLevel.getBounds().contains(new Point(rView.x + 5, rView.y + rView.height + 31 + 5)))
+					currentLevel.setLocation(currentLevel.getX(), currentLevel.getY () - 32);
+
+
+			}	
+
+		} else if (richting == Richting.LINKS) //links
+		{
+			Rectangle rMovement =  new Rectangle(rView.x + rView.width / 2, rView.y, rView.width / 2, rView.height);
+
+			if (!rMovement.contains(rElement))
+			{
+				if (currentLevel.getBounds().contains(new Point(rView.x + 5 - 31, rView.y + 5)))
+					currentLevel.setLocation(currentLevel.getX() + 32, currentLevel.getY());
+			}	
+
+		} else if (richting == richting.RECHTS) //rechts
+		{
+			Rectangle rMovement =  new Rectangle(rView.x, rView.y, rView.width / 2, rView.height);
+
+			if (!rMovement.contains(rElement))
+			{
+				if (currentLevel.getBounds().contains(new Point(rView.x + rView.width + 5 + 31, rView.y + 5)))
+					currentLevel.setLocation(currentLevel.getX() - 32, currentLevel.getY());
+			}		
+		}
 	}
 
 	public boolean checkRichting(Richting richting)
@@ -170,7 +226,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 		case KeyEvent.VK_ESCAPE:
 			ontplof(); removeKeyListener(this); break;
 		}
-		
+
 		if (!paused)
 		{
 			if (checkRichting(richting))

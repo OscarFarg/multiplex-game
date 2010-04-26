@@ -2,6 +2,8 @@ package multiplex.gui.game;
 
 import java.awt.Color;
 import java.awt.FileDialog;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -51,7 +53,6 @@ public class LevelPanel extends JPanel implements ActionListener {
 			}
 		};
 		
-	
 
 		this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("F3"), "saveGame");
 		this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("F4"), "loadGame");
@@ -141,4 +142,5 @@ public class LevelPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		appPanel.getGamePanel().getLevelDataPanel().setInfotronCount(currentLevel.getAantalInfotrons());
 	}
+
 }
