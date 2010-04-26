@@ -1,6 +1,7 @@
 package multiplex.gui.editor;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -39,8 +41,8 @@ public class EditorPanel extends JPanel implements ActionListener {
 		changeSizeButton = new JButton("Wijzigen");
 
 		
-		levelWidth = new JTextField("12", 4);
-		levelHeight = new JTextField("10", 4);
+		levelWidth = new JTextField("21", 4);
+		levelHeight = new JTextField("11", 4);
 		
 		levelPanel = new LevelPanel();
 		
@@ -60,10 +62,8 @@ public class EditorPanel extends JPanel implements ActionListener {
 		
 		
 		this.add(knoppenBalk, BorderLayout.SOUTH);
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.getViewport().add(levelPanel, null);
+		//levelPanel.setPreferredSize(new Dimension(800, 800));
+		JScrollPane scrollPane = new JScrollPane(levelPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,  JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		this.add(scrollPane, BorderLayout.CENTER);
 	}
 	
@@ -73,7 +73,7 @@ public class EditorPanel extends JPanel implements ActionListener {
 		{
 			String bestandsnaam = (JOptionPane.showInputDialog(null, "Voer een levelnaam in", "Level naam") + ".lvl");
 			//TODO terug veranderen. /home/oscar/" toevoegen aan bestandsnaam.
-			ObjectOutputStream objectSaver = new ObjectOutputStream(new FileOutputStream("C:/downloads/" + bestandsnaam));
+			ObjectOutputStream objectSaver = new ObjectOutputStream(new FileOutputStream("C:/Documents and Settings/informatica/My Documents/My Workspace/Ozzie/multiplex/levels/" + bestandsnaam));
 			levelPanel.createLevelMap();
 			levelPanel.getLevelMap().setLevelName(bestandsnaam.substring(0, bestandsnaam.lastIndexOf(".")));
 			objectSaver.writeObject(levelPanel.getLevelMap());

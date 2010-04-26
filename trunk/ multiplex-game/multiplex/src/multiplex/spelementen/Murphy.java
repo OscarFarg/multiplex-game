@@ -93,15 +93,16 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 			switch (richting)
 			{
 			case BOVEN: 
-				this.setyPos(yPos - 32); locChecker.moveY(); break;
+				this.setyPos(yPos - 32); break;
 			case ONDER: 
-				this.setyPos(yPos + 32); locChecker.moveY(); break;
+				this.setyPos(yPos + 32); break;
 			case LINKS: 
-				this.setxPos(xPos - 32); locChecker.moveX(); break;
+				this.setxPos(xPos - 32); currentLevel.hAlignLevel(); break;
 			case RECHTS: 
-				this.setxPos(xPos + 32); locChecker.moveX(); break;
+				this.setxPos(xPos + 32); currentLevel.hAlignLevel(); break;
 			}
 			this.setLocation(xPos, yPos);
+
 	}
 
 	public boolean checkRichting(Richting richting)

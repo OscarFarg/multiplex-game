@@ -4,7 +4,7 @@ import multiplex.level.Level;
 
 public class Vijand extends DynamischObject
 {
-	transient private CollisionChecker collisionChecker;
+	transient protected CollisionChecker collisionChecker;
 	
 	public Vijand(Level level)
 	{
@@ -24,5 +24,10 @@ public class Vijand extends DynamischObject
 	{
 		collisionChecker = new CollisionChecker(this, currentLevel.getMurphy());
 		collisionChecker.start();
+	}
+	
+	public void stopCollisionChecker()
+	{
+		collisionChecker.stopThread();
 	}
 }

@@ -42,8 +42,4 @@ public class GamePlayPanel extends JPanel {
 	public LevelPanel getLevelPanel() {
 		return levelPanel;
 	}
-
-
-	
-
 }

@@ -1,6 +1,7 @@
 package multiplex.gui.editor;
 
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -15,8 +16,7 @@ public class LevelPanel extends JPanel {
 	public LevelPanel()
 	{
 		this.setLayout(null);
-		levelMap = new LevelMap(19,11);
-
+		levelMap = new LevelMap(21,11);
 		addLabels();
 
 	}
@@ -34,9 +34,10 @@ public class LevelPanel extends JPanel {
 				elementLabel.setText("" + levelMap.getLevel()[i][j]);
 				elementList.add(elementLabel);
 				add(elementLabel);
-				
 			}
 		revalidate();
+		this.setPreferredSize(new Dimension(levelMap.getLevelWidth() * 25, levelMap.getLevelHeight() * 25));
+
 	}
 
 	public void createLevelMap()
