@@ -15,7 +15,7 @@ public class MultiplexApp extends JFrame implements WindowListener
 
 		this.setSize(652,438); 
 		this.setLocation(300,100);
-		this.setResizable(false);
+		//this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Multiplex v0.02");
 		this.setContentPane(appPanel);

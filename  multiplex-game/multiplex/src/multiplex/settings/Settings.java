@@ -36,7 +36,7 @@ public class Settings implements Serializable {
 		//String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().toString();
 		//path = path.replaceAll("%20"," ");
 		//path = path.substring(0, path.lastIndexOf("/"));
-		String path = "C:/Documents and Settings/informatica/My Documents/My Workspace/Ozzie/multiplex/levels"; //TODO terug veranderen
+		String path = "/home/oscar/levels"; //TODO terug veranderen
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
 
