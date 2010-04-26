@@ -11,6 +11,7 @@ public class SnikSnak extends Vijand implements Runnable
 {
 	private int richting = 1;
 	private final int DELAY = 100;
+	private boolean alive = true;
 
 	transient private Thread thread;
 
@@ -27,6 +28,7 @@ public class SnikSnak extends Vijand implements Runnable
 	public void restart()
 	{
 		super.restart();
+		alive = true;
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -126,7 +128,7 @@ public class SnikSnak extends Vijand implements Runnable
 
 	public void run() 
 	{		
-		while (true)
+		while (alive)
 		{
 			{
 				try {
@@ -345,5 +347,16 @@ public class SnikSnak extends Vijand implements Runnable
 				}
 			}
 		}
+	}
+	
+	public void ontplof()
+	{
+		super.ontplof();
+		stopThread();
+	}
+	
+	public void stopThread()
+	{
+		alive = false;
 	}
 }

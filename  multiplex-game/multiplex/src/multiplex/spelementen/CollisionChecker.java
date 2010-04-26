@@ -14,20 +14,26 @@ public class CollisionChecker extends Thread {
 		this.murphy = murphy;
 	}
 
+
+
 	public void stopThread()
 	{
 		alive = false;
 	}
-	
+
 	public void run()
 	{
 		while (alive)
 		{
 			try {
 				Thread.sleep(100);
-				if (Botsing.overlapt(vijand, murphy))
+				if (vijand instanceof SnikSnak)
 				{
-					vijand.collision();
+					if (Botsing.raakt(vijand, murphy))
+						vijand.collision();
+				} else {
+					if (Botsing.overlapt(vijand, murphy))
+						vijand.collision();
 				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
