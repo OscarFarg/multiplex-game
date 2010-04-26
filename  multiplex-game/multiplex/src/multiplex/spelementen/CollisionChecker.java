@@ -25,7 +25,7 @@ public class CollisionChecker extends Thread {
 		{
 			try {
 				Thread.sleep(100);
-				if (Botsing.raakt(vijand, murphy))
+				if (Botsing.overlapt(vijand, murphy))
 				{
 					vijand.collision();
 				}

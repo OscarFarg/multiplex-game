@@ -2,6 +2,7 @@ package multiplex.level;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import multiplex.gui.AppPanel;
+import multiplex.gui.game.LevelPanel;
 import multiplex.spelementen.*;
 import multiplex.spelementen.interfaces.IsEetbaar;
 
@@ -20,7 +22,7 @@ public class Level extends JPanel {
 	private Exit exit;
 	private AppPanel appPanel;
 	private String levelName;
-	
+
 	private int levelId;
 
 	private ArrayList<SpelElement> elementList = new ArrayList<SpelElement>();
@@ -74,7 +76,7 @@ public class Level extends JPanel {
 		showLevel(levelMap.getLevel());
 		murphy.setFocusable(true);
 		murphy.requestFocus();
-
+		
 		setPlaying(true);
 		resumeGame();
 	}
@@ -93,13 +95,47 @@ public class Level extends JPanel {
 				case 2: addElement(new Zonk(this), location); break; 			//2: Zonk toevoegen
 				case 3: addElement(new Infotron(this), location); aantalInfotrons++ ;break; 		//3: Infotron
 				case 4: addElement(new Disk(this), location); break;			//4: Disk
-				case 5: break;		//5: Port
+				case 5: break;													//5: Port
 				case 6: addElement(new SnikSnak(this), location); break;		//6: SnikSnak
 				case 7: addElement(new Bug(this), location); break;				//7: Bug
 				case 8: addElement(exit = new Exit(this), location); break; 	//8: Exit
 				case 9: addElement(murphy, location); break; 					//9: murphy
 				}
 			}
+	}
+
+	public void hAlignLevel()
+	{
+		Rectangle r1 = new Rectangle(murphy.getX(), murphy.getY(), murphy.getWidth(), murphy.getHeight());
+		Rectangle r2 = new Rectangle(-5, 5, 10*32, 11*32); //zichtbare deel
+		Rectangle r3 = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+
+		while (!r2.intersects(r1))
+		{
+			r2.setLocation(r2.x + 32, r2.y);
+			repaint();
+		}
+		if (r3.contains(r2))
+		{
+			this.setLocation(r2.x * -1, r2.y);
+			System.out.println("beweeg");
+		}
+	}
+	
+	
+	public void vAlignLevel()
+	{
+		Rectangle r1 = new Rectangle(murphy.getX(), murphy.getY(), murphy.getWidth(), murphy.getHeight());
+		Rectangle r2 = new Rectangle(-5, 5, 21*32, (int) (5.5*32)); //zichtbare deel 
+		Rectangle r3 = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+
+		if (!r2.intersects(r1))
+		{
+			r2.setLocation(r2.x, r2.y - 32);
+		}
+		if (r3.contains(r2))
+			this.setLocation(r2.x, r2.y * -1);
+
 	}
 
 	public void addElement(SpelElement element, Point location)
@@ -253,7 +289,13 @@ public class Level extends JPanel {
 				{
 					Infotron infi = (Infotron) elementList.get(i);
 					infi.stopValChecker();
-				} catch (Exception e2) {}
+				} catch (Exception e2) {
+					try 
+					{
+						Vijand vijand = (Vijand) elementList.get(i);
+						vijand.stopCollisionChecker();
+					} catch (Exception e3) {}
+				}
 			}
 		}
 	}

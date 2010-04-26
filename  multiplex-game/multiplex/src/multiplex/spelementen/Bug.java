@@ -44,7 +44,8 @@ public class Bug extends Vijand implements ActionListener, IsEetbaar {
 
 	public void collision()
 	{
-		//doe niets.
+		if (!isEetbaar())
+			super.collision();
 	}
 	
 	@Override
@@ -96,16 +97,20 @@ public class Bug extends Vijand implements ActionListener, IsEetbaar {
 	{
 		if (!paused)
 		{
-			super.ontplof();
 			randomTimer.stop();
 			actieTimer.stop();
+			super.ontplof();
+
 		}
 	}
 	
 	@Override
 	public void eet() {
 		if (isEetbaar())
+		{
 			currentLevel.removeElement(this);
+			collisionChecker.stopThread();
+		}
 		else
 			collision();
 	}
