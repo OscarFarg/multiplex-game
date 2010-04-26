@@ -31,7 +31,8 @@ public class TestElement extends JPanel implements KeyListener, MouseListener {
 
 		if (richting == 0) //omhoog
 		{
-			Rectangle rMovement =  new Rectangle(level.rView.x, level.rView.y, level.rView.width, level.rView.height / 2);
+			Rectangle rMovement =  new Rectangle(level.rView.x, level.rView.y + level.rView.height / 2, level.rView.width, level.rView.height / 2);
+
 
 			if (!rMovement.contains(rElement))
 			{
@@ -42,11 +43,11 @@ public class TestElement extends JPanel implements KeyListener, MouseListener {
 
 		} else if (richting == 1) //beneden
 		{
-			Rectangle rMovement =  new Rectangle(level.rView.x, level.rView.y + level.rView.height / 2, level.rView.width, level.rView.height / 2);
+			Rectangle rMovement =  new Rectangle(level.rView.x, level.rView.y, level.rView.width, level.rView.height / 2);
 
 			if (!rMovement.contains(rElement))
 			{
-				if (level.getBounds().contains(new Point(level.rView.x, level.rView.y + level.rView.y + 31)))
+				if (level.getBounds().contains(new Point(level.rView.x, level.rView.y + level.rView.height + 31)))
 					level.rView.setLocation(level.rView.x, level.rView.y + 32);
 			}	
 
