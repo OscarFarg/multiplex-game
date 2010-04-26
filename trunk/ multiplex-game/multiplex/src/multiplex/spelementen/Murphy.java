@@ -111,7 +111,11 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 	public void scrollLevel(Richting richting)
 	{
-		Rectangle rElement = this.getBounds();
+		Point p = currentLevel.getAppPanel().getLocationOnScreen();
+		p.x = this.getLocationOnScreen().x - p.x;
+		p.y = this.getLocationOnScreen().y - p.y;
+		Rectangle rElement = new Rectangle(0,0,32,32);
+		rElement.setLocation(p);
 		Rectangle rView = new Rectangle(0, 0, 640, 352);
 
 		if (richting == Richting.BOVEN) //omhoog
@@ -122,7 +126,6 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 				if (currentLevel.getBounds().contains(new Point(rView.x + 5, rView.y + 5 - 31)))
 
 					currentLevel.setLocation(currentLevel.getX(), currentLevel.getY() + 32);
-
 			}	
 
 		} 

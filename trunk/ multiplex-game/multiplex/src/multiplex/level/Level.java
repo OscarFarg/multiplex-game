@@ -76,7 +76,7 @@ public class Level extends JPanel {
 		showLevel(levelMap.getLevel());
 		murphy.setFocusable(true);
 		murphy.requestFocus();
-		
+
 		setPlaying(true);
 		resumeGame();
 	}
@@ -246,22 +246,25 @@ public class Level extends JPanel {
 	{
 		for (int i = 0; i < elementList.size(); i++)
 		{
-			try {
+			if (elementList.get(i) instanceof Zonk)
+			{
 				Zonk zonk = (Zonk) elementList.get(i);
 				zonk.stopValChecker();
-			} catch (Exception e1)
+
+			} else if (elementList.get(i) instanceof Infotron)
 			{
-				try
-				{
-					Infotron infi = (Infotron) elementList.get(i);
-					infi.stopValChecker();
-				} catch (Exception e2) {
-					try 
-					{
-						Vijand vijand = (Vijand) elementList.get(i);
-						vijand.stopCollisionChecker();
-					} catch (Exception e3) {}
-				}
+				Infotron infi = (Infotron) elementList.get(i);
+				infi.stopValChecker();
+
+			} else if (elementList.get(i) instanceof Vijand)
+			{
+				Vijand vijand = (Vijand) elementList.get(i);
+				vijand.stopCollisionChecker();
+
+			} else if (elementList.get(i) instanceof SnikSnak)
+			{
+				SnikSnak sniksnak = (SnikSnak) elementList.get(i);
+				sniksnak.stopThread();
 			}
 		}
 	}
