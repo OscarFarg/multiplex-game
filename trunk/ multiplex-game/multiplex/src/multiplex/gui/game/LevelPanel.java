@@ -36,7 +36,7 @@ public class LevelPanel extends JPanel implements ActionListener {
 	{
 		this.appPanel = appPanel;
 		this.setLayout(null);
-		this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 5));
+		//this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 5));
 		updateDataPanelTimer = new Timer(250, this);
 
 		AbstractAction saveGame = new AbstractAction(){
@@ -66,7 +66,7 @@ public class LevelPanel extends JPanel implements ActionListener {
 	{
 		this.currentLevel = new Level(appPanel, appPanel.getMainPanel().getSettings().getLevelList().get(appPanel.getMainPanel().getSettings().getCurrentPlayer().getCurrentLevel()));
 		//this.setSize(currentLevel.getWidth() + 10, currentLevel.getHeight() + 10);
-		currentLevel.setLocation(5, 5);
+		//currentLevel.setLocation(5, 5);
 		this.add(currentLevel);
 		currentLevel.startLevel();
 		updateDataPanelTimer.start();

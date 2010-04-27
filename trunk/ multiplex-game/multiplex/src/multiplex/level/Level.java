@@ -183,22 +183,29 @@ public class Level extends JPanel {
 
 	public SpelElement getElementAt(Point location, SpelElement element)
 	{
-		if (location.x >= 0 && location.y >= 0)
+		try
 		{
-			for (int i = 0; i < elementList.size(); i++)
+			if (location.x >= 0 && location.y >= 0)
 			{
-				Point elementLocation = elementList.get(i).getLocation();
-
-				if ((elementLocation.y == location.y) && (elementLocation.x == location.x))
+				for (int i = 0; i < elementList.size(); i++)
 				{
-					if (elementList.get(i) == exit)
-						if (element == murphy)
-							exit.doUitgespeeld();
-					return elementList.get(i);
+					Point elementLocation = elementList.get(i).getLocation();
+
+					if ((elementLocation.y == location.y) && (elementLocation.x == location.x))
+					{
+						if (elementList.get(i) == exit)
+							if (element == murphy)
+								exit.doUitgespeeld();
+						return elementList.get(i);
+					}
 				}
 			}
+		} catch (NullPointerException ex) {
+			System.out.println("getElementAt Exception."); //TODO verwijderen
+			return null;
 		}
 		return null;
+
 	}
 
 	public void pauseGame()
@@ -220,6 +227,7 @@ public class Level extends JPanel {
 	{
 		for (SpelElement e : elementList)
 			e.setPaused(false);
+
 		setPaused(false);
 		murphy.requestFocus();
 	}
