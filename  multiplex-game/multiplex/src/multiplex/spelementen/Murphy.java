@@ -14,7 +14,6 @@ import javax.swing.Timer;
 import multiplex.botsing.Botsing;
 import multiplex.constanten.Richting;
 import multiplex.level.Level;
-import multiplex.level.LocationChecker;
 import multiplex.spelementen.interfaces.IsEetbaar;
 
 public class Murphy extends SpelElement implements KeyListener, ActionListener {
@@ -123,7 +122,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 			Rectangle rMovement =  new Rectangle(rView.x, rView.y + rView.height / 2, rView.width, rView.height / 2);
 			if (!rMovement.contains(rElement))
 			{
-				if (currentLevel.getBounds().contains(new Point(rView.x + 5, rView.y + 5 - 31)))
+				if (currentLevel.getBounds().contains(new Point(rView.x , rView.y - 31)))
 
 					currentLevel.setLocation(currentLevel.getX(), currentLevel.getY() + 32);
 			}	
@@ -136,7 +135,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 			if (!rMovement.contains(rElement))
 			{
-				if (currentLevel.getBounds().contains(new Point(rView.x + 5, rView.y + rView.height + 31 + 5)))
+				if (currentLevel.getBounds().contains(new Point(rView.x, rView.y + rView.height + 31)))
 					currentLevel.setLocation(currentLevel.getX(), currentLevel.getY () - 32);
 
 
@@ -148,7 +147,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 			if (!rMovement.contains(rElement))
 			{
-				if (currentLevel.getBounds().contains(new Point(rView.x + 5 - 31, rView.y + 5)))
+				if (currentLevel.getBounds().contains(new Point(rView.x - 31, rView.y)))
 					currentLevel.setLocation(currentLevel.getX() + 32, currentLevel.getY());
 			}	
 
@@ -158,7 +157,7 @@ public class Murphy extends SpelElement implements KeyListener, ActionListener {
 
 			if (!rMovement.contains(rElement))
 			{
-				if (currentLevel.getBounds().contains(new Point(rView.x + rView.width + 5 + 31, rView.y + 5)))
+				if (currentLevel.getBounds().contains(new Point(rView.x + rView.width + 31, rView.y)))
 					currentLevel.setLocation(currentLevel.getX() - 32, currentLevel.getY());
 			}		
 		}

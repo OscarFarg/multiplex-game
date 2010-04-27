@@ -43,7 +43,7 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 	{
 		setLayout(null); //null layout, zodat je de knoppen zelf kan positioneren
 
-		this.setBounds(0, 0, 646, 410); //grootte van het veld
+		this.setBounds(0, 0, 640, 400); //grootte van het veld
 		this.appPanel = appPanel;
 		this.addKeyListener(this);
 		this.setFocusable(true);
@@ -108,77 +108,77 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		newPlayerKnop.addMouseListener(this); //hang er een mouselistener aan, knop moet op een muisklik reageren
 		this.add(newPlayerKnop); 
 		newPlayerKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/newPlayerKnop.png"))); //knop is een afbeelding
-		newPlayerKnop.setBounds(17,271,148,18); // het plaatje moet op exact de juiste plaats verschijnen
+		newPlayerKnop.setBounds(17,263,148,18); // het plaatje moet op exact de juiste plaats verschijnen
 
 		// teken de knop "skip level" en hang er een mouselistener aan
 		skipLevelKnop = new JLabel();
 		this.add(skipLevelKnop);
 		skipLevelKnop.addMouseListener(this);
 		skipLevelKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/skipLevelKnop.png")));
-		skipLevelKnop.setBounds(17,296,130,18);
+		skipLevelKnop.setBounds(17,288,130,18);
 
 		// teken de knop "view highscores" en hang er een mouselistener aan
 		viewHighscoresKnop = new JLabel();
 		viewHighscoresKnop.addMouseListener(this);
 		this.add(viewHighscoresKnop);
 		viewHighscoresKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/viewHighscoresKnop.png")));
-		viewHighscoresKnop.setBounds(17,321,208,19);
+		viewHighscoresKnop.setBounds(17,313,208,19);
 
 		// teken de knop "help" en hang er een mouselistener aan
 		helpKnop = new JLabel();
 		helpKnop.addMouseListener(this);
 		this.add(helpKnop);
 		helpKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/helpKnop.png")));
-		helpKnop.setBounds(17,346,71,18);
+		helpKnop.setBounds(17,338,71,18);
 
 		// teken de knop "credits" en hang er een mouselistener aan
 		creditsKnop = new JLabel();
 		creditsKnop.addMouseListener(this);
 		this.add(creditsKnop);
 		creditsKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/creditsKnop.png")));
-		creditsKnop.setBounds(17,371,108,18);
+		creditsKnop.setBounds(17,363,108,18);
 
 		// teken de knop "start" en hang er een mouselistener aan
 		startKnop = new JLabel();
 		this.add(startKnop);
 		startKnop.addMouseListener(this);
 		startKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/startKnop.png")));
-		startKnop.setBounds(19,215,66,48);
+		startKnop.setBounds(19,207,66,48);
 
 		// teken de knop "load" en hang er een mouselistener aan
 		loadKnop = new JLabel();
 		this.add(loadKnop);
 		loadKnop.addMouseListener(this);
 		loadKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/loadKnop.png")));
-		loadKnop.setBounds(119,215,54,50);
+		loadKnop.setBounds(119,207,54,50);
 
 		// teken de knop "level-list" met de pijl omhoog, en hang er een mouselistener aan.
 		levelOmhoogKnop = new JLabel();
 		this.add(levelOmhoogKnop);
 		levelOmhoogKnop.addMouseListener(this);
 		levelOmhoogKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/levelUpKnop.png")));
-		levelOmhoogKnop.setBounds(286,208,326,20);
+		levelOmhoogKnop.setBounds(280,198,326,20);
 
 		// teken de knop "level-list" met de pijl omlaag, en hang er een mouselistener aan.
 		levelOmlaagKnop = new JLabel();
 		this.add(levelOmlaagKnop);
 		levelOmlaagKnop.addMouseListener(this);
 		levelOmlaagKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/levelDownKnop.png")));
-		levelOmlaagKnop.setBounds(286,286,326,20);
+		levelOmlaagKnop.setBounds(280,278,326,20);
 
 		// teken de knop "player" met de pijl omhoog, en hang er een mouselistener aan.
 		spelerOmhoogKnop = new JLabel();
 		this.add(spelerOmhoogKnop);
 		spelerOmhoogKnop.addMouseListener(this);
 		spelerOmhoogKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/spelerUpKnop.png")));
-		spelerOmhoogKnop.setBounds(215,91,110,20);
+		spelerOmhoogKnop.setBounds(209,83,110,20);
 
 		// teken de knop "player" met de pijl omlaag, en hang er een mouselistener aan.
 		spelerOmlaagKnop = new JLabel();
 		this.add(spelerOmlaagKnop);
 		spelerOmlaagKnop.addMouseListener(this);
 		spelerOmlaagKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/spelerDownKnop.png")));
-		spelerOmlaagKnop.setBounds(215,169,110,20);
+		spelerOmlaagKnop.setBounds(209,161,110,20);
 
 	}
 

@@ -83,7 +83,6 @@ public class Infotron extends DynamischObject implements IsEetbaar, KanVallen, A
 		{
 			if (e.getSource() == ontplofTimer)
 			{
-				System.out.println(ontplofTeller);
 				actieTimer.stop();
 				super.actionPerformed(e);
 				if (ontplofTeller == 7)
