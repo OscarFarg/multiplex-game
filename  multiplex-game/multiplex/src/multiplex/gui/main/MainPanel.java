@@ -157,28 +157,28 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		this.add(levelOmhoogKnop);
 		levelOmhoogKnop.addMouseListener(this);
 		levelOmhoogKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/levelUpKnop.png")));
-		levelOmhoogKnop.setBounds(280,198,326,20);
+		levelOmhoogKnop.setBounds(282,203,324,20);
 
 		// teken de knop "level-list" met de pijl omlaag, en hang er een mouselistener aan.
 		levelOmlaagKnop = new JLabel();
 		this.add(levelOmlaagKnop);
 		levelOmlaagKnop.addMouseListener(this);
 		levelOmlaagKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/levelDownKnop.png")));
-		levelOmlaagKnop.setBounds(280,278,326,20);
+		levelOmlaagKnop.setBounds(282,278,324,20);
 
 		// teken de knop "player" met de pijl omhoog, en hang er een mouselistener aan.
 		spelerOmhoogKnop = new JLabel();
 		this.add(spelerOmhoogKnop);
 		spelerOmhoogKnop.addMouseListener(this);
 		spelerOmhoogKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/spelerUpKnop.png")));
-		spelerOmhoogKnop.setBounds(209,83,110,20);
+		spelerOmhoogKnop.setBounds(212,89,110,20);
 
 		// teken de knop "player" met de pijl omlaag, en hang er een mouselistener aan.
 		spelerOmlaagKnop = new JLabel();
 		this.add(spelerOmlaagKnop);
 		spelerOmlaagKnop.addMouseListener(this);
 		spelerOmlaagKnop.setIcon(new ImageIcon(getClass().getClassLoader().getResource("multiplex/spelementen/images/spelerDownKnop.png")));
-		spelerOmlaagKnop.setBounds(209,161,110,20);
+		spelerOmlaagKnop.setBounds(212,165,110,20);
 
 	}
 
@@ -199,14 +199,14 @@ public class MainPanel extends JPanel implements MouseListener, KeyListener
 		{
 			//bovenste regel alleen tekenen als level groter is dan 0
 			if (level > 0)
-				g.drawString(levelArray.get(level - 1).getLevelName(), 300, 247);
+				g.drawString(levelArray.get(level - 1).getLevelName(), 300, 239);
 
 			//middelste regel
-			g.drawString(levelArray.get(level).getLevelName(), 300, 264);
+			g.drawString(levelArray.get(level).getLevelName(), 300, 256);
 
 			//onderste regel alleen tekenen als level kleiner is dan het aantal levels in levelArray
 			if (level < levelArray.size() -1)
-				g.drawString(levelArray.get(level + 1).getLevelName(), 300, 281);
+				g.drawString(levelArray.get(level + 1).getLevelName(), 300, 273);
 		}
 
 		if (playerList.size() > 0)
